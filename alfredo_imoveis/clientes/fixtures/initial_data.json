@@ -1,0 +1,872 @@
+[
+{
+ "pk": 1, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "logentry", 
+  "name": "log entry", 
+  "app_label": "admin"
+ }
+},
+{
+ "pk": 2, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "permission", 
+  "name": "permission", 
+  "app_label": "auth"
+ }
+},
+{
+ "pk": 3, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "group", 
+  "name": "group", 
+  "app_label": "auth"
+ }
+},
+{
+ "pk": 4, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "user", 
+  "name": "user", 
+  "app_label": "auth"
+ }
+},
+{
+ "pk": 5, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "contenttype", 
+  "name": "content type", 
+  "app_label": "contenttypes"
+ }
+},
+{
+ "pk": 6, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "session", 
+  "name": "session", 
+  "app_label": "sessions"
+ }
+},
+{
+ "pk": 7, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "migrationhistory", 
+  "name": "migration history", 
+  "app_label": "south"
+ }
+},
+{
+ "pk": 8, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "cliente", 
+  "name": "cliente", 
+  "app_label": "clientes"
+ }
+},
+{
+ "pk": 9, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "empresa", 
+  "name": "empresa", 
+  "app_label": "empresas"
+ }
+},
+{
+ "pk": 10, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "cidade", 
+  "name": "Munic\u00edpio", 
+  "app_label": "enderecos"
+ }
+},
+{
+ "pk": 11, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "bairro", 
+  "name": "bairro", 
+  "app_label": "enderecos"
+ }
+},
+{
+ "pk": 12, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "endereco", 
+  "name": "endereco", 
+  "app_label": "enderecos"
+ }
+},
+{
+ "pk": 13, 
+ "model": "contenttypes.contenttype", 
+ "fields": {
+  "model": "parametrosgerais", 
+  "name": "parametros gerais", 
+  "app_label": "parametros"
+ }
+},
+{
+ "pk": "8h7kgvz6x7133hxbkfx3qejz6bls70un", 
+ "model": "sessions.session", 
+ "fields": {
+  "expire_date": "2014-05-08T02:24:39.445Z", 
+  "session_data": "N2Y0ZDkyYTQ5ZjA4OGYwY2YwNjI5YWY4MWE5NzgyYTE2MzBlYTAxODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+ }
+},
+{
+ "pk": 1, 
+ "model": "south.migrationhistory", 
+ "fields": {
+  "applied": "2014-04-24T00:41:57.133Z", 
+  "app_name": "empresas", 
+  "migration": "0001_enderecos"
+ }
+},
+{
+ "pk": 2, 
+ "model": "south.migrationhistory", 
+ "fields": {
+  "applied": "2014-04-24T00:42:04.694Z", 
+  "app_name": "enderecos", 
+  "migration": "0001_initial"
+ }
+},
+{
+ "pk": 3, 
+ "model": "south.migrationhistory", 
+ "fields": {
+  "applied": "2014-04-24T00:42:09.910Z", 
+  "app_name": "clientes", 
+  "migration": "0001_initial"
+ }
+},
+{
+ "pk": 4, 
+ "model": "south.migrationhistory", 
+ "fields": {
+  "applied": "2014-04-24T01:39:13.722Z", 
+  "app_name": "parametros", 
+  "migration": "0001_initial"
+ }
+},
+{
+ "pk": 5, 
+ "model": "south.migrationhistory", 
+ "fields": {
+  "applied": "2014-04-24T01:53:06.912Z", 
+  "app_name": "parametros", 
+  "migration": "0002_auto__add_field_parametrosgerais_texto_carta_aniv1__add_field_parametr"
+ }
+},
+{
+ "pk": 6, 
+ "model": "south.migrationhistory", 
+ "fields": {
+  "applied": "2014-04-24T01:55:39.361Z", 
+  "app_name": "parametros", 
+  "migration": "0003_auto__add_field_parametrosgerais_gerente"
+ }
+},
+{
+ "pk": 1, 
+ "model": "clientes.cliente", 
+ "fields": {
+  "telefone3": "0", 
+  "telefone2": "0", 
+  "empresa": 1, 
+  "nome": "Teste", 
+  "endereco_cobranca": null, 
+  "rg": "165165", 
+  "cnpj_cpf": "07567130645", 
+  "telefone": "0", 
+  "data_cadastro": null, 
+  "endereco": 1, 
+  "ativo": null, 
+  "email": "gpzim98@gmail.com"
+ }
+},
+{
+ "pk": 1, 
+ "model": "enderecos.cidade", 
+ "fields": {
+  "pais": "Brasil", 
+  "uf": "MG", 
+  "nome": "Montes Claros"
+ }
+},
+{
+ "pk": 1, 
+ "model": "enderecos.bairro", 
+ "fields": {
+  "cidade": 1, 
+  "nome": "Jardim Palmeiras"
+ }
+},
+{
+ "pk": 1, 
+ "model": "enderecos.endereco", 
+ "fields": {
+  "bairro": 1, 
+  "rua": "Rua Maringa Apto 103", 
+  "numero": 335, 
+  "cep": "39402202"
+ }
+},
+{
+ "pk": 1, 
+ "model": "empresas.empresa", 
+ "fields": {
+  "ativo": true, 
+  "nome": "Alfredo Im\u00f3veis"
+ }
+},
+{
+ "pk": 1, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_logentry", 
+  "name": "Can add log entry", 
+  "content_type": 1
+ }
+},
+{
+ "pk": 2, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_logentry", 
+  "name": "Can change log entry", 
+  "content_type": 1
+ }
+},
+{
+ "pk": 3, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_logentry", 
+  "name": "Can delete log entry", 
+  "content_type": 1
+ }
+},
+{
+ "pk": 4, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_permission", 
+  "name": "Can add permission", 
+  "content_type": 2
+ }
+},
+{
+ "pk": 5, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_permission", 
+  "name": "Can change permission", 
+  "content_type": 2
+ }
+},
+{
+ "pk": 6, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_permission", 
+  "name": "Can delete permission", 
+  "content_type": 2
+ }
+},
+{
+ "pk": 7, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_group", 
+  "name": "Can add group", 
+  "content_type": 3
+ }
+},
+{
+ "pk": 8, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_group", 
+  "name": "Can change group", 
+  "content_type": 3
+ }
+},
+{
+ "pk": 9, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_group", 
+  "name": "Can delete group", 
+  "content_type": 3
+ }
+},
+{
+ "pk": 10, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_user", 
+  "name": "Can add user", 
+  "content_type": 4
+ }
+},
+{
+ "pk": 11, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_user", 
+  "name": "Can change user", 
+  "content_type": 4
+ }
+},
+{
+ "pk": 12, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_user", 
+  "name": "Can delete user", 
+  "content_type": 4
+ }
+},
+{
+ "pk": 13, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_contenttype", 
+  "name": "Can add content type", 
+  "content_type": 5
+ }
+},
+{
+ "pk": 14, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_contenttype", 
+  "name": "Can change content type", 
+  "content_type": 5
+ }
+},
+{
+ "pk": 15, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_contenttype", 
+  "name": "Can delete content type", 
+  "content_type": 5
+ }
+},
+{
+ "pk": 16, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_session", 
+  "name": "Can add session", 
+  "content_type": 6
+ }
+},
+{
+ "pk": 17, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_session", 
+  "name": "Can change session", 
+  "content_type": 6
+ }
+},
+{
+ "pk": 18, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_session", 
+  "name": "Can delete session", 
+  "content_type": 6
+ }
+},
+{
+ "pk": 19, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_migrationhistory", 
+  "name": "Can add migration history", 
+  "content_type": 7
+ }
+},
+{
+ "pk": 20, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_migrationhistory", 
+  "name": "Can change migration history", 
+  "content_type": 7
+ }
+},
+{
+ "pk": 21, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_migrationhistory", 
+  "name": "Can delete migration history", 
+  "content_type": 7
+ }
+},
+{
+ "pk": 22, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_cliente", 
+  "name": "Can add cliente", 
+  "content_type": 8
+ }
+},
+{
+ "pk": 23, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_cliente", 
+  "name": "Can change cliente", 
+  "content_type": 8
+ }
+},
+{
+ "pk": 24, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_cliente", 
+  "name": "Can delete cliente", 
+  "content_type": 8
+ }
+},
+{
+ "pk": 25, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_empresa", 
+  "name": "Can add empresa", 
+  "content_type": 9
+ }
+},
+{
+ "pk": 26, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_empresa", 
+  "name": "Can change empresa", 
+  "content_type": 9
+ }
+},
+{
+ "pk": 27, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_empresa", 
+  "name": "Can delete empresa", 
+  "content_type": 9
+ }
+},
+{
+ "pk": 28, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_cidade", 
+  "name": "Can add Munic\u00edpio", 
+  "content_type": 10
+ }
+},
+{
+ "pk": 29, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_cidade", 
+  "name": "Can change Munic\u00edpio", 
+  "content_type": 10
+ }
+},
+{
+ "pk": 30, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_cidade", 
+  "name": "Can delete Munic\u00edpio", 
+  "content_type": 10
+ }
+},
+{
+ "pk": 31, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_bairro", 
+  "name": "Can add bairro", 
+  "content_type": 11
+ }
+},
+{
+ "pk": 32, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_bairro", 
+  "name": "Can change bairro", 
+  "content_type": 11
+ }
+},
+{
+ "pk": 33, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_bairro", 
+  "name": "Can delete bairro", 
+  "content_type": 11
+ }
+},
+{
+ "pk": 34, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_endereco", 
+  "name": "Can add endereco", 
+  "content_type": 12
+ }
+},
+{
+ "pk": 35, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_endereco", 
+  "name": "Can change endereco", 
+  "content_type": 12
+ }
+},
+{
+ "pk": 36, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_endereco", 
+  "name": "Can delete endereco", 
+  "content_type": 12
+ }
+},
+{
+ "pk": 37, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "add_parametrosgerais", 
+  "name": "Can add parametros gerais", 
+  "content_type": 13
+ }
+},
+{
+ "pk": 38, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "change_parametrosgerais", 
+  "name": "Can change parametros gerais", 
+  "content_type": 13
+ }
+},
+{
+ "pk": 39, 
+ "model": "auth.permission", 
+ "fields": {
+  "codename": "delete_parametrosgerais", 
+  "name": "Can delete parametros gerais", 
+  "content_type": 13
+ }
+},
+{
+ "pk": 1, 
+ "model": "auth.user", 
+ "fields": {
+  "username": "admin", 
+  "first_name": "", 
+  "last_name": "", 
+  "is_active": true, 
+  "is_superuser": true, 
+  "is_staff": true, 
+  "last_login": "2014-04-24T02:24:39.434Z", 
+  "groups": [], 
+  "user_permissions": [], 
+  "password": "pbkdf2_sha256$12000$XUw5XC8SrSS7$RjlDDbk5HrPjYRzT6WjtIXgNj+TOe4LkbvT2xgj7Qus=", 
+  "email": "admin@admin.com", 
+  "date_joined": "2014-04-23T23:26:53.618Z"
+ }
+},
+{
+ "pk": 1, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.4", 
+  "clausula_contrato_adic": "rrr", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 2, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.4", 
+  "clausula_contrato_adic": "rrr", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 3, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.4", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 4, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 5, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 6, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 7, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 8, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 9, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 10, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 11, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 12, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 13, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 14, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 15, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.6", 
+  "clausula_contrato_adic": "rrrppp", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo", 
+  "texto_carta_aniv1": "tttykjk"
+ }
+},
+{
+ "pk": 16, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.4", 
+  "clausula_contrato_adic": "rrr", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo999", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 17, 
+ "model": "parametros.parametrosgerais", 
+ "fields": {
+  "gerente": 1, 
+  "taxa_juros": "0.4", 
+  "clausula_contrato_adic": "rrr", 
+  "texto_carta_aniv2": "yyyy", 
+  "texto_carta_aniv3": "ooo999", 
+  "texto_carta_aniv1": "ttty"
+ }
+},
+{
+ "pk": 1, 
+ "model": "admin.logentry", 
+ "fields": {
+  "action_flag": 1, 
+  "action_time": "2014-04-24T00:51:51.278Z", 
+  "object_repr": "Montes Claros - MG", 
+  "object_id": "1", 
+  "change_message": "", 
+  "user": 1, 
+  "content_type": 10
+ }
+},
+{
+ "pk": 2, 
+ "model": "admin.logentry", 
+ "fields": {
+  "action_flag": 1, 
+  "action_time": "2014-04-24T00:51:54.881Z", 
+  "object_repr": "Jardim Palmeiras - Montes Claros", 
+  "object_id": "1", 
+  "change_message": "", 
+  "user": 1, 
+  "content_type": 11
+ }
+},
+{
+ "pk": 3, 
+ "model": "admin.logentry", 
+ "fields": {
+  "action_flag": 1, 
+  "action_time": "2014-04-24T00:52:00.718Z", 
+  "object_repr": "Rua Maringa Apto 103 - 335 - Jardim Palmeiras - 39402202 - Montes Claros", 
+  "object_id": "1", 
+  "change_message": "", 
+  "user": 1, 
+  "content_type": 12
+ }
+},
+{
+ "pk": 4, 
+ "model": "admin.logentry", 
+ "fields": {
+  "action_flag": 1, 
+  "action_time": "2014-04-24T00:52:21.836Z", 
+  "object_repr": "Alfredo Im\u00f3veis", 
+  "object_id": "1", 
+  "change_message": "", 
+  "user": 1, 
+  "content_type": 9
+ }
+},
+{
+ "pk": 5, 
+ "model": "admin.logentry", 
+ "fields": {
+  "action_flag": 1, 
+  "action_time": "2014-04-24T00:52:50.328Z", 
+  "object_repr": "Cod: 1 - Teste", 
+  "object_id": "1", 
+  "change_message": "", 
+  "user": 1, 
+  "content_type": 8
+ }
+}
+]

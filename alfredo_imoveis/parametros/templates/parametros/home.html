@@ -1,0 +1,25 @@
+{% extends "template_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   {{dados.site_titulo}}
+{% endblock %}
+
+{% block conteudo %}
+        {% if mensagem %}
+            <div class="color-swatch brand-primary">
+                <button type="button" class="btn btn-success">{{mensagem}}</button>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="POST" action="{% url 'app_parametros_home' %}" class="well">
+                    {% csrf_token %}
+                     <br/>
+                    {{form|bootstrap}}
+                    <br />
+                    <input type="submit" class="btn btn-primary"/>
+                </form>
+            </div>
+        </div>
+{% endblock %}
+
