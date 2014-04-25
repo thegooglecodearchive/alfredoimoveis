@@ -16,11 +16,16 @@ urlpatterns = patterns('alfredo_imoveis.views',
 urlpatterns += patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login',
         {'template_name':'index.html'}, name = 'url_login'),
-    url(r'^accounts/profile/$', 'alfredo_imoveis.views.dashboard',
-        name='url_dashboard'),
+    
+    url(r'^accounts/profile/$', 'alfredo_imoveis.views.home_barra',
+        name='url_home_barra'),
+
+    url(r'^logout/$', 'django.contrib.auth.views.logout',
+        {'template_name':'index.html'}, name = 'url_logout'),
 
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',
         {'template_name':'index.html'}, name = 'url_login'),
 
     url(r'^admin/', include(admin.site.urls)),
 )
+

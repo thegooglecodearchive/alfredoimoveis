@@ -1,15 +1,31 @@
 {% extends "template_base.html" %}
 
 {% block titulo %}
-   {{dados.site_titulo}}
+   Alfredo Imóveis - Clientes
 {% endblock %}
 
 {% block conteudo %}
-       <h1>Bem vindo à gestão de cliente</h1>
-       <div class="row">
-           {% for cliente in clientes %}
-               {{ cliente }}
-           {% endfor %}
-        </div>
+    <h1>Bem vindo à gestão de clientes e fiadores</h1>
+
+    {% include 'clientes/menu.html' %}
+
+    <div class="row">
+        {% if clientes %}
+            <ul class="list-group">
+            {% for cliente in clientes %}
+                <a href="{% url 'app_clientes_detalhe' cliente.id %}">
+                    <li class="list-group-item">{{cliente.id}} - {{cliente.nome}}</li>
+                </a>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <div class="col-lg-4">
+                <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Você ainda não possui <strong>clientes</strong> cadastradas :'(
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 

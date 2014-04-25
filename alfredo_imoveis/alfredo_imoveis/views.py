@@ -16,3 +16,6 @@ def home(request):
 def dashboard(request):
     dados = {}
     return render(request, template_dashboard, dados)
+
+def home_barra(request):
+    return redirect('/')

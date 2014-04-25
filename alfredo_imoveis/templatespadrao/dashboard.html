@@ -1,46 +1,12 @@
 {% extends "template_base.html" %}
 
 {% block titulo %}
-   {{dados.site_titulo}}
+   Alfredo Imóveis - Dashboard
 {% endblock %}
 
 {% block conteudo %}
        <div class="row">
             <h1>Bem vindo ao Dashboard do sistema</h1>
        </div>
-
-       <div class="btn-group-vertical">
-          <button type="button" class="btn btn-default">
-              <a href="{% url 'app_clientes_home' %}">
-                Cliente
-              </a>
-          </button>
-          <button type="button" class="btn btn-default">
-              <a href="{% url 'app_clientes_home' %}">
-                Imóveis
-              </a>
-          </button>
-          <button type="button" class="btn btn-default">
-              <a href="{% url 'app_clientes_home' %}">
-                Contratos
-              </a>
-          </button>
-          <div class="btn-group">
-            <button id="btnGroupVerticalDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Contas
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
-              <li><a href="#">Pagar</a></li>
-              <li><a href="#">Receber</a></li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-default">
-              <a href="{% url 'app_parametros_home' %}">
-                Parâmetros
-              </a>
-          </button>
-       </div>
-
 {% endblock %}
 

@@ -1,0 +1,35 @@
+{% extends "template_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Alfredo imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+    <h1>Bem vindo à gestão de clientes e fiadores</h1>
+
+    {% include 'clientes/menu.html' %}
+
+    {% if mensagem %}
+        <br/>
+        <div class="alert alert-info fade in">
+            {{mensagem}}
+        </div>
+    {% endif%}
+
+    <div class="row">
+        <div class="panel-body">
+            <form method="POST" class="navbar-form navbar-left" role="search"
+                  action="{% url 'app_clientes_salvar' cliente.id %}">
+                {% csrf_token %}
+                {{form|bootstrap}}
+                <br/>
+                <br/>
+                <button type="submit" class="btn btn-info">Gravar</button>
+                <a href="{% url 'app_clientes_delete' cliente.id%}">
+                    <button type="button" class="btn btn-danger">Deletar</button>
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
