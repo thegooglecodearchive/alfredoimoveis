@@ -25,7 +25,7 @@ class Cliente(models.Model):
     telefone3 = models.CharField(max_length = 11,  null = False,  blank = False, default = '0',
                                  verbose_name = 'Telefone 3')
     email = models.EmailField(null=True)
-    tipo_cliente = models.SmallIntegerField(choices=TIPO_CLIENTES, default = 1,
+    tipo_cliente = models.CharField(max_length=1, choices=TIPO_CLIENTES, default = 'C',
                                             verbose_name = u'Tipo')
 
     def __unicode__(self):
