@@ -10,4 +10,6 @@ urlpatterns = patterns('clientes.views',
     url(r'^delete/(?P<id>\d+)/$', 'delete', name='app_clientes_delete'),
     url(r'^detalhe/(?P<id>\d+)/$', 'detalhe', name='app_clientes_detalhe'),
     url(r'^salvar/(?P<id>\d+)/$', 'salvar', name='app_clientes_salvar'),
+    url(r'^filtrar/$', 'filtrar', name='app_clientes_filtrar'),
+    url(r'^relatorio/$', 'relatorio', name='app_clientes_relatorio'),
 )

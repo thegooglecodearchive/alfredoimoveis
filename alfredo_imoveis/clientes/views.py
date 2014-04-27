@@ -4,19 +4,19 @@ from models import Cliente
 from forms import ClienteForm
 from enderecos.models import Endereco
 from enderecos.forms import EnderecoForm
-import datetime
+from datetime import datetime, date
 
-today = datetime.date.today()
-
+today = date.today()
 
 # Create your views here.
 template_home = 'clientes/home.html'
 template_novo = 'clientes/novo.html'
 template_detalhe = 'clientes/detalhe.html'
+template_relatorio = 'clientes/relatorio.html'
 
 def home(request):
     dados = {}
-    dados['clientes'] = Cliente.objects.all()
+    dados['clientes'] = Cliente.objects.filter(ativo=True).order_by('nome')
     return render(request,template_home,dados)
 
 def novo(request):
@@ -36,8 +36,10 @@ def salvar(request, id=None):
 
         if id not in (None, '0'):
             cliente.id = id
+            cliente.data_cadastro = Cliente.objects.get(id=id).data_cadastro
 
         cliente.endereco = formEndereco.save()
+
         cliente.save()
         mensagem = 'Cliente salvo com sucesso!'
         return detalhe(request, cliente.id, mensagem)
@@ -62,5 +64,51 @@ def relatorios(request):
 
 def delete(request,id):
     cliente = get_object_or_404(Cliente, id=id)
-    cliente.delete()
+    cliente.ativo = False
+    cliente.save()
     return home(request)
+
+def filtrar(request):
+    dados = {}
+
+    clientes = Cliente.objects.all()
+
+    if request.POST['nome']:
+        clientes = clientes.filter(nome__contains = request.POST['nome'])
+
+    if request.POST['endereco']:
+        if clientes.filter(endereco__rua__contains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__rua__contains = request.POST['endereco'])
+
+        if clientes.filter(endereco__bairro__nome__contains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__bairro__nome__contains = request.POST['endereco'])
+
+        if clientes.filter(endereco__bairro__cidade__nome__contains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__bairro__cidade__nome__contains = request.POST['endereco'])
+
+        if clientes.filter(endereco__bairro__cidade__uf__contains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__bairro__cidade__uf__contains = request.POST['endereco'])
+
+    if request.POST.get('ativo', False):
+        clientes = clientes.filter(ativo=False)
+    else:
+        clientes = clientes.filter(ativo=True)
+
+    if request.POST['dataini'] and request.POST['datafim']:
+        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
+        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
+        clientes = clientes.filter(data_cadastro__range=[dataini,datafim])
+
+    if not clientes:
+        dados['clientes'] = Cliente.objects.all()
+        dados['mensagem'] = 'Nenhum cliente encontrado para esta pesquisa'
+    dados['clientes'] = clientes
+
+    if request.POST.get('relatorio', False):
+        dados['data'] = today
+        return render(request,template_relatorio,dados)
+    else:
+        return render(request,template_home,dados)
+
+def relatorio(request):
+    pass

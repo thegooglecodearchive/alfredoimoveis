@@ -9,6 +9,9 @@
 
     {% include 'clientes/menu.html' %}
 
+    <br/>
+    {% include 'clientes/filtroGrid.html' %}
+
     <div class="row">
         {% if clientes %}
             <ul class="list-group">
@@ -22,7 +25,12 @@
             <div class="col-lg-4">
                 <div class="alert alert-dismissable alert-success">
                     <button type="button" class="close" data-dismiss="alert">×</button>
-                    Você ainda não possui <strong>clientes</strong> cadastradas :'(
+                    {% if mensagem %}
+                        {{mensagem}}
+                    {% else %}
+                        Você ainda não possui <strong>clientes</strong> cadastradas :'(
+                    {% endif %}
+
                 </div>
             </div>
         {% endif %}
