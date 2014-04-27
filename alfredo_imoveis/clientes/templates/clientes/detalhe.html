@@ -16,6 +16,13 @@
         </div>
     {% endif%}
 
+    {% if erros %}
+    <br/>
+    <div class="alert alert-danger fade in">
+        {{erros}}
+    </div>
+    {% endif%}
+
     <div class="row">
         <div class="panel-body">
             <form method="POST" class="navbar-form navbar-left" role="search"
@@ -23,11 +30,12 @@
                 {% csrf_token %}
                 {{form|bootstrap}}
                 <br/>
+                {% include 'enderecos/endereco.html' %}
                 <br/>
                 <button type="submit" class="btn btn-info">Gravar</button>
-                <a href="{% url 'app_clientes_delete' cliente.id%}">
-                    <button type="button" class="btn btn-danger">Deletar</button>
-                </a>
+
+                {% include 'enderecos/modalExcluiCliente.html' %}
+
             </form>
         </div>
     </div>

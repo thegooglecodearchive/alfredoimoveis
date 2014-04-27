@@ -1,0 +1,11 @@
+{% load bootstrap %}
+<div class="row">
+
+    <div class="col-lg-4">
+        <spam>Endereço</spam>
+        <br/>
+        {{formEndereco.rua|bootstrap}} {{formEndereco.numero|bootstrap}}
+        {{formEndereco.bairro|bootstrap}}
+        {{formEndereco.cep|bootstrap}}
+    </div>
+</div>

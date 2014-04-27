@@ -9,12 +9,27 @@
 
     {% include 'clientes/menu.html' %}
 
+    {% if mensagem %}
+        <br/>
+        <div class="alert alert-info fade in">
+            {{mensagem}}
+        </div>
+    {% endif%}
+
+    {% if erros %}
+    <br/>
+    <div class="alert alert-danger fade in">
+        {{erros}}
+    </div>
+    {% endif%}
+
     <div class="row">
         <div class="panel-body">
             <form method="POST" class="navbar-form navbar-left" role="search"
                   action="{% url 'app_clientes_salvar' 0 %}">
                 {% csrf_token %}
                 {{form|bootstrap}}
+                {% include 'enderecos/endereco.html' %}
                 <br/>
                 <br/>
                 <button type="submit" class="btn btn-info">Gravar</button>
