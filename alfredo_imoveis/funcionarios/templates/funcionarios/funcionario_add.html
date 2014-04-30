@@ -1,0 +1,9 @@
+{% extends 'template_base.html'%}
+
+{% block conteudo %}
+    {% if detalhe %}
+        {% include 'funcionarios/form_funcionario_detalhe.html' %}
+    {% else %}
+        {% include 'funcionarios/form_funcionario.html' %}
+    {% endif %}
+{% endblock %}

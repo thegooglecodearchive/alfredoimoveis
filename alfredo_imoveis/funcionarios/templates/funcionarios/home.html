@@ -1,0 +1,38 @@
+{% extends 'template_base.html'%}
+
+{% block conteudo %}
+
+        <table class="table">
+            <tr>
+                <td>Código</td>
+                <td>Nome</td>
+                <td>Telefone</td>
+                <td>Email</td>
+                <td>Cargo</td>
+            </tr>
+
+        {% for funcionario in funcionarios %}
+            <tr>
+                <td>
+                    <a href="{% url 'app_funcionario_detalhe' funcionario.id %}">
+                        {{funcionario.id}}
+                    </a>
+                </td>
+                <td>{{funcionario.nome}}</td>
+                <td>{{funcionario.telefone}}</td>
+                <td>{{funcionario.email}}</td>
+                <td>{{funcionario.cargo}}</td>
+                <td>
+                    <a href="{% url 'app_funcionario_delete' funcionario.id %}">
+                        <img src="{{STATIC_URL}}bootstrap/img/del.png"
+                             alt="Del" width="40%" height="100%"/>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+            <a href="{% url 'app_funcionario_add' %}">
+                <input type="button" class="btn btn-info" value="Novo"/>
+            </a>
+
+        </table>
+{% endblock %}

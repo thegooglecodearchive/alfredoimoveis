@@ -19,6 +19,8 @@ def bairro_detalhe(request, id):
     form = BairroForm(instance=bairro)
     dados['lista_bairros'] = Bairro.objects.all()
     dados['form'] = form
+    dados['bairro'] = bairro
+    dados['detalhe'] = 'detalhe'
     return render(request,template_bairro_add,dados)
 
 def bairro_adiciona(request):

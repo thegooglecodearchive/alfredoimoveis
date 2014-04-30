@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'enderecos',
     'empresas',
     'parametros',
+    'funcionarios',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,5 +1,10 @@
 {% extends 'template_base.html'%}
 
 {% block conteudo %}
+    {% if detalhe %}
+        {% include 'enderecos/bairro/form_bairro_detalhe.html' %}
+    {% else %}
         {% include 'enderecos/bairro/form_bairro.html' %}
+    {% endif %}
+
 {% endblock %}
