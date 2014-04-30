@@ -1,0 +1,37 @@
+{% extends 'template_base.html'%}
+
+{% block conteudo %}
+
+        <table class="table">
+            <tr>
+                <td>Código</td>
+                <td>Nome</td>
+                <td>Cidade</td>
+                <td>Estado</td>
+                <td>Deletar</td>
+            </tr>
+
+        {% for bairro in lista_bairros %}
+            <tr>
+                <td>
+                    <a href="{% url 'app_enderecos_bairro_detalhe' bairro.id %}">
+                        {{bairro.id}}
+                    </a>
+                </td>
+                <td>{{bairro.nome}}</td>
+                <td>{{bairro.cidade.nome}}</td>
+                <td>{{bairro.cidade.uf}}</td>
+                <td>
+                    <a href="{% url 'app_enderecos_bairro_delete' bairro.id %}">
+                        <img src="{{STATIC_URL}}bootstrap/img/del.png"
+                             alt="Del" width="20%" height="70%"/>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+            <a href="{% url 'app_enderecos_bairro_add' %}">
+                <input type="button" class="btn btn-info" value="Novo"/>
+            </a>
+
+        </table>
+{% endblock %}

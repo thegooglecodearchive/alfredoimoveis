@@ -11,6 +11,7 @@ urlpatterns = patterns('alfredo_imoveis.views',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^clientes/', include('clientes.urls')),
     url(r'^parametros/$', include('parametros.urls')),
+    url(r'^enderecos/', include('enderecos.urls')),
 )
 
 urlpatterns += patterns('',

@@ -1,5 +1,6 @@
 # encoding:utf-8
 from django.db import models
+from django.db.models import signals
 
 # Create your models here.
 class Cidade(models.Model):
@@ -15,11 +16,25 @@ class Cidade(models.Model):
         verbose_name_plural = u'Municípios'
 
 class Bairro(models.Model):
-    nome = models.CharField(max_length = 150, null = False, blank = False, verbose_name = 'Bairro', default = 'Não informado')
+    nome = models.CharField(max_length = 150, null = False, blank = False,
+                            verbose_name = 'Bairro', help_text='Informe o nome do bairro')
     cidade = models.ForeignKey(Cidade)
+    codigo = models.IntegerField('Código',null = True, blank = True)
 
     def __unicode__(self):
         return self.nome + " - " + self.cidade.nome
+
+def insere_codigo(**kwargs):
+    bairro = kwargs['instance']
+    bairro.codigo = bairro.id
+    models.signals.post_save.disconnect(insere_codigo, sender=Bairro,
+                            dispatch_uid="enderecos.models.Bairro")
+    bairro.save()
+    models.signals.post_save.connect(insere_codigo, sender=Bairro,
+                            dispatch_uid="enderecos.models.Bairro")
+
+models.signals.post_save.connect(insere_codigo, sender=Bairro,
+                            dispatch_uid="enderecos.models.Bairro")
 
 class Endereco(models.Model):
     rua = models.CharField(max_length = 150, null  = False, blank = False)
