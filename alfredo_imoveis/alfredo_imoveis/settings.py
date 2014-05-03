@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'empresas',
     'parametros',
     'funcionarios',
+    'imoveis',
 )
 
 MIDDLEWARE_CLASSES = (

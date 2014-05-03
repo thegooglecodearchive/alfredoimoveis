@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Relatório de imóveis</h1>
+    <h3>Alfredo imóveis</h3>
+    <table class="table">
+        <tr>
+            <td><h4>Descrição</h4></td>
+
+            <td><h4>Endereço</h4></td>
+            <td><h4>Data cadastro</h4></td>
+            <td><h4>Proprietário</h4></td>
+            <td><h4>Última vistoria</h4></td>
+            <td><h4>Valor do aluguel</h4></td>
+        </tr>
+        {% for imovel in imoveis %}
+            <tr>
+                <td>{{imovel.descricao}}</td>
+
+                <td>{{imovel.endereco|truncatechars:90}}</td>
+                <td>{{imovel.data_cadastro}}</td>
+                <td>{{imovel.proprietario.nome}}</td>
+                <td>{{imovel.ultima_vistoria}}</td>
+                <td>R$ {{imovel.valor_aluguel}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>Montes Claros {{data}}</h4>
+</body>
+</html>

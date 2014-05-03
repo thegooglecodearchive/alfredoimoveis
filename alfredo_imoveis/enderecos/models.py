@@ -41,6 +41,7 @@ class Endereco(models.Model):
     numero = models.IntegerField(null = False,  blank = False               )
     bairro = models.ForeignKey(Bairro, null = False,  blank = False)
     cep = models.CharField(max_length = 9,   null  = True, blank = True)
+    complemento = models.TextField(null = True, blank = True)
 
     def __unicode__(self):
         return self.rua + " - " + unicode(self.numero) + " - " + self.bairro.nome + " - " + self.cep + " - " + self.bairro.cidade.nome

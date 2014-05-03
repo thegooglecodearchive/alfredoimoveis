@@ -5,9 +5,6 @@
 {% endblock %}
 
 {% block conteudo %}
-    <h1>Bem vindo à gestão de clientes e fiadores</h1>
-
-    {% include 'clientes/menu.html' %}
 
     {% if mensagem %}
         <br/>
@@ -26,16 +23,18 @@
     <div class="row">
         <div class="panel-body">
             <form method="POST" class="navbar-form navbar-left" role="search"
-                  action="{% url 'app_clientes_salvar' cliente.id %}">
+                  action="{% url 'app_imoveis_salvar' imovel.id %}">
                 {% csrf_token %}
                 {{form|bootstrap}}
                 <br/>
                 {% include 'enderecos/endereco.html' %}
                 <br/>
                 <button type="submit" class="btn btn-info">Gravar</button>
-                {% include 'clientes/modalExcluiCliente.html' %}
-                Data do cadastro: {{cliente.data_cadastro}}
-
+                {% include 'imoveis/modalExcluiImovel.html' %}
+                <a href="{% url 'app_imoveis_ficha' imovel.id %}">
+                    <button type="button" class="btn btn-main">Imprimir ficha do imóvel</button>
+                </a>
+                Data do cadastro: {{imovel.data_cadastro}}
             </form>
         </div>
     </div>
