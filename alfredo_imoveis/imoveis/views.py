@@ -18,7 +18,7 @@ def home(request):
     dados = {}
     #import pdb;pdb.set_trace()
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['imoveis'] = Imovel.objects.filter(empresa=funcionario[0].empresa)
+    dados['imoveis'] = Imovel.objects.filter(empresa=funcionario[0].empresa,ativo=True)
     return render(request, template_home,dados)
 
 def detalhe(request,id,mensagem=''):

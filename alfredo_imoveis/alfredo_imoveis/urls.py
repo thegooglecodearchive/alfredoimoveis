@@ -14,6 +14,7 @@ urlpatterns = patterns('alfredo_imoveis.views',
     url(r'^enderecos/', include('enderecos.urls')),
     url(r'^funcionarios/', include('funcionarios.urls')),
     url(r'^imovies/', include('imoveis.urls')),
+    url(r'^financeiro/', include('financeiro.urls.principal')),
 )
 
 urlpatterns += patterns('',

@@ -18,9 +18,10 @@
             <li class="active"><a href="{% url 'app_parametros_home' %}">Parâmetros</a></li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contas <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Financiero <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Pagar</a></li>
+                <li><a href="{% url 'app_financeiro_home' %}">Financeiro</a></li>
+                <li><a href="{% url 'app_financeiro_conta_caixa_home' %}">Contas caixa</a></li>
                 <li><a href="#">Receber</a></li>
               </ul>
             </li>

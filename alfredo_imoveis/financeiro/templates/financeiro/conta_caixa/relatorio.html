@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Relatório de contas-caixa</h1>
+    <h3>Alfredo imóveis</h3>
+    <table class="table">
+        <tr>
+            <td><h4>Código</h4></td>
+
+            <td><h4>Descrição</h4></td>
+            <td><h4>Conta-caixa superior</h4></td>
+            <td><h4>Empresa</h4></td>
+            </tr>
+        {% for conta in contas_caixa %}
+            <tr>
+                <td>{{conta.id}}</td>
+                <td>{{conta.descricao}}</td>
+                <td>{{conta.conta_caixa_superior.descricao}}</td>
+                <td>{{conta.empresa.nome}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>Montes Claros {{data}}</h4>
+</body>
+</html>

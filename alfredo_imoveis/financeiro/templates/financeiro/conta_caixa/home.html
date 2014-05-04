@@ -1,0 +1,55 @@
+{% extends "template_base.html" %}
+
+{% block titulo %}
+   Alfredo Imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+
+<script>
+    function deleteConta(id, nome_conta) {
+        if (confirm("Tem certeza que gostaria de deletar a conta-caixa: " + nome_conta)) {
+            document.getElementById(nome_conta).click();
+        }
+    }
+</script>
+
+<h1>Contas-caixa</h1>
+
+    <br/>
+    {% include 'financeiro/conta_caixa/filtroGrid.html' %}
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>Código</td>
+                <td>Descrição</td>
+                <td>Conta-caixa superior</td>
+                <td>Empresa</td>
+            </tr>
+
+        {% for conta in contas_caixa %}
+            <tr>
+                <td>
+                    <a href="{% url 'app_financeiro_conta_caixa_detalhe' conta.id %}">
+                        {{conta.id}}
+                    </a>
+                </td>
+                <td>{{conta.descricao}}</td>
+                <td>{{conta.conta_caixa_superior}}</td>
+                <td>{{conta.empresa.nome}}</td>
+                <td>
+                    <a href="{% url 'app_financeiro_conta_caixa_delete' conta.id %}" id="{{conta.descricao}}"></a>
+                    <a href="." onclick="deleteConta('{{conta.id}}', '{{conta.descricao}}')">
+                        <img src="{{STATIC_URL}}bootstrap/img/del.png" alt="Del" width="40%" height="100%"/>
+                    </a>
+
+                </td>
+            </tr>
+        {% endfor %}
+            <a href="{% url 'app_financeiro_conta_caixa_add' %}">
+                <input type="button" class="btn btn-info" value="Novo"/>
+            </a>
+
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!-- Small modal -->
+<button class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm"
+        type="button">
+    Deletar
+</button>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Tem certeza que gostaria de excluir a conta-caixa {{conta_caixa}}?</h5>
+        </div>
+        <div class="modal-body">
+            <a href="{% url 'app_financeiro_conta_caixa_delete' conta_caixa.id%}">
+                <button type="button" class="btn btn-danger">Confirmar</button>
+            </a>
+            <a href="{% url 'app_financeiro_conta_caixa_detalhe' conta_caixa.id%}">
+                <button type="button" class="btn btn-info">Cancelar</button>
+            </a>
+        </div>
+    </div>
+  </div>
+</div>
