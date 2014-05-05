@@ -1,0 +1,37 @@
+{% extends "template_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Alfredo imóveis - Títulos
+{% endblock %}
+
+{% block conteudo %}
+
+    {% if mensagem %}
+        <br/>
+        <div class="alert alert-info fade in">
+            {{mensagem}}
+        </div>
+    {% endif%}
+
+    {% if erros %}
+    <br/>
+    <div class="alert alert-danger fade in">
+        {{erros}}
+    </div>
+    {% endif%}
+
+    <div class="row">
+        <div class="panel-body">
+            <form method="POST" class="navbar-form navbar-left" role="search"
+                  action="{% url 'app_financeiro_titulo_salvar' titulo.id %}">
+                {% csrf_token %}
+                {{form|bootstrap_horizontal:'col-lg-3'}}
+                <br/>
+                <br/>
+                <button type="submit" class="btn btn-info">Gravar</button>
+                {% include 'financeiro/titulo/modalExcluiTitulo.html' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

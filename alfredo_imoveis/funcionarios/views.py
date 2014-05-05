@@ -5,6 +5,7 @@ from forms import FuncionarioForm
 
 template_home = 'funcionarios/home.html'
 template_add = 'funcionarios/funcionario_add.html'
+template_detalhe = 'funcionarios/funcionario_detalhe.html'
 
 def home(request):
     dados = {}
@@ -42,7 +43,8 @@ def detalhe(request, id):
     return render(request,template_add,dados)
 
 def update(request, id):
-    form = FuncionarioForm(request.POST or None)
+    funcionario = get_object_or_404(Funcionario, id=id)
+    form = FuncionarioForm(request.POST or None, instance=funcionario)
     if form.is_valid():
         funcionario = form.save(commit=False)
         funcionario.id = id
@@ -51,3 +53,6 @@ def update(request, id):
     else:
         dados = {}
         dados['form'] = form
+        dados['detalhe'] = 'detalhe'
+        dados['funcionario'] = funcionario
+        return render(request,template_add,dados)

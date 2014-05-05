@@ -68,5 +68,3 @@ def filtrar(request):
         return render(request,template_relatorio,dados)
     else:
         return render(request, template_home,dados)
-
-    return render(request, template_home, dados)

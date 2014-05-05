@@ -1,2 +1,4 @@
 from financeiro.forms.conta_caixa import ContaCaixaForm
-__all__ = []
+from financeiro.forms.titulo import TituloForm
+
+__all__ = ['ContaCaixaForm', 'TituloForm']

@@ -1,0 +1,40 @@
+{% extends "template_relatorio_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Alfredo imóveis - Títulos a pagar e receber
+{% endblock %}
+
+{% block conteudo %}
+    <h1>Relatório de títulos</h1>
+    <h3>Alfredo imóveis</h3>
+
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>Código</td>
+                <td>Descrição</td>
+                <td>Conta-caixa</td>
+                <td>Empresa</td>
+                <td>Vencimento</td>
+                <td>Tipo</td>
+                <td>Valor</td>
+                <td>Pagamento parcial</td>
+            </tr>
+
+        {% for titulo in titulos %}
+            <tr>
+                <td>{{titulo.id}}</td>
+                <td>{{titulo.descricao}}</td>
+                <td>{{titulo.conta_caixa}}</td>
+                <td>{{titulo.empresa.nome}}</td>
+                <td>{{titulo.vencimento}}</td>
+                <td>{{titulo.tipo}}</td>
+                <td>{{titulo.valor}}</td>
+                <td>{{titulo.pagamento_parcial}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <h4>Montes Claros {{data}}</h4>
+{% endblock %}
+

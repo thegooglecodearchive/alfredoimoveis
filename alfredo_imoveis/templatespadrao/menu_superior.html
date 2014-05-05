@@ -14,15 +14,16 @@
           {% if user.is_authenticated %}
             <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'app_clientes_home' %}">Clientes e fiadores</a></li>
-            <li class="active"><a href="{% url 'app_imoveis_home' %}">Imóveis</a></li>
             <li class="active"><a href="{% url 'app_parametros_home' %}">Parâmetros</a></li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Financiero <b class="caret"></b></a>
+              <a href="{% url 'app_financeiro_home' %}" class="dropdown-toggle" data-toggle="dropdown">
+                  Financiero <b class="caret"></b>
+              </a>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'app_financeiro_home' %}">Financeiro</a></li>
+                <li><a href="{% url 'app_financeiro_home' %}">Visão geral</a></li>
                 <li><a href="{% url 'app_financeiro_conta_caixa_home' %}">Contas caixa</a></li>
-                <li><a href="#">Receber</a></li>
+                <li><a href="{% url 'app_financeiro_titulo_home' %}">Títulos</a></li>
               </ul>
             </li>
 
@@ -34,6 +35,13 @@
               </ul>
             </li>
 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Imóveis<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'app_imoveis_home' %}">Imóveis</a></li>
+                <li><a href="{% url 'app_imoveis_contrato_home' %}">Contratos</a></li>
+              </ul>
+            </li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bem vindo {{user.username}} <b class="caret"></b></a>

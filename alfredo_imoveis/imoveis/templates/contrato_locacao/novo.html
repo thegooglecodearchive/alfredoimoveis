@@ -1,0 +1,37 @@
+{% extends "template_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Alfredo imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+    <h1>Geração de contratos de locação</h1>
+
+    {% if mensagem %}
+        <br/>
+        <div class="alert alert-info fade in">
+            {{mensagem}}
+        </div>
+    {% endif%}
+
+    {% if erros %}
+    <br/>
+    <div class="alert alert-danger fade in">
+        {{erros}}
+    </div>
+    {% endif%}
+
+    <div class="row">
+        <div class="panel-body">
+            <form method="POST" class="navbar-form navbar-left" role="search"
+                  action="{% url 'app_imoveis_contrato_salvar' 0 %}">
+                {% csrf_token %}
+                {{form|bootstrap}}
+                <br/>
+                <br/>
+                <button type="submit" class="btn btn-info">Gravar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

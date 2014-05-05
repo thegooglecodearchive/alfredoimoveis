@@ -8,41 +8,9 @@
     <h1>Painel de gestão financeira</h1>
 
     <br/>
-    {% include 'financeiro/filtroGrid.html' %}
+
     <div class="row">
-        <table class="table">
-            <tr>
-                <td>Código</td>
-                <td>Descrição</td>
-                <td>Proprietário</td>
-                <td>ùltima vistoria</td>
-                <td>Valor do aluguel</td>
-            </tr>
 
-        {% for imovel in imoveis %}
-            <tr>
-                <td>
-                    <a href="{% url 'app_imoveis_detalhe' imovel.id %}">
-                        {{imovel.id}}
-                    </a>
-                </td>
-                <td>{{imovel.descricao}}</td>
-                <td>{{imovel.proprietario}}</td>
-                <td>{{imovel.ultima_vistoria}}</td>
-                <td>{{imovel.valor_aluguel}}</td>
-                <td>
-                    <a href="{% url 'app_imoveis_delete' imovel.id %}">
-                        <img src="{{STATIC_URL}}bootstrap/img/del.png"
-                             alt="Del" width="40%" height="100%"/>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-            <a href="{% url 'app_imoveis_add' %}">
-                <input type="button" class="btn btn-info" value="Novo"/>
-            </a>
-
-        </table>
     </div>
 {% endblock %}
 

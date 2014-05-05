@@ -1,0 +1,44 @@
+{% extends "template_base.html" %}
+
+{% block titulo %}
+   Alfredo Imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+    <h1>Contratos de locação</h1>
+
+    <br/>
+    {% include 'contrato_locacao/filtroGrid.html' %}
+    <a href="{% url 'app_imoveis_contrato_add' %}">
+                <input type="button" class="btn btn-info" value="Novo"/>
+    </a>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>Código</td>
+                <td>Imóvel</td>
+                <td>Início do contrato</td>
+                <td>Término do contrato</td>
+                <td>Locatário</td>
+                <td>Valor</td>
+            </tr>
+
+        {% for contrato in contratos %}
+            <tr>
+                <td>
+                    <a href="{% url 'app_imoveis_contrato_detalhe' contrato.id %}">
+                        {{contrato.id}}
+                    </a>
+                </td>
+                <td>{{contrato.imovel}}</td>
+                <td>{{contrato.inicio_contrato}}</td>
+                <td>{{contrato.termino_contrato}}</td>
+                <td>{{contrato.locatario}}</td>
+                <td>{{contrato.imovel.valor_aluguel}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    </div>
+{% endblock %}
+

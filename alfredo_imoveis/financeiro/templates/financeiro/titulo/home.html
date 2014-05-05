@@ -1,0 +1,62 @@
+{% extends "template_base.html" %}
+
+{% block titulo %}
+   Alfredo Imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+
+<script>
+    function deleteConta(id, desc_movi) {
+        if (confirm("Tem certeza que gostaria de deletar o movimento: " + desc_movi)) {
+            document.getElementById(desc_movi).click();
+        }
+    }
+</script>
+
+<h1>Títulos a pagar e receber</h1>
+
+    <br/>
+    {% include 'financeiro/titulo/filtroGrid.html' %}
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>Código</td>
+                <td>Descrição</td>
+                <td>Conta-caixa</td>
+                <td>Empresa</td>
+                <td>Vencimento</td>
+                <td>Tipo</td>
+                <td>Valor</td>
+                <td>Pagamento parcial</td>
+            </tr>
+
+        {% for titulo in titulos %}
+            <tr>
+                <td>
+                    <a href="{% url 'app_financeiro_titulo_detalhe' titulo.id %}">
+                        {{titulo.id}}
+                    </a>
+                </td>
+                <td>{{titulo.descricao}}</td>
+                <td>{{titulo.conta_caixa}}</td>
+                <td>{{titulo.empresa.nome}}</td>
+                <td>{{titulo.vencimento}}</td>
+                <td>{{titulo.tipo}}</td>
+                <td>{{titulo.valor}}</td>
+                <td>{{titulo.pagamento_parcial}}</td>
+                <td>
+                    <a href="{% url 'app_financeiro_titulo_delete' titulo.id %}" id="{{titulo.descricao}}"></a>
+                    <a href="." onclick="deleteConta('{{titulo.id}}', '{{titulo.descricao}}')">
+                        <img src="{{STATIC_URL}}bootstrap/img/del.png" alt="Del" width="40%" height="100%"/>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+            <a href="{% url 'app_financeiro_titulo_add' %}">
+                <input type="button" class="btn btn-info" value="Novo"/>
+            </a>
+
+        </table>
+    </div>
+{% endblock %}

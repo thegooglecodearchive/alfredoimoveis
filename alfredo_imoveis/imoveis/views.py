@@ -2,9 +2,10 @@
 from django.shortcuts import render, get_object_or_404
 from imoveis.models import Imovel
 from enderecos.forms import EnderecoForm
-from forms import ImovelForm
+from forms import ImovelForm, ContratoLocacaoForm
 from funcionarios.models import Funcionario
 from datetime import datetime, date
+from imoveis.models import ContratoLocacao
 
 today = date.today()
 
@@ -13,6 +14,11 @@ template_home = 'imoveis/home.html'
 template_detalhe = 'imoveis/detalhe.html'
 template_novo = 'imoveis/novo.html'
 template_relatorio = 'imoveis/relatorio.html'
+
+template_contrato_home = 'contrato_locacao/home.html'
+template_contrato_detalhe = 'contrato_locacao/detalhe.html'
+template_contrato_novo = 'contrato_locacao/novo.html'
+template_contrato_imprimir = 'contrato_locacao/imprimir.html'
 
 def home(request):
     dados = {}
@@ -101,3 +107,61 @@ def ficha(request,id):
     dados['imovel'] = Imovel.objects.get(id=id)
     dados['data'] = today
     return render(request,'imoveis/ficha.html', dados)
+
+def contrato_detalhe(request,id,mensagem=None):
+    dados = {}
+    dados['mensagem'] = mensagem
+    contrato = get_object_or_404(ContratoLocacao, id=id)
+    dados['form'] = ContratoLocacaoForm(instance=contrato)
+    dados['contrato'] = contrato
+    return render(request, template_contrato_detalhe, dados)
+
+def contrato_home(request):
+    dados = {}
+    funcionario = Funcionario.objects.filter(usuario=request.user)
+    dados['contratos'] = ContratoLocacao.objects.filter(empresa=funcionario[0].empresa)
+    return render(request,template_contrato_home, dados)
+
+def contrato_salvar(request,id):
+    dados = {}
+
+    if id not in (None, '0'):
+        contrato = ContratoLocacao.objects.get(id=id)
+        form = ContratoLocacaoForm(request.POST or None, instance=contrato)
+    else:
+        form = ContratoLocacaoForm(request.POST or None)
+
+    if form.is_valid():
+        contrato = form.save(commit=False)
+
+        if id not in (None, '0'):
+            contrato.id = id
+            contrato.data_emissao_contrato = ContratoLocacao.objects.get(id=id).data_emissao_contrato
+
+        contrato.save()
+        mensagem = 'Contrato de locação salvo com sucesso!'
+        return contrato_detalhe(request, contrato.id, mensagem)
+    else:
+        dados['form'] = form
+        dados['erros'] = 'Erros nas informações foram encontrados!'
+        return render(request, template_contrato_novo, dados)
+
+def contrato_imprimir(request,id):
+    dados = {}
+    dados['data'] = today
+    dados['contrato'] = ContratoLocacao.objects.get(id=id)
+    return render(request,template_contrato_imprimir,dados)
+
+
+def contrato_delete(request,id):
+    contrato = ContratoLocacao.objects.get(id=id)
+    contrato.delete()
+    return contrato_home(request)
+
+def contrato_adiciona(request):
+    dados = {}
+    dados['form'] = ContratoLocacaoForm()
+    return render(request,template_contrato_novo,dados)
+
+def contrato_gerar_receber(request,id):
+    return contrato_home(request)
