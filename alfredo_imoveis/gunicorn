@@ -1,1 +1,1 @@
-gunicorn_django -b 127.0.0.1:5001 -w3 -p /tmp/gunicorn_alfredo.pid
+gunicorn_django -b 127.0.0.1:5010 -w9 -p /tmp/gunicorn_alfredo.pid
