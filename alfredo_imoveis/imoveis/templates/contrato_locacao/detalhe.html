@@ -5,6 +5,24 @@
 {% endblock %}
 
 {% block conteudo %}
+<script>
+    function confirmaReceber(gerou) {
+        if (gerou == 'True'){
+            if (confirm("As contas a receber para este contrato já foram geradas, você esta certo de que gostaria de " +
+                        "gerar as contas a receber para este contrato?")){
+                document.getElementById("gera_receber_contrato").click();
+            }
+        }
+        else {
+            if (confirm("Você esta certo de que gostaria de gerar as contas a receber para este contrato?")){
+                document.getElementById("gera_receber_contrato").click();
+            }
+        }
+
+    }
+</script>
+
+
 
     {% if mensagem %}
         <br/>
@@ -21,6 +39,16 @@
     {% endif%}
 
     <div class="row">
+        {% if mens_parcelas %}
+            <div class="alert alert-info fade in">
+                {{mens_parcelas}}
+            </div>
+        {% elif mensagem_erro %}
+            <div class="alert alert-danger fade in">
+                {{mensagem_erro}}
+            </div>
+        {% endif %}
+
         <div class="panel-body">
             <form method="POST" class="navbar-form navbar-left" role="search"
                   action="{% url 'app_imoveis_contrato_salvar' contrato.id %}">
@@ -33,13 +61,15 @@
                 <a href="{% url 'app_imoveis_contrato_imprimir' contrato.id %}">
                     <button type="button" class="btn btn-main">Imprimir contrato</button>
                 </a>
-
-                <a href="{% url 'app_imoveis_contrato_gerar_receber' contrato.id %}">
-                    <button type="button" class="btn btn-danger">Gerar títulos a receber</button>
-                </a>
-
-                Data do cadastro: {{contrato.data_emissao_contrato}}
             </form>
+            <h1>{{contrato.gerou_receber}}</h1>
+            <h1>{{contrato.id}}</h1>
+                <button type="button" class="btn btn-danger"
+                        onclick="confirmaReceber('{{contrato.gerou_receber}}');">Gerar títulos a receber</button>
+
+                <a href="{% url 'app_imoveis_contrato_gerar_receber' contrato.id %}" id="gera_receber_contrato"></a>
+                Data do cadastro: {{contrato.data_emissao_contrato}}
+
         </div>
     </div>
 {% endblock %}

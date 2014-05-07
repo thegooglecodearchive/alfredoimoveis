@@ -6,6 +6,8 @@ from forms import ImovelForm, ContratoLocacaoForm
 from funcionarios.models import Funcionario
 from datetime import datetime, date
 from imoveis.models import ContratoLocacao
+from financeiro.models.titulo import Titulo
+from parametros.models import ParametrosGerais
 
 today = date.today()
 
@@ -164,4 +166,61 @@ def contrato_adiciona(request):
     return render(request,template_contrato_novo,dados)
 
 def contrato_gerar_receber(request,id):
-    return contrato_home(request)
+    dados = {}
+    contrato = get_object_or_404(ContratoLocacao,id=id)
+    parametros = ParametrosGerais.objects.all()
+
+    if contrato.inicio_contrato > contrato.termino_contrato:
+        dados['mensagem_erro'] = """
+                            As contas a receber deste contrato não foram geradas pois a data inicial de
+                            vigência do contrato é maior do que a data final, por favor corrija este problema primeiro.
+                            """
+        return render(request, template_contrato_detalhe, dados)
+
+    if not parametros[0].conta_caixa:
+        dados['mensagem_erro'] = """
+                            As contas a receber deste contrato não foram geradas pois não existe uma conta-caixa para
+                            contratos informados no cadastro de parâmetros. Por favor resolva este problema antes de continuar
+                            """
+        return render(request, template_contrato_detalhe, dados)
+
+    num_parcelas = month_between(contrato.inicio_contrato, contrato.termino_contrato) + 1
+
+    funcionario = Funcionario.objects.filter(usuario=request.user)
+
+    if contrato.gerou_receber:
+        titulos = Titulo.objects.filter(contrato_locacao=contrato)
+        titulos.delete()
+
+    gera_parcelas(num_parcelas,contrato.inicio_contrato,contrato.imovel.valor_aluguel,
+                  parametros[0].conta_caixa,contrato.locatario,contrato,funcionario[0].empresa,request.user)
+
+    dados['mens_parcelas'] = """Contas a receber geradas com sucesso: Qtd.: {num_parcelas}, Data da primeira parcela:
+                           {dataini} data da última parcela: {datafim}
+                        """.format(num_parcelas=num_parcelas, dataini=contrato.inicio_contrato.strftime("%d/%m/%y"),
+                                                             datafim=contrato.termino_contrato.strftime("%d/%m/%y"))
+
+    dados['form'] = ContratoLocacaoForm(instance=contrato)
+    contrato.gerou_receber = True
+    contrato.save()
+    dados['contrato'] = contrato
+    return render(request, template_contrato_detalhe, dados)
+
+
+def month_between(d1, d2):
+    #import pdb;pdb.set_trace()
+
+    d1 = datetime.strptime(d1.__str__(), "%Y-%m-%d")
+    d2 = datetime.strptime(d2.__str__(), "%Y-%m-%d")
+    return abs((d2.month - d1.month))
+
+def gera_parcelas(num_parcelas,dataini,valor,conta_caixa,cliente,contrato,empresa,usuario):
+    venc = dataini
+
+    for i in range(0,num_parcelas):
+        titulo = Titulo(descricao='Parcela de locação de imóvel referente ao contrato:{n_cont}'.format(n_cont=contrato.id),
+                        conta_caixa=conta_caixa, empresa=empresa,tipo='R',
+                        vencimento=date(venc.year, venc.month+i,venc.day),
+                        data_cadastro=today, usuario_cadastrou=usuario, cliente=cliente,
+                        valor=valor,contrato_locacao=contrato)
+        titulo.save()

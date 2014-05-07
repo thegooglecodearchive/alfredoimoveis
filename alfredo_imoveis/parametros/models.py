@@ -1,6 +1,7 @@
 # encoding:utf8
 from django.db import models
 from django.contrib.auth.models import User
+from financeiro.models.conta_caixa import ContaCaixa
 
 class ParametrosGerais(models.Model):
     taxa_juros = models.DecimalField(max_digits=3, decimal_places=1)
@@ -10,3 +11,5 @@ class ParametrosGerais(models.Model):
     clausula_contrato_adic = models.TextField('Cláusula de contrato adicional')
     gerente = models.ForeignKey(User, verbose_name="Usuário gerente",
                                 help_text="Informe o usuário gerente da empresa")
+    conta_caixa = models.ForeignKey(ContaCaixa, null=True, blank=True,
+                                    verbose_name='Conta caixa para financeiro de contratos')

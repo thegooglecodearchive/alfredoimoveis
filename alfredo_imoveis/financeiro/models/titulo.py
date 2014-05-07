@@ -6,6 +6,7 @@ from empresas.models import Empresa
 from financeiro.models.conta_caixa import ContaCaixa
 from django.contrib.auth.admin import User
 from clientes.models import Cliente
+from imoveis.models import ContratoLocacao
 
 TIPO_CONTA = (
     ('R', 'RECEITA'),
@@ -26,6 +27,7 @@ class Titulo(models.Model):
                                             null=True, blank=True, default=0)
     deletado = models.NullBooleanField(null=True, blank=True, default=False)
     cliente = models.ForeignKey(Cliente, null=True)
+    contrato_locacao = models.ForeignKey(ContratoLocacao, null=True)
 
     class Meta:
         app_label = 'financeiro'

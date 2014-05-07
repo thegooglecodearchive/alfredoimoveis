@@ -39,6 +39,7 @@ class ContratoLocacao(models.Model):
     fiador3 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador3_contrato')
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
     tipo_contrato = models.CharField(max_length=1, choices=TIPO_CONTRATO, verbose_name='Tipo do contrato')
+    gerou_receber = models.BooleanField(verbose_name='Já gerou contas a receber', default=False, editable=False)
 
     def __unicode__(self):
         return self.imovel.descricao[:15:]+ ' - ' +self.locatario.nome+ ' '+self.inicio_contrato.strftime('%m-%Y')+ '-'+self.termino_contrato.strftime('%m-%Y')
