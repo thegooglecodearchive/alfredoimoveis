@@ -1,1 +1,2 @@
+git pull
 gunicorn_django -b 127.0.0.1:5010 -w9 -p /tmp/gunicorn_alfredo.pid

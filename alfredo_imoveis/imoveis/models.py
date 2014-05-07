@@ -42,4 +42,4 @@ class ContratoLocacao(models.Model):
     gerou_receber = models.BooleanField(verbose_name='Já gerou contas a receber', default=False, editable=False)
 
     def __unicode__(self):
-        return self.imovel.descricao[:15:]+ ' - ' +self.locatario.nome+ ' '+self.inicio_contrato.strftime('%m-%Y')+ '-'+self.termino_contrato.strftime('%m-%Y')
+        return self.imovel.descricao[:15:]+ ' - ' +self.locatario.nome
