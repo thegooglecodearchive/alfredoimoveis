@@ -3,6 +3,12 @@
 
     <div class="col-lg-4">
         <h1>Funcionário</h1>
+        {% if erros %}      	
+        	<div class="alert alert-danger fade in">
+				{{erros}}
+		    </div>
+
+        {% endif %}
         <br/>
         <form action="{% url 'app_funcionario_add' %}" method="POST">
             {% csrf_token %}

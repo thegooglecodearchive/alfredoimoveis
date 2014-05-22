@@ -23,6 +23,7 @@ def adiciona(request):
             return home(request)
         else:
             dados['form'] = form
+            dados['erros'] = form.errors
             return render(request, template_add, dados)
     else:
         dados['form'] = form

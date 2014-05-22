@@ -27,7 +27,7 @@ class Titulo(models.Model):
                                             null=True, blank=True, default=0)
     deletado = models.NullBooleanField(null=True, blank=True, default=False)
     cliente = models.ForeignKey(Cliente, null=True)
-    contrato_locacao = models.ForeignKey(ContratoLocacao, null=True)
+    contrato_locacao = models.ForeignKey(ContratoLocacao, null=True, blank=True)
 
     class Meta:
         app_label = 'financeiro'

@@ -13,11 +13,11 @@ class Funcionario(models.Model):
     telefone = models.CharField('Telefone', max_length=20)
     email = models.EmailField('email', max_length=100)
     cargo = models.CharField('Cargo', max_length=20)
-    endereco = models.ForeignKey(Endereco)
+    endereco = models.ForeignKey(Endereco, verbose_name=u'Endereço')
     empresa = models.ForeignKey(Empresa)
     data_entrada = models.DateField(auto_now=True,auto_now_add=True)
     data_saida = models.DateField(null=True, blank=True)
-    usuario = models.OneToOneField(User)
+    usuario = models.OneToOneField(User, verbose_name=u'Usuário')
 
     def __unicode__(self):
         return self.nome

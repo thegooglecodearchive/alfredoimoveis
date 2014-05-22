@@ -88,13 +88,14 @@ def filtrar(request):
 
     filtra_inativos = request.POST.get('ativo', False)
 
-    imoveis = Imovel.objects.filter(descricao__contains=request.POST['descricao'],
+    imoveis = Imovel.objects.filter(id = request.POST['codigo'],
+                                    descricao__contains=request.POST['descricao'],
                                     data_cadastro__range=[dataini,datafim],
                                     endereco__rua__contains=request.POST['rua'],
                                     endereco__bairro__nome__contains=request.POST['bairro'],
                                     endereco__bairro__cidade__nome__contains=request.POST['cidade'],
                                     proprietario__nome__contains=request.POST['proprietario'],
-                                    ativo=not filtra_inativos)
+                                    ativo= not filtra_inativos)
 
     dados['imoveis'] = imoveis
 

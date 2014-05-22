@@ -5,6 +5,14 @@
 {% endblock %}
 
 {% block conteudo %}
+<script>
+    function deleteConta(id, desc_imovel) {
+        if (confirm("Tem certeza que gostaria de deletar o imóvel: " + desc_imovel)) {
+            document.getElementById(desc_imovel).click();
+        }
+    }
+</script>
+
     <h1>Imóveis</h1>
 
     <br/>
@@ -31,9 +39,9 @@
                 <td>{{imovel.ultima_vistoria}}</td>
                 <td>{{imovel.valor_aluguel}}</td>
                 <td>
-                    <a href="{% url 'app_imoveis_delete' imovel.id %}">
-                        <img src="{{STATIC_URL}}bootstrap/img/del.png"
-                             alt="Del" width="40%" height="100%"/>
+                    <a href="{% url 'app_imoveis_delete' imovel.id %}" id="{{imovel.descricao}}"></a>
+                    <a href="." onclick="deleteConta('{{titulo.id}}', '{{imovel.descricao}}')">
+                        <img src="{{STATIC_URL}}bootstrap/img/del.png" alt="Del" width="40%" height="100%"/>
                     </a>
                 </td>
             </tr>
@@ -45,4 +53,3 @@
         </table>
     </div>
 {% endblock %}
-

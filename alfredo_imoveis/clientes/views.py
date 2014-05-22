@@ -75,6 +75,8 @@ def filtrar(request):
 
     if request.POST['nome']:
         clientes = clientes.filter(nome__contains = request.POST['nome'])
+    if request.POST['codigo']:
+        clientes = clientes.filter(id = request.POST['codigo'])
 
     if request.POST['endereco']:
         if clientes.filter(endereco__rua__contains = request.POST['endereco']):
