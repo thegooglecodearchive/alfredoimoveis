@@ -30,4 +30,3 @@ class Cliente(models.Model):
 
     def __unicode__(self):
         return "Cod: " + str(self.id) + " - " +  self.nome
-

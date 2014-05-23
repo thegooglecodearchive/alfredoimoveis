@@ -5,22 +5,65 @@
 {% endblock %}
 
 {% block conteudo %}
-    <h1>Bem vindo à gestão de clientes e fiadores</h1>
-
-    {% include 'clientes/menu.html' %}
-
+    <h1>Clientes</h1>
     <br/>
     {% include 'clientes/filtroGrid.html' %}
 
     <div class="row">
         {% if clientes %}
-            <ul class="list-group">
-            {% for cliente in clientes %}
-                <a href="{% url 'app_clientes_detalhe' cliente.id %}">
-                    <li class="list-group-item">{{cliente.id}} - {{cliente.nome}}</li>
-                </a>
-            {% endfor %}
-            </ul>
+            <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Clientes
+                        <a href="{% url 'app_clientes_novo' %}">
+                            <input type="button" class="btn btn-sm btn-info" value="Novo">
+                        </a>
+                    </h3>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th>CPF/CNPJ</th>
+                                    <th>Telefone</th>
+                                    <th>E-mail</th>
+                                    <th>Endereço</th>
+                                    <th>Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cliente in clientes %}
+                                    <tr class="odd gradeX">
+                                        <td>{{cliente.id}}</td>
+                                        <td>{{cliente.nome}}</td>
+                                        <td>{{cliente.cnpj_cpf}}</td>
+                                        <td>{{cliente.telefone}}</td>
+                                        <td>{{cliente.email}}</td>
+                                        <td>{{cliente.endereco}}</td>
+                                        <td>
+                                            <a href="{% url 'app_clientes_detalhe' cliente.id %}">
+                                                <img src="{{STATIC_URL}}bootstrap/img/edit.png">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </a>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                    <!-- /.panel -->
+            </div>
+                    <!-- /.col-lg-12 -->
+        </div> <!--Row-->
         {% else %}
             <div class="col-lg-4">
                 <div class="alert alert-dismissable alert-success">
@@ -28,7 +71,7 @@
                     {% if mensagem %}
                         {{mensagem}}
                     {% else %}
-                        Você ainda não possui <strong>clientes</strong> cadastradas :'(
+                        Você ainda não possui <strong>clientes</strong> cadastrados
                     {% endif %}
 
                 </div>

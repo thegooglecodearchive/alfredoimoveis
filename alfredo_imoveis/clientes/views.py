@@ -59,9 +59,6 @@ def detalhe(request,id,mensagem=None):
     dados['cliente'] = cliente
     return render(request, template_detalhe, dados)
 
-def relatorios(request):
-    pass
-
 def delete(request,id):
     cliente = get_object_or_404(Cliente, id=id)
     cliente.ativo = False
@@ -112,5 +109,11 @@ def filtrar(request):
     else:
         return render(request,template_home,dados)
 
+def tabela(request):
+    return render(request,'tabela2.html')    
+
 def relatorio(request):
+    pass    
+
+def relatorios(request):
     pass

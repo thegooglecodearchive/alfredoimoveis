@@ -9,4 +9,5 @@ urlpatterns = patterns('clientes.views',
     url(r'^salvar/(?P<id>\d+)/$', 'salvar', name='app_clientes_salvar'),
     url(r'^filtrar/$', 'filtrar', name='app_clientes_filtrar'),
     url(r'^relatorio/$', 'relatorio', name='app_clientes_relatorio'),
+    url(r'^tabela/$', 'tabela', name='app_clientes_tabela'),
 )

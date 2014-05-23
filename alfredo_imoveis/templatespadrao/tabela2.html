@@ -1,0 +1,57 @@
+{% extends "template_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Tabela 2
+{% endblock %}
+
+{% block conteudo %}
+
+     <h2>Tabela 2</h2>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    DataTables Advanced Tables
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Coluna 1</th>
+                                    <th>Coluna 2</th>
+                                    <th>Coluna 3</th>
+                                    <th>Coluna 4</th>
+                                    <th>Coluna 5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td>Trident 1</td>
+                                    <td>Internet Explorer 4.0</td>
+                                    <td>Win 95+</td>
+                                    <td class="center">4</td>
+                                    <td class="center">X</td>
+                                </tr>
+                                <tr class="even gradeC">
+                                    <td>Trident</td>
+                                    <td>Internet Explorer 5.0</td>
+                                    <td>Win 95+</td>
+                                    <td class="center">5</td>
+                                    <td class="center">C</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+                <!-- /.col-lg-12 -->
+    </div> <!--Row-->
+{% endblock %}
+
