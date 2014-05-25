@@ -31,8 +31,6 @@ class Cliente(models.Model):
     data_nascimento= models.DateField(null = True, blank = True, verbose_name=u'Data de nascimento')
     telefone_fixo = models.CharField(max_length = 11,  null = True,  blank = True, 
                                 verbose_name = 'Telefone Fixo')
-    telefone2 = models.CharField(max_length = 11,  null = True,  blank = False, 
-                                verbose_name = 'Telefone Fixo')
     telefone_comercial = models.CharField(max_length = 11,  null = True,  blank = True, 
                                  verbose_name = 'Telefone Comercial')
     celular = models.CharField(max_length = 11,  null = True,  blank = True, 
