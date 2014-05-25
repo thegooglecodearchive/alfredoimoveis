@@ -1,19 +1,16 @@
-{% extends "template_base.html" %}
-
-{% block titulo %}
-   Alfredo Imóveis - Clientes
-{% endblock %}
+{% extends 'template_base.html'%}
 
 {% block conteudo %}
-    <h1>Contratos de locação</h1>
-    {% include 'contrato_locacao/filtroGrid.html' %}
-    <div class="row">
-        {% if contratos %}
+   <div class="row">
+        {% if object_list %}
             <div class="row">
-            <div class="col-lg-12">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                        <h3>Contratos de locação</h3>
+                    <h3>Cidades
+                    <a href="{% url 'app_enderecos_cidade_add' %}">
+                          <input type="button" class="btn btn-sm btn-info" value="Novo" >
+                    </a>
                     </h3>
                 </div>
                 <!-- /.panel-heading -->
@@ -23,25 +20,19 @@
                             <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Imóvel</th>
-                                    <th>Início do contrato</th>
-                                    <th>Término do contrato</th>
-                                    <th>Locatário</th>
-                                    <th>Valor</th>
+                                    <th>Nome</th>
+                                    <th>UF</th>
                                     <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for contrato in contratos %}
+                                {% for cidade in object_list %}
                                     <tr class="odd gradeX">
-                                        <td>{{contrato.id}}</td>
-                                        <td>{{contrato.imovel}}</td>
-                                        <td>{{contrato.inicio_contrato}}</td>
-                                        <td>{{contrato.termino_contrato}}</td>
-                                        <td>{{contrato.locatario}}</td>
-                                        <td>{{contrato.imovel.valor_aluguel}}</td>
+                                        <td>{{cidade.id}}</td>
+                                        <td>{{cidade.nome}}</td>
+                                        <td>{{cidade.uf}}</td>
                                         <td>
-                                            <a href="{% url 'app_imoveis_contrato_detalhe' contrato.id %}">
+                                            <a href="{% url 'app_enderecos_cidade_update' cidade.id%}">
                                                 <img src="{{STATIC_URL}}bootstrap/img/edit.png">
                                             </a>
                                         </td>
@@ -61,17 +52,25 @@
         </div> <!--Row-->
         {% else %}
             <div class="col-lg-4">
+                <h3>Cidades
+                    <br>
+                    <br>
+                    <a href="{% url 'app_enderecos_cidade_add' %}">
+                          <input type="button" class="btn btn-sm btn-info" value="Nova cidade" >
+                    </a>
+                    <br>
+                    <br>
                 <div class="alert alert-dismissable alert-success">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     {% if mensagem %}
                         {{mensagem}}
                     {% else %}
-                        Você ainda não possui <strong>contratos</strong> cadastrados
+                        Você ainda não possui <strong>cidades</strong> cadastradas
                     {% endif %}
 
                 </div>
             </div>
         {% endif %}
-    </div>    
-{% endblock %}
+    </div>
 
+{% endblock %}

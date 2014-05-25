@@ -8,6 +8,8 @@
             {% csrf_token %}
             {{form|bootstrap}}
             <input type="submit" class="btn btn-info" value="Salvar">
+            <a type="button" href="{% url 'app_enderecos_bairro_delete' bairro.id %}" 
+                 class="btn btn-danger">Deletar</a>
         </form>
     </div>
 </div>

@@ -1,0 +1,150 @@
+{% load bootstrap %}
+
+<div class="row">
+	<div class="col-sm-12">
+		{{form.nome|bootstrap}}
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		{{ form.cnpj_cpf|bootstrap}}
+		{{ form.data_nascimento|bootstrap}}            
+	</div>
+	<div class="col-sm-4">
+		{{ form.rg|bootstrap }}
+		{{ form.estado_civil|bootstrap }}
+	</div>
+	<div class="col-sm-4">
+		{{ form.orgao_expeditor|bootstrap }}
+		{{ form.conjuge|bootstrap }}
+
+	</div>	
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		{{ form.nome_mae|bootstrap}}            
+	</div>
+	<div class="col-sm-6">
+		{{ form.nome_pai|bootstrap}}            
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		{{ form.nacionalidade|bootstrap}}            
+	</div>
+	<div class="col-sm-6">
+		{{ form.naturalidade|bootstrap}}            
+	</div>
+</div>
+
+{# Endereços #}
+<div class="row">
+    <div class="col-sm-8">  
+    <br>
+        <abbr title="Informações sobre endereços do cliente">Endereço pessoal</abbr>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">  
+        {{formEndereco.rua|bootstrap}}
+    </div>
+        <div class="col-sm-4">
+    	  {{formEndereco.complemento|bootstrap}}
+        </div> 
+     </div>
+ <div class="row"> 
+    <div class="col-sm-2">  
+        {{formEndereco.numero|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.bairro|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.cep|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+      <br>
+      <abbr title="Informações sobre endereços do cliente">Endereço comercial</abbr>
+      <hr>
+		{{form.empresa_trabalha|bootstrap}}
+	</div>
+</div>
+<div class="row">
+    <div class="col-sm-8">  
+        {{formEndereco.rua_comercial|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{formEndereco.complemento_comercial|bootstrap}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">  
+        {{formEndereco.numero_comercial|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.bairro_comercial|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.cep_comercial|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<br>
+	        	<abbr title="Informações sobre os contatos do cliente">Contatos</abbr>
+	        	<hr>
+        	</div>
+	<div class="col-sm-4">
+		{{form.telefone_fixo|bootstrap}}
+		{{form.telefone_comercial|bootstrap}}
+	</div>
+	<div class="col-sm-4">
+		{{form.celular|bootstrap}}
+		{{form.celular_2|bootstrap}}
+	</div>
+	<div class="col-sm-4">
+		{{form.tipo_cliente|bootstrap}}
+		{{form.email|bootstrap}}
+		{{form.renda|bootstrap}}
+	</div>
+</div>
+
+{# Endereço comercia #}
+<div class="row">
+    <div class="col-sm-12">  
+        <br>
+        <abbr title="Informações sobre uma possível sociedade em uma empresa">Informações sobre sociedade</abbr>
+        <hr>
+        {{form.socio_empresa|bootstrap}}
+        {{form.empresa_socio|bootstrap}}
+    </div>
+    <div class="col-sm-12">  
+        {{form.end_empresa_socio|bootstrap}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">  
+        <br>
+        <abbr title="Informações sobre bancárias e comerciais dos clientes">Referências</abbr>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">  
+        {{form.referencias_bancarias|bootstrap}}
+    </div>
+    <div class="col-sm-6">  
+       {{form.referencias_comerciais|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">  
+        {{form.observacoes|bootstrap}}
+    </div>
+</div>

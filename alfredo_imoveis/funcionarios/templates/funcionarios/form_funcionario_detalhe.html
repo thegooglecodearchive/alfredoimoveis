@@ -6,7 +6,7 @@
         <br/>
         <form action="{% url 'app_funcionario_update' funcionario.id %}" method="POST">
             {% csrf_token %}
-            {{form|bootstrap}}
+            {% include 'funcionarios/campos_form_funcionario.html' %}
             <input type="submit" class="btn btn-info" value="Salvar">
         </form>
     </div>

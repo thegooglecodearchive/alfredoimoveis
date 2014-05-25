@@ -1,0 +1,94 @@
+{% load bootstrap %}
+
+<div class="row">
+    <div class="col-sm-12">  
+        {{form.nome|bootstrap}}
+    </div>
+</div>
+<div class="row">
+   <div class="col-sm-4">  
+        {{form.rg|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.cpf|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.pis|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+   <div class="col-sm-4">  
+        {{form.telefone|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.email|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.cargo|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">  
+        {{form.empresa|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.usuario|bootstrap}}
+    </div>
+</div>
+
+{# Endereços #}
+<div class="row">
+      <div class="col-sm-12">
+      <br>
+        <abbr title="Informações sobre endereços do funcionário">Endereço pessoal</abbr>
+        <hr>
+        </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">  
+        {{formEndereco.rua|bootstrap}}
+    </div>
+    <div class="col-sm-4">
+    	  {{formEndereco.complemento|bootstrap}}
+    </div> 
+ </div>
+ <div class="row"> 
+    <div class="col-sm-2">  
+        {{formEndereco.numero|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.bairro|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.cep|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+	      <br>
+	      <abbr title="Informações sobre endereços do funcionário">Endereço comercial</abbr>
+	      <hr>
+	</div>
+</div>
+<div class="row">
+    <div class="col-sm-8">  
+        {{formEndereco.rua_comercial|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{formEndereco.complemento_comercial|bootstrap}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">  
+        {{formEndereco.numero_comercial|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.bairro_comercial|bootstrap}}
+    </div>
+    <div class="col-sm-5">  
+        {{formEndereco.cep_comercial|bootstrap}}
+    </div>
+</div>

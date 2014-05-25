@@ -8,6 +8,7 @@ from datetime import datetime, date
 from imoveis.models import ContratoLocacao
 from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
+from clientes.models import Cliente
 
 today = date.today()
 
@@ -225,3 +226,11 @@ def gera_parcelas(num_parcelas,dataini,valor,conta_caixa,cliente,contrato,empres
                         data_cadastro=today, usuario_cadastrou=usuario, cliente=cliente,
                         valor=valor,contrato_locacao=contrato)
         titulo.save()
+
+def adiciona_imovel_para_usuario(request, id_cliente):
+    dados = {}
+    cliente = Cliente.objects.get(id=id_cliente)
+    imovel = Imovel(proprietario=cliente)
+    dados['form'] = ImovelForm(instance=imovel)
+    dados['formEndereco'] = EnderecoForm()
+    return render(request,template_novo,dados)

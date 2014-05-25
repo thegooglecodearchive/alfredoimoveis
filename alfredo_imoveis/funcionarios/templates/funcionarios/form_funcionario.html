@@ -1,8 +1,7 @@
-{% load bootstrap %}
 <div class="row">
 
     <div class="col-lg-4">
-        <h1>Criar/aditar funcionários</h1>
+        <h1>Criar/editar funcionários</h1>
         {% if erros %}      	
         	<div class="alert alert-danger fade in">
 				{{erros}}
@@ -12,7 +11,7 @@
         <br/>
         <form action="{% url 'app_funcionario_add' %}" method="POST">
             {% csrf_token %}
-            {{form|bootstrap}}
+            {% include 'funcionarios/campos_form_funcionario.html' %}
             <input type="submit" class="btn btn-info" value="Salvar">
         </form>
     </div>

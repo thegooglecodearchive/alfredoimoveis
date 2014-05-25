@@ -5,6 +5,8 @@ from forms import ClienteForm
 from enderecos.models import Endereco
 from enderecos.forms import EnderecoForm
 from datetime import datetime, date
+from imoveis.models import Imovel
+from funcionarios.models import Funcionario
 
 today = date.today()
 
@@ -30,7 +32,7 @@ def salvar(request, id=None):
 
     form = ClienteForm(request.POST or None)
     formEndereco = EnderecoForm(request.POST or None)
-
+    
     if form.is_valid() and formEndereco.is_valid():
         cliente = form.save(commit=False)
 
@@ -39,14 +41,17 @@ def salvar(request, id=None):
             cliente.data_cadastro = Cliente.objects.get(id=id).data_cadastro
 
         cliente.endereco = formEndereco.save()
-
+        
+        empresa = Funcionario.objects.get(usuario=request.user).empresa
+        cliente.empresa = empresa
+        cliente.ativo = True
         cliente.save()
         mensagem = 'Cliente salvo com sucesso!'
         return detalhe(request, cliente.id, mensagem)
     else:
         dados['form'] = form
         dados['formEndereco'] = formEndereco
-        dados['erros'] = 'Erros nas informações foram encontrados!'
+        dados['erros'] = form.errors 
         return render(request, template_novo, dados)
 
 def detalhe(request,id,mensagem=None):
@@ -54,9 +59,10 @@ def detalhe(request,id,mensagem=None):
     dados['mensagem'] = mensagem
     cliente = get_object_or_404(Cliente, id=id)
     form = ClienteForm(instance=cliente)
-    dados['formEndereco'] = EnderecoForm(instance=cliente.endereco)
     dados['form'] = form
+    dados['formEndereco'] = EnderecoForm(instance=cliente.endereco)
     dados['cliente'] = cliente
+    dados['imoveis'] = Imovel.objects.filter(proprietario=cliente)
     return render(request, template_detalhe, dados)
 
 def delete(request,id):

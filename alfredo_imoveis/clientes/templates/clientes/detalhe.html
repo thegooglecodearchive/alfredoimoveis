@@ -21,21 +21,79 @@
     </div>
     {% endif%}
 
-    <div class="row">
-        <div class="panel-body">
-            <form method="POST" class="navbar-form navbar-left" role="search"
-                  action="{% url 'app_clientes_salvar' cliente.id %}">
-                {% csrf_token %}
-                {{form|bootstrap}}
-                <br/>
-                {% include 'enderecos/endereco.html' %}
-                <br/>
-                <button type="submit" class="btn btn-info">Gravar</button>
-                {% include 'clientes/modalExcluiCliente.html' %}
-                Data do cadastro: {{cliente.data_cadastro}}
+    
+    <form method="POST"
+          action="{% url 'app_clientes_salvar' cliente.id %}">
+        {% csrf_token %}
+        {% include 'clientes/form_cliente.html' %}
+        <br/>
+        <button type="submit" class="btn btn-info">Gravar</button>
+        {% include 'clientes/modalExcluiCliente.html' %}
+        Data do cadastro: {{cliente.data_cadastro}}
+    </form>
 
-            </form>
+   <div class="row">
+        {% if imoveis %}
+            <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                        <h3>Imóveis
+                            <a class="btn btn-success" type="button" href="{% url 'app_imoveis_add_imovel_usuario' cliente.id %}">Novo imóvel</a>   
+                        </h3>
+                    </h3>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Proprietário</th>
+                                    <th>Última vistoria</th>
+                                    <th>Valor do aluguel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for imovel in imoveis %}
+                                    <tr class="odd gradeX">
+                                        <td>{{imovel.descricao}}</td>
+                                        <td>{{imovel.proprietario}}</td>
+                                        <td>{{imovel.ultima_vistoria}}</td>
+                                        <td>{{imovel.valor_aluguel}}</td>
+                                        <td>
+                                            <a href="{% url 'app_imoveis_detalhe' imovel.id %}">
+                                                <img src="{{STATIC_URL}}bootstrap/img/edit.png">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </a>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                    <!-- /.panel -->
+            </div>
+                    <!-- /.col-lg-12 -->
+        </div> <!--Row-->
+{% else %}
+    <div class="col-lg-4">
+        <div class="alert alert-dismissable alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {% if mensagem %}
+                {{mensagem}}
+            {% else %}
+                Você ainda não possui <strong>imóveis</strong> cadastrados
+            {% endif %}
+
         </div>
     </div>
+{% endif %}
+    </div>        
 {% endblock %}
-

@@ -8,6 +8,7 @@ urlpatterns = patterns('imoveis.views',
     url(r'^salvar/(?P<id>\d+)/$', 'salvar', name='app_imoveis_salvar'),
     url(r'^delete/(?P<id>\d+)/$', 'delete', name='app_imoveis_delete'),
     url(r'^ficha/(?P<id>\d+)/$', 'ficha', name='app_imoveis_ficha'),
+    url(r'^adiciona_imovel_para_usuario/(?P<id_cliente>\d+)/$', 'adiciona_imovel_para_usuario', name='app_imoveis_add_imovel_usuario'),
 
     url(r'^contrato_home/$', 'contrato_home', name='app_imoveis_contrato_home'),
     url(r'^contrato_adicionar/$', 'contrato_adiciona', name='app_imoveis_contrato_add'),

@@ -1,37 +1,80 @@
 {% extends 'template_base.html'%}
 
 {% block conteudo %}
+   <div class="row">
+        {% if lista_bairros %}
+        <div class="row">
+            <div class="alert alert-info fade in">
+                {{mensagem}}    
+            </div>
+    </div>
+            <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Bairros</h3>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th>Cidade</th>
+                                    <th>UF</th>
+                                    <th>Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for bairro in lista_bairros %}
+                                    <tr class="odd gradeX">
+                                        <td>{{bairro.id}}</td>
+                                        <td>{{bairro.nome}}</td>
+                                        <td>{{bairro.cidade.nome}}</td>
+                                        <td>{{bairro.cidade.ur}}</td>
+                                        <td>
+                                            <a href="{% url 'app_enderecos_bairro_detalhe' bairro.id %}">
+                                                <img src="{{STATIC_URL}}bootstrap/img/edit.png">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </a>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                    <!-- /.panel -->
+            </div>
+                    <!-- /.col-lg-12 -->
+        </div> <!--Row-->
+        {% else %}
+            <div class="col-lg-4">
+                <h3>Bairros</h3>
+                <br>
+                <a href="{% url 'app_enderecos_bairro_add' %}" 
+                      type="button" 
+                      class="btn btn-sm btn-info">Novo bairro
+                </a>
+                <br>
+                <br>
 
-        <table class="table">
-            <tr>
-                <td>Código</td>
-                <td>Nome</td>
-                <td>Cidade</td>
-                <td>Estado</td>
-                <td>Deletar</td>
-            </tr>
+                <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {% if mensagem %}
+                        {{mensagem}}
+                    {% else %}
+                        Você ainda não possui <strong>Bairros</strong> cadastrados
+                    {% endif %}
 
-        {% for bairro in lista_bairros %}
-            <tr>
-                <td>
-                    <a href="{% url 'app_enderecos_bairro_detalhe' bairro.id %}">
-                        {{bairro.id}}
-                    </a>
-                </td>
-                <td>{{bairro.nome}}</td>
-                <td>{{bairro.cidade.nome}}</td>
-                <td>{{bairro.cidade.uf}}</td>
-                <td>
-                    <a href="{% url 'app_enderecos_bairro_delete' bairro.id %}">
-                        <img src="{{STATIC_URL}}bootstrap/img/del.png"
-                             alt="Del" width="20%" height="70%"/>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-            <a href="{% url 'app_enderecos_bairro_add' %}">
-                <input type="button" class="btn btn-info" value="Novo"/>
-            </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 
-        </table>
 {% endblock %}
