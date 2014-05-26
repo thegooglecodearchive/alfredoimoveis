@@ -17,6 +17,16 @@ urlpatterns = patterns('imoveis.views',
     url(r'^contrato_salvar/(?P<id>\d+)/$', 'contrato_salvar', name='app_imoveis_contrato_salvar'),
     url(r'^contrato_imprimir/(?P<id>\d+)/$', 'contrato_imprimir', name='app_imoveis_contrato_imprimir'),
     url(r'^contrato_gerar_receber/(?P<id>\d+)/$', 'contrato_gerar_receber', name='app_imoveis_contrato_gerar_receber'),
+    
+
+    url(r'^contrato_administrativo_home/$', 'contrato_administrativo_list', name='app_imoveis_contrato_administrativo_home'),
+    url(r'^contrato_administrativo_adiciona/$', 'contrato_administrativo_create', name='app_imoveis_contrato_administrativo_add'),
+    url(r'^contrato_administrativo_editar/(?P<pk>\d+)$', 'contrato_administrativo_update', name='app_imoveis_contrato_administrativo_update'),
+    url(r'^contrato_administrativo_delete/(?P<pk>\d+)$', 'contrato_administrativo_delete', name='app_imoveis_contrato_administrativo_delete'),
+    
+    url(r'^contrato_administrativo_gerar/(?P<pk>\d+)$', 'contrato_administrativo_gerar', name='app_imoveis_contrato_administrativo_gerar'),
+
+
 )
 
 

@@ -21,18 +21,11 @@
     </div>
     {% endif%}
 
-    <div class="row">
-        <div class="panel-body">
-            <form method="POST" class="navbar-form navbar-left" role="search"
-                  action="{% url 'app_imoveis_salvar' 0 %}">
-                {% csrf_token %}
-                {{form|bootstrap}}
-                {% include 'enderecos/endereco.html' %}
-                <br/>
-                <br/>
-                <button type="submit" class="btn btn-info">Gravar</button>
-            </form>
-        </div>
-    </div>
+    <form method="POST" action="{% url 'app_imoveis_salvar' 0 %}">
+        {% csrf_token %}
+        {% include 'imoveis/form_imovel.html' %}
+        <button type="submit" class="btn btn-info">Gravar</button>
+    </form>
+    
 {% endblock %}
 

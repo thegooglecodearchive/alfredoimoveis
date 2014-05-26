@@ -43,3 +43,16 @@ class ContratoLocacao(models.Model):
 
     def __unicode__(self):
         return self.imovel.descricao[:15:]+ ' - ' +self.locatario.nome
+
+class ContratoAdministrativo(models.Model):
+    imovel = models.OneToOneField(Imovel)
+    inicio_contrato = models.DateField(u'Data do início do contrato')
+    termino_contrato = models.DateField(u'Data do término do contrato') 
+    data_emissao_contrato = models.DateField(u'Data da emissão do contato', auto_now=True, auto_now_add=True) 
+    empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
+    
+    def __unicode__(self):
+        return str(self.imovel.descricao) + u' - Início: '+  unicode(self.inicio_contrato) + u' - Término:' + unicode(self.termino_contrato)
+
+    def get_absolute_url(self):
+        return reverse('app_imoveis_contrato_administrativo_home', kwargs={'pk': self.pk})

@@ -13,9 +13,21 @@
         <div class="navbar-collapse collapse">
           {% if user.is_authenticated %}
             <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'app_clientes_home' %}">Clientes</a></li>
-            <li class="active"><a href="{% url 'app_parametros_home' %}">Parâmetros</a></li>
-
+            
+            <li class="dropdown">
+              <a href="{% url 'app_financeiro_home' %}" class="dropdown-toggle" data-toggle="dropdown">
+                  Cadastros <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a href="{% url 'app_enderecos_bairro_home' %}">Bairros</a></li>
+                    <li><a href="{% url 'app_clientes_home' %}">Clientes</a></li>
+                    <li><a href="{% url 'app_enderecos_cidade_home' %}">Cidade</a></li>
+                    <li><a href="{% url 'app_funcionarios_home' %}">Funcionários</a></li>
+                    <li><a href="{% url 'app_imoveis_add' %}">Imóveis</a></li>
+                    <li><a href="{% url 'app_parametros_home' %}">Parâmetros</a></li>
+              </ul>
+            </li>
+            
             <li class="dropdown">
               <a href="{% url 'app_financeiro_home' %}" class="dropdown-toggle" data-toggle="dropdown">
                   Financiero <b class="caret"></b>
@@ -27,20 +39,23 @@
               </ul>
             </li>
 
+
+
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Outros <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Contratos <b class="caret"></b>
+              </a>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'app_enderecos_bairro_home' %}">Bairros</a></li>
-                <li><a href="{% url 'app_enderecos_cidade_home' %}">Cidade</a></li>
-                <li><a href="{% url 'app_funcionarios_home' %}">Funcionários</a></li>
+                <li><a href="{% url 'app_imoveis_contrato_home' %}">Contratos de locação</a></li>
+                <li><a href="{% url 'app_imoveis_contrato_administrativo_home' %}">Contratos  administrativos</a></li>
               </ul>
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Imóveis<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Relatórios <b class="caret"></b>
+              </a>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'app_imoveis_home' %}">Imóveis</a></li>
-                <li><a href="{% url 'app_imoveis_contrato_home' %}">Contratos</a></li>
               </ul>
             </li>
 

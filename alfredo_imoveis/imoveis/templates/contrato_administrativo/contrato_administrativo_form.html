@@ -1,11 +1,11 @@
 {% extends "template_base.html" %}
-{% load bootstrap %}
 {% block titulo %}
    Alfredo imóveis - Clientes
 {% endblock %}
 
 {% block conteudo %}
-    <h1>Edição de imóvel</h1>
+    <h1>Geração de contratos administrativos</h1>
+
     {% if mensagem %}
         <br/>
         <div class="alert alert-info fade in">
@@ -19,17 +19,15 @@
         {{erros}}
     </div>
     {% endif%}
-    <form method="POST"
-          action="{% url 'app_imoveis_salvar' imovel.id %}">
+
+    <form method="POST" action="{% url 'app_imoveis_contrato_administrativo_add' %}">
         {% csrf_token %}
-        {% include 'imoveis/form_imovel.html' %}
+        {% include 'contrato_administrativo/contrato_administrativo_campos.html' %}
+        <br/>
         <br/>
         <button type="submit" class="btn btn-info">Gravar</button>
-        {% include 'imoveis/modalExcluiImovel.html' %}
-        <a href="{% url 'app_imoveis_ficha' imovel.id %}">
-            <button type="button" class="btn btn-main">Imprimir ficha do imóvel</button>
-        </a>
-        Data do cadastro: {{imovel.data_cadastro}}
+        
     </form>
+        
 {% endblock %}
 

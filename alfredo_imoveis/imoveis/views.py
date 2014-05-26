@@ -1,11 +1,11 @@
 # encoding: utf-8
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from imoveis.models import Imovel
 from enderecos.forms import EnderecoForm
-from forms import ImovelForm, ContratoLocacaoForm
+from forms import ImovelForm, ContratoLocacaoForm, ContratoAdministrativoForm
 from funcionarios.models import Funcionario
 from datetime import datetime, date
-from imoveis.models import ContratoLocacao
+from imoveis.models import ContratoLocacao, ContratoAdministrativo
 from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
@@ -66,7 +66,7 @@ def salvar(request,id):
     else:
         dados['form'] = form
         dados['formEndereco'] = formEndereco
-        dados['erros'] = 'Erros nas informações foram encontrados!'
+        dados['erros'] = form.errors
         return render(request, template_novo, dados)
 
 
@@ -234,3 +234,40 @@ def adiciona_imovel_para_usuario(request, id_cliente):
     dados['form'] = ImovelForm(instance=imovel)
     dados['formEndereco'] = EnderecoForm()
     return render(request,template_novo,dados)
+
+# Contratos administrativos
+
+def contrato_administrativo_list(request, template_name='contrato_administrativo/contrato_administrativo_list.html'):
+    contratos = ContratoAdministrativo.objects.all()
+    data = {}
+    data['object_list'] = contratos
+    return render(request, template_name, data)
+
+def contrato_administrativo_create(request, template_name='contrato_administrativo/contrato_administrativo_form.html'):
+    form = ContratoAdministrativoForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('app_imoveis_contrato_administrativo_home')
+    return render(request, template_name, {'form':form})
+
+def contrato_administrativo_update(request, pk, template_name='contrato_administrativo/contrato_administrativo_form_update.html'):
+    contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
+    form = ContratoAdministrativoForm(request.POST or None, instance=contrato)
+    if form.is_valid():
+        form.save()
+        return redirect('app_imoveis_contrato_administrativo_home')
+    return render(request, template_name, {'form':form, 'object':contrato})
+
+def contrato_administrativo_delete(request, pk, template_name='contrato_administrativo/contrato_administrativo_confirm_delete.html'):
+    contrato = get_object_or_404(ContratoAdministrativo, pk=pk)    
+    if request.method=='POST':
+        contrato.delete()
+        return redirect('app_imoveis_contrato_administrativo_home')
+    return render(request, template_name, {'object':contrato})    
+
+def contrato_administrativo_gerar(request,pk):
+    dados = {}
+    contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
+    dados['contrato'] = contrato
+    dados['data'] = today
+    return render(request, 'contrato_administrativo/imprimir_cintrato.html', dados)

@@ -1,0 +1,36 @@
+{% extends "template_base.html" %}
+{% block titulo %}
+   Alfredo imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+    <h1>Geração de contratos administrativos</h1>
+
+    {% if mensagem %}
+        <br/>
+        <div class="alert alert-info fade in">
+            {{mensagem}}
+        </div>
+    {% endif%}
+
+    {% if erros %}
+    <br/>
+    <div class="alert alert-danger fade in">
+        {{erros}}
+    </div>
+    {% endif%}
+
+    <form method="POST" action="{% url 'app_imoveis_contrato_administrativo_update' object.id %}">
+        {% csrf_token %}
+        {% include 'contrato_administrativo/contrato_administrativo_campos.html' %}
+        <br/>
+        <br/>
+        <button type="submit" class="btn btn-info">Salvar alterações</button>
+        <a href="{% url 'app_imoveis_contrato_administrativo_delete' object.id %}" 
+        class="btn btn-danger">Deletar</a>
+        <a href="{% url 'app_imoveis_contrato_administrativo_gerar' object.id %}" 
+        class="btn btn-success">Imprimir contato administrativo</a>
+    </form>
+        
+{% endblock %}
+

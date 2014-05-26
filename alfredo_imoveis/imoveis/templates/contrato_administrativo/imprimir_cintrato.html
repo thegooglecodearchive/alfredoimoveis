@@ -1,0 +1,139 @@
+{% extends "template_relatorio_base.html" %}
+{% block conteudo %}
+<div class="containe">
+
+<p>
+ALFREDO IMÓVEIS E EMPREENDIMENTOS LTDA<br>
+R: TIRADENTES, Nº. 137 – CENTRO – MONTES CLAROS – MG 39400-076<br>
+CNPJ: 41.685.892/0001-99 – CRECI – PJ. 2.285<br>
+TELEFAX: 3221-1084<br>
+</p>
+
+<h3 align="center">CONTRATO DE ADMINISTRAÇÃO DE IMÓVEL</h3>
+
+<p align="justify">
+Pelo presente contrato particular de administração de imóveis, primeiro contratante, aqui 
+chamado simplesmente de PROPRIETÁRIO(A) o Sr.(a) {{contrato.imovel.proprietario.nome}}, {{contrato.imovel.proprietario.estado_civil}}, {{contrato.imovel.proprietario.profissao}}, CPF:{{contrato.imovel.proprietario.cnpj_cpf}}, 
+RG: {{contrato.imovel.proprietario.rg}}, residente a RUA {{contrato.imovel.proprietario.endereco.rua}}, nº {{contrato.imovel.proprietario.endereco.numero}} {{contrato.imovel.proprietario.endereco.bairro.nome}}, {{contrato.imovel.proprietario.endereco.bairro.cidade.nome}}, {{contrato.imovel.proprietario.endereco.bairro.cidade.uf}}, como segunda 
+contratante aqui chamada simplesmente administradora a firma ALFREDO IMÓVEIS E 
+EMPREENDIMENTOS LTDA, com sede nesta cidade de Montes Claros à RUA TIRADENTES, Nº. 
+137 – CENTRO, ajustam e contratam o seguinte:	
+<br>
+<br>
+CLÁUSULA PRIMEIRA - O PROPRIETÁRIO(A) diz-se senhor e possuidor do imóvel cujas 
+características são as seguintes: Endereço RUA {{contrato.imovel.endereco.rua}}, Nº {{contrato.imovel.endereco.numero}} {{contrato.imovel.endereco.bairro.nome}}, {{contrato.imovel.proprietario.endereco.bairro.cidade.nome}}
+{{contrato.imovel.proprietario.endereco.bairro.cidade.ur}}, composto de: {{contrato.imovel.descricao}}, conforme termo de vistoria.
+<br>
+<br>
+CLÁUSULA SEGUNDA – As condições de administração são: a) Aluguel inicial mínimo de RS {{contrato.imovel.valor_aluguel}}. 
+B)Taxa de condomínio, água, luz, telefone por conta do locatário. C)A administrada anunciará 
+o imóvel por sua conta e escolhera livremente o inquilino e fiadores.
+<br>
+<br>
+CLÁUSULA TERCEIRA – A título de remuneração pelos serviços prestados a ADMINISTRADORA 
+fica autorizada, a debitar na conta corrente do PROPRIETÁRIO(A) COMISSÃO MENSAL DE 10,00 
+(dez por cento) sobre o valor do recebimento da locação.
+<br>
+<br>
+CLÁUSULA QUARTA – O saldo credor deverá ser depositado a favor de:
+{{contrato.imovel.proprietario.referencias_bancarias}}
+<br>
+<br>
+CLÁUSULA QUINTA – O(a) PROPRIETÁRIO(A) neste ato é representado por si próprio.
+<br>
+<br>
+CLÁUSULA SEXTA – A firma ALFREDO IMÓVEIS E EMPREENDIMENTOS LTDA, manterá um 
+departamento jurídico para prestação de assistência jurídica ao PROPRIETÁRIO(A), no 
+que tange a administração do seu imóvel. No caso em que a firma administradora, como 
+mandatária, tenha de promover, em juízo qualquer ação ou medida preventiva preparatória 
+ou incidente, cabe-lhe por direito no recebimento dos honorários que for condenado o 
+<br>
+<br>
+PARÁGRAFO ÚNICO: Quaisquer procedimentos judiciais que importem em autorização e 
+despesas para o(a) PROPRIETÁRIO(A), ser-lhe-ao comunicados com antecedência, visto a sua 
+absoluta imprescindibilidade.
+<br>
+<br>
+CLÁUSULA SÉTIMA – Na hipótese do(a) PROPRIETÁRIO(A) pedir a rescisão do presente 
+contrato ou revogar a procuração dada sem justa causa, pagará a comissão até o 
+término da locação, assim como qualquer débito do imóvel que tenha sido custeado pela 
+<br>
+<br>
+ADMINISTRADORA, devidamente comprovada.
+<br>
+<br>
+CLÁUSULA OITAVA – O presente contrato vigorará pelo prazo de 30 meses, se 
+automaticamente prorrogado por igual período, caso não haja denúncia com antecedência 
+mínima de 30 (trinta) dias, por uma das partes. Friza-se no entanto que, ao término do prazo 
+do contrato de locação celebrado entre a administradora e o inquilino, caso o proprietário 
+queira administrar pessoalmente o imóvel, solicitando da administradora a entrega do mesmo, 
+e caso continue no imóvel o inquilino indicado pela ALFREDO IMÓVEIS E EMPREENDIMENTOS 
+LTDA. O proprietário só poderá rescindir o contrato caso pague a administradora a comissão 
+equivalente a 30 meses de aluguel, tomando por base o aluguel vigente na época.
+<br>
+<br>
+CLÁUSULA NONA – Fica a ADMINISTRADORA autorizada a promover quaisquer reparos de 
+estrutura que sejam imprescindíveis para a locação do imóvel ou para a permanência do 
+locatário, comprovada a sua necessidade, com aprovação do valor das referidas despesas pelo 
+<br>
+<br>
+CLÁUSULA DÉCIMA – Caso o LOCATÁRIO interrompa o pagamento dos aluguéis em 
+decorrências de avarias graves no imóvel e o PROPRIETÁRIO ciente do fato, não tomar as 
+providências cabíveis, ficará a ADMINISTRADORA isenta de responsabilidade.
+<br>
+<br>
+CLÁUSULA DÉCIMA PRIMEIRA – Quaisquer acordo entre LOCADOR e LOCATÁRIO só poderão 
+ser feitos mediante prévio e escrito consentimento da ADMINISTRADORA.
+<br>
+<br>
+CLÁUSULA DÉCIMA SEGUNDA – Todas as multas, juros e demais cominações recebidas 
+do LOCATÁRIO, amigável ou judicialmente, por infração contratual de qualquer natureza 
+será dividida na proporção de 50% para o proprietário do imóvel e, os outros 50% para a 
+administradora, a título de remuneração extra e atendimentos das despesas decorrentes a 
+cobrança amigável ou judicial através de seu departamento jurídico, ficando a administradora 
+com autonomia de cobrar ou não ditas parcelas.
+<br>
+<br>
+CLÁUSULA DÉCIMA TERCEIRA – DA RESPONSABILIDADE DA ADMINISTRADORA. Nenhuma 
+responsabilidade direta ou indireta, será atribuída a administradora pelos danos, estragos
+ou avarias acaso verificados no imóvel durante o período da locação que ajustar como 
+administradora e mandatário, ou mesmo no período e pelo tempo em que estiver o imóvel 
+desocupado na vigência do mandato administrativo.
+<br>
+<br>
+CLÁUSULA DÉCIMA QUARTA – A prestação de serviços ora contratada, não implica em 
+administração de condomínio mas, única e exclusivamente a locação do imóvel.
+<br>
+<br>
+CLÁUSULA DÉCIMA QUINTA – CLÁUSULAS ADICIONAIS
+<br>
+<br>
+CLÁUSULA DÉCIMA SEXTA – Para dirimir quaisquer dúvidas sobre o presente contrato, fica 
+eleito o foro da cidade de Montes Claros (MG), renunciando-se a qualquer outro, por mais 
+privilegiados que seja.
+E, por estarem de pleno acordo com as cláusulas acima estipuladas, assinam o presente 
+juntamente com duas testemunhas.
+</p>
+
+<br>
+<br>
+<p align="right"> MONTES CLAROS, {{data}}</p>
+<p>
+	__________________________________________________<br>
+	Proprietário<br>
+
+	__________________________________________________<br>
+	Proprietário<br>
+
+
+	__________________________________________________<br>
+	1ª Testemunha<br>
+
+	__________________________________________________<br>
+	2ª Testemunha<br><br><br>
+
+	__________________________________________________<br>
+	Alfredo Imóveis<br>
+</p>
+</div>
+{% endblock %}

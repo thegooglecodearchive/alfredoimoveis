@@ -1,0 +1,39 @@
+{% load bootstrap %}
+<div class="row">
+	<div class="col-sm-12">
+		{{form.descricao|bootstrap}}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4">
+		{{form.proprietario|bootstrap}}
+		{{form.empresa|bootstrap}}
+	</div>
+	<div class="col-sm-4">
+		{{form.valor_iptu|bootstrap}}
+		{{form.ativo|bootstrap}}
+	</div>
+	<div class="col-sm-4">
+		{{form.valor_aluguel|bootstrap}}
+		{{form.ultima_vistoria|bootstrap}}
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+    	{{formEndereco.rua|bootstrap}} 
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        {{formEndereco.numero|bootstrap}}
+    </div>
+    <div class="col-sm-4">
+        {{formEndereco.bairro|bootstrap}}
+    </div>
+    <div class="col-sm-4">
+        {{formEndereco.cep|bootstrap}}
+    </div>
+</div>
