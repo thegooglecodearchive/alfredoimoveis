@@ -5,8 +5,6 @@ from financeiro.models.titulo import Titulo
 class TituloForm(forms.ModelForm):
     class Meta:
         model = Titulo
-        exclude = ['usuario_cadastrou']
-        exclude = ['usuario_cadastrou']
-
+        exclude = ['usuario_cadastrou', 'deletado']
 
 

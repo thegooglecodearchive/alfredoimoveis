@@ -1,0 +1,77 @@
+{% extends "template_relatorio_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Alfredo imóveis - Títulos
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="container">
+     <div class="row">
+    <!--Início da carta-->
+
+<br>
+<br>
+MONTES CLAROS, {{data}}
+
+<br>
+<br>
+
+ILMO(A) SR(A)
+{{titulo.cliente.nome}}<br>
+Imóvel: {{titulo.contrato_locacao.imovel.descricao}}
+<br>
+<br>
+
+
+Ref.: AVISO DE COBRANÇA
+
+<br>
+<br>
+
+<p>
+Informamos que até a data de emissão desta comunicação não identificamos o pagamento do aluguel, abaixo relacionado, do imóvel acima citado que é de sua responsabilidade.
+
+</p>
+
+<b>VENCIMENTO:{{titulo.vencimento}}</b><br>
+<b>VALOR: R${{titulo.valor}}</b>
+<br>
+<br>
+
+
+Informamos que o pagamento do aluguel deve ser realizado em até 5º dia do vencimento, conforme contrato de locação.
+
+<br>
+<br>
+
+
+Qualquer dúvida entre em contato cnosco através dos telefones:<br> (38) 3221-1084, (38)8401-0894 ou e-mail: alfredoimoveis@alfredoimoveisltda.com.br.
+
+<br>
+<br>
+
+
+Caso já tenha efetuado o pagamento favor desconsiderar esta correspondência.
+
+<br>
+<br>
+
+Atenciosamente
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+ALFREDO IMÓVEIS E EMPREENDIMENTOS LTDA
+DEPARTAMENTO DE COBRANÇA
+
+
+
+    </div>
+</div>    
+{% endblock %}
+

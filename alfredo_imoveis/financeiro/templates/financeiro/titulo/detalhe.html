@@ -20,18 +20,34 @@
     </div>
     {% endif%}
 
-    <div class="row">
-        <div class="panel-body">
-            <form method="POST" class="navbar-form navbar-left" role="search"
-                  action="{% url 'app_financeiro_titulo_salvar' titulo.id %}">
-                {% csrf_token %}
-                {{form|bootstrap_horizontal:'col-lg-3'}}
-                <br/>
-                <br/>
-                <button type="submit" class="btn btn-info">Gravar</button>
-                {% include 'financeiro/titulo/modalExcluiTitulo.html' %}
-            </form>
-        </div>
-    </div>
+    
+        <form method="POST" action="{% url 'app_financeiro_titulo_salvar' titulo.id %}">
+            {% csrf_token %}
+            {% include 'financeiro/titulo/form_titulo.html' %}
+            <br/>
+            <br/>
+            <button type="submit" class="btn btn-info">Gravar</button>
+            <a href="{% url 'app_financeiro_titulo_recibo' titulo.id %}" type="submit" class="btn btn-success">Recibo</a>
+
+            <div class="btn-group">
+                  <button type="button" class="btn btn-danger">Cartas de cobrança</button>
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Emitir</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_1' titulo.id %}">Modelo I</a></li>
+                        <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_2' titulo.id %}">Modelo II</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_3' titulo.id %}">Modelo III</a></li>
+                  </ul>
+            </div>
+
+            {% include 'financeiro/titulo/modalExcluiTitulo.html' %}
+        </form>
+        
+            {% for recibo in recibos %}
+                >>{{recibo}}
+            {% endfor %}
 {% endblock %}
 

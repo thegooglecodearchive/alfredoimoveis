@@ -37,3 +37,17 @@ class Titulo(models.Model):
     def __unicode__(self):
         return self.descricao[:20:]+' '+self.vencimento.strftime('%d/%m/%y')\
                +' '+str(self.pagamento_parcial)+'/'+str(self.valor)+' '+self.tipo
+
+class Recibo(models.Model):
+    titulo = models.ForeignKey(Titulo)
+    data_cadastro = models.DateTimeField(auto_now=True,auto_now_add=True)
+    usuario = models.ForeignKey(User)
+    descricao = models.TextField()
+
+    def __unicode__(self):
+        return u'Título:' + self.titulo.descricao + u' Usuário que emitiu:' + self.usuario.username + u' na data:' + self.data_cadastro.strftime( '%d-%m- %H:%M')
+
+    class Meta:
+        app_label = 'financeiro'
+        verbose_name = 'Recibo'
+        verbose_name_plural = 'Recibos'        

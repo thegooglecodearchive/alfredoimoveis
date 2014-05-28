@@ -1,5 +1,5 @@
 from django.contrib import admin
-from financeiro.models.titulo import Titulo
+from financeiro.models.titulo import Titulo, Recibo
 
 # Register your models here.
 class TituloAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class TituloAdmin(admin.ModelAdmin):
         obj.usuario_cadastrou = request.user
         obj.save()
 admin.site.register(Titulo, TituloAdmin)
+admin.site.register(Recibo)

@@ -1,7 +1,7 @@
 # encoding: utf8
 __author__ = 'gpzim98'
 from django.shortcuts import render, get_object_or_404
-from financeiro.models.titulo import Titulo
+from financeiro.models.titulo import Titulo, Recibo
 from funcionarios.models import Funcionario
 from financeiro.forms.titulo import TituloForm
 from datetime import datetime, date
@@ -12,6 +12,10 @@ template_home = 'financeiro/titulo/home.html'
 template_novo = 'financeiro/titulo/novo.html'
 template_detalhe = 'financeiro/titulo/detalhe.html'
 template_relatorio = 'financeiro/titulo/relatorio.html'
+template_recibo = 'financeiro/titulo/recibo.html'
+template_carta_cobranca_modelo_1 = 'financeiro/titulo/carta_cobranca_modelo_1.html'
+template_carta_cobranca_modelo_2 = 'financeiro/titulo/carta_cobranca_modelo_2.html'
+template_carta_cobranca_modelo_3 = 'financeiro/titulo/carta_cobranca_modelo_3.html'
 
 def home(request):
     dados = {}
@@ -83,11 +87,13 @@ def salvar(request,id):
         titulo.usuario_cadastrou = request.user
         titulo.data_cadastro = today
         titulo.save()
+        recibos = Recibo.objects.filter(titulo=titulo)
+        dados['recibos'] = recibos
         mensagem = 'Título salvo com sucesso!'
         return detalhe(request, titulo.id, mensagem)
     else:
         dados['form'] = form
-        dados['erros'] = 'Erros nas informações foram encontrados!'
+        dados['erros'] = form.errors
         return render(request, template_novo, dados)
 
 def adicionar(request):
@@ -95,4 +101,32 @@ def adicionar(request):
     dados['form'] = TituloForm()
     return render(request, template_novo, dados)
 
-#def gera_conta()
+def recibo(request,id):
+    dados = {}
+    titulo = get_object_or_404(Titulo,pk=id)
+    recibo = Recibo(titulo=titulo, data_cadastro=today,usuario=request.user,descricao='...')
+    recibo.save()
+    dados['titulo'] = titulo
+    return render(request, template_recibo, dados)
+
+def carta_cobranca_modelo_1(request,id):
+    dados = {}
+    dados['data'] = today
+    dados['titulo'] = get_object_or_404(Titulo,pk=id)
+    return render(request, template_carta_cobranca_modelo_1,dados)
+
+def carta_cobranca_modelo_2(request,id):
+    dados = {}
+    dados['data'] = today
+    titulo = get_object_or_404(Titulo,pk=id)
+    dados['titulo'] = titulo
+    data_de = date(titulo.vencimento.year, titulo.vencimento.month+1,titulo.vencimento.day)
+    dados['periodo_de'] = titulo.vencimento
+    dados['periodo_ate'] = data_de
+    return render(request, template_carta_cobranca_modelo_2,dados)
+
+def carta_cobranca_modelo_3(request,id):
+    dados = {}
+    dados['data'] = today
+    dados['titulo'] = get_object_or_404(Titulo,pk=id)
+    return render(request, template_carta_cobranca_modelo_3,dados)    

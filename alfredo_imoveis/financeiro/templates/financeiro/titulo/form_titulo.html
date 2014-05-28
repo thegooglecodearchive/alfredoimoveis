@@ -1,0 +1,40 @@
+{% load bootstrap %}
+
+<div class="row">
+    <div class="col-sm-12">  
+        {{form.descricao|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">  
+        {{form.conta_caixa|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.vencimento|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.tipo|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">  
+        {{form.valor|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.pagamento_parcial|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.cliente|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">  
+        {{form.contrato_locacao|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.empresa|bootstrap}}
+    </div>
+</div>

@@ -1,12 +1,11 @@
 {% extends "template_base.html" %}
 {% load bootstrap %}
 {% block titulo %}
-   Alfredo imóveis - Títulos a pagar e receber
+   Alfredo imóveis - Títulos
 {% endblock %}
 
 {% block conteudo %}
-    <h2>Novo título a pagar e receber</h2>
-
+<h1>Recibo</h1>
     {% if mensagem %}
         <br/>
         <div class="alert alert-info fade in">
@@ -20,14 +19,9 @@
         {{erros}}
     </div>
     {% endif%}
-   
-    <form method="POST" action="{% url 'app_financeiro_titulo_salvar' 0 %}">
-        {% csrf_token %}
-        {% include 'financeiro/titulo/form_titulo.html' %}
-        <br/>
-        <br/>
-        <button type="submit" class="btn btn-info">Gravar</button>
-    </form>
 
+    {{titulo}}
+    <h1>RECIBO EM FASE DE DESENVOLVIMENTO</h1>
+    
 {% endblock %}
 

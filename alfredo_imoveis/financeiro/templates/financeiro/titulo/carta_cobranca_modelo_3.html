@@ -1,0 +1,59 @@
+{% extends "template_relatorio_base.html" %}
+{% load bootstrap %}
+{% block titulo %}
+   Alfredo imóveis - Títulos
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="container">
+     <div class="row">
+    <!--Início da carta-->
+
+<br>
+<br>
+MONTES CLAROS, {{data}}
+
+<br>
+<br>
+
+ILMO(A) SR(A)
+{{titulo.cliente.nome}}<br>
+
+<b>REF.: AVISO</b>
+<br>
+<br>
+Ainda consta em nossos registros os débitos de V.Sa. conforme correspondencias anteriores. Estamos entrando em contato, para solucionar o assunto em epígrafe.
+E estamos dando-lhe um prazo máximo de 48:00 horas, para resolver o problema, a contar do recebimento desta.
+
+<br>
+<br>
+<br>
+<br>
+Terminando o prazo fixado para o pagamento amigável dos ALUGUÉIS de sua responsabilidade, informamos que, entraremos na fase de inclusão do SPC (Serviço de Proteção ao Crédito) de V.Sa. e fiadores. E passaremos para o nosso departamento jurídico para tomar providências cabíveis.
+Sendo assim, aguardamos dentro do prazo citado uma solução amigável para o problema as providências cabíveis.
+
+<br>
+<br>
+Obs.: Caso já tenha quitado seus débitos, favor desconsiderar essa correspondência.
+
+
+<br>
+<br><br>
+<br><br>
+<br>
+Atenciosamente
+<br>
+<br><br>
+<br>
+
+
+ALFREDO IMÓVEIS E EMPREENDIMENTOS LTDA
+DEPARTAMENTO DE COBRANÇA
+
+
+    </div>
+</div>    
+{% endblock %}
+
+
