@@ -289,11 +289,15 @@ def laudo_vistoria_create(request, template_name='laudo_vistoria/laudo_vistoria_
         else:
             laudo = LaudoVistoria()
     else:
-            laudo = LaudoVistoria()
+            laudo = LaudoVistoria(data_vistoria=today)
 
     form = LaudoVistoriaForm(request.POST or None, instance=laudo)
     if form.is_valid():
-        form.save()
+        laudo_vistoria = form.save(commit=False)
+        imovel = laudo_vistoria.imovel
+        imovel.ultima_vistoria = today
+        imovel.save()
+        laudo_vistoria.save()
         return redirect('app_imoveis_laudo_vistoria_home')
     return render(request, template_name, {'form':form})
 

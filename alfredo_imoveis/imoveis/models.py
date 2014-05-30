@@ -15,7 +15,7 @@ class Imovel(models.Model):
     descricao = models.CharField(u'Imóvel', max_length=120)
     valor_iptu = models.DecimalField('Valor do IPTU',max_digits=6, decimal_places=2)
     valor_aluguel = models.DecimalField('Valor do Aluguel',max_digits=6, decimal_places=2)
-    ultima_vistoria = models.DateField(u'Data da última vistoria')
+    ultima_vistoria = models.DateField(u'Data da última vistoria', null=True, blank=True)
     data_cadastro = models.DateField(auto_now_add=True)
     proprietario = models.ForeignKey(Cliente,verbose_name='Proprietário')
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
