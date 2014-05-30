@@ -1,0 +1,39 @@
+{% extends "template_base.html" %}
+{% block titulo %}
+{% load bootstrap %}
+   Alfredo imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+    <h1>Geração de contratos administrativos</h1>
+
+    {% if mensagem %}
+        <br/>
+        <div class="alert alert-info fade in">
+            {{mensagem}}
+        </div>
+    {% endif%}
+
+    {% if erros %}
+    <br/>
+    <div class="alert alert-danger fade in">
+        {{erros}}
+    </div>
+    {% endif%}
+
+<div class="container">
+    <div class="row">
+        
+    <form method="POST" action="{% url 'app_imoveis_laudo_vistoria_add' %}">
+        {% csrf_token %}
+        {{form|bootstrap}}
+        <br/>
+        <br/>
+        <button type="submit" class="btn btn-info">Gravar</button>
+        
+    </form>
+        
+    </div>
+</div>
+{% endblock %}
+

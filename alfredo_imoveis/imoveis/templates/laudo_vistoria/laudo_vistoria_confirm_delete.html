@@ -1,0 +1,12 @@
+{% extends "template_base.html" %}
+{% block titulo %}
+   Alfredo imóveis - Clientes
+{% endblock %}
+
+{% block conteudo %}
+	<form method="post">{% csrf_token %}
+	    Você tem certeza que gostaria de excluir o laudo de vistoria "{{ object }}" ?
+	 <input type="submit" value="Submit"  class="btn btn-danger"/>
+</form>
+{% endblock %}
+

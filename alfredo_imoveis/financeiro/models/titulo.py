@@ -45,8 +45,7 @@ class Recibo(models.Model):
     descricao = models.TextField()
 
     def __unicode__(self):
-        return u'Título:' + self.titulo.descricao + u' Usuário que emitiu:' + self.usuario.username + u' na data:' + self.data_cadastro.strftime( '%d-%m- %H:%M')
-
+        return u'Título:' + self.titulo.descricao + u' Usuário que emitiu:' + self.usuario.username + u' na data:' + self.data_cadastro.strftime( '%m/%d/%y %H:%M:%S')
     class Meta:
         app_label = 'financeiro'
         verbose_name = 'Recibo'

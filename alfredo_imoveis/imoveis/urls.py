@@ -25,6 +25,12 @@ urlpatterns = patterns('imoveis.views',
     url(r'^contrato_administrativo_delete/(?P<pk>\d+)$', 'contrato_administrativo_delete', name='app_imoveis_contrato_administrativo_delete'),
     
     url(r'^contrato_administrativo_gerar/(?P<pk>\d+)$', 'contrato_administrativo_gerar', name='app_imoveis_contrato_administrativo_gerar'),
+    
+    url(r'^laudo_vistoria_home/$', 'laudo_vistoria_list', name='app_imoveis_laudo_vistoria_home'),
+    url(r'^laudo_vistoria_adicionar/$', 'laudo_vistoria_create', name='app_imoveis_laudo_vistoria_add'),
+    url(r'^laudo_vistoria_adicionar_imovel/(?P<pk>\d+)/$', 'laudo_vistoria_create', name='app_imoveis_laudo_vistoria_add_imovel'),
+    url(r'^laudo_vistoria_editar/(?P<pk>\d+)$', 'laudo_vistoria_update', name='app_imoveis_laudo_vistoria_update'),
+    url(r'^laudo_vistoria_delete/(?P<pk>\d+)$', 'laudo_vistoria_delete', name='app_imoveis_laudo_vistoria_delete'),
 
 
 )

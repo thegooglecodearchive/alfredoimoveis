@@ -2,10 +2,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from imoveis.models import Imovel
 from enderecos.forms import EnderecoForm
-from forms import ImovelForm, ContratoLocacaoForm, ContratoAdministrativoForm
+from forms import ImovelForm, ContratoLocacaoForm, ContratoAdministrativoForm, LaudoVistoriaForm
 from funcionarios.models import Funcionario
 from datetime import datetime, date
-from imoveis.models import ContratoLocacao, ContratoAdministrativo
+from imoveis.models import ContratoLocacao, ContratoAdministrativo, LaudoVistoria
 from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
@@ -36,6 +36,7 @@ def detalhe(request,id,mensagem=''):
     imovel = get_object_or_404(Imovel, id=id)
     dados['formEndereco'] = EnderecoForm(instance=imovel.endereco)
     dados['form'] = ImovelForm(instance=imovel)
+    dados['laudo_vistoria'] = LaudoVistoria.objects.filter(imovel=imovel)
     dados['imovel'] = imovel
     return render(request, template_detalhe, dados)
 
@@ -271,3 +272,42 @@ def contrato_administrativo_gerar(request,pk):
     dados['contrato'] = contrato
     dados['data'] = today
     return render(request, 'contrato_administrativo/imprimir_cintrato.html', dados)
+
+
+def laudo_vistoria_list(request, template_name='laudo_vistoria/laudo_vistoria_list.html'):
+    dados = {}
+
+    laudos = LaudoVistoria.objects.all()
+    dados['object_list'] = laudos
+    return render(request, template_name, dados)
+
+def laudo_vistoria_create(request, template_name='laudo_vistoria/laudo_vistoria_form.html', pk=None):
+    if pk:
+        imovel = get_object_or_404(Imovel,pk=pk)
+        if imovel:
+            laudo = LaudoVistoria(imovel=imovel, data_vistoria=today)
+        else:
+            laudo = LaudoVistoria()
+    else:
+            laudo = LaudoVistoria()
+
+    form = LaudoVistoriaForm(request.POST or None, instance=laudo)
+    if form.is_valid():
+        form.save()
+        return redirect('app_imoveis_laudo_vistoria_home')
+    return render(request, template_name, {'form':form})
+
+def laudo_vistoria_update(request, pk, template_name='laudo_vistoria/laudo_vistoria_form_update.html'):
+    laudo = get_object_or_404(LaudoVistoria, pk=pk)
+    form = LaudoVistoriaForm(request.POST or None, instance=laudo)
+    if form.is_valid():
+        form.save()
+        return redirect('app_imoveis_laudo_vistoria_home')
+    return render(request, template_name, {'form':form, 'object':laudo})    
+
+def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_vistoria_confirm_delete.html'):
+    laudo = get_object_or_404(LaudoVistoria, pk=pk)    
+    if request.method=='POST':
+        laudo.delete()
+        return redirect('app_imoveis_laudo_vistoria_home')
+    return render(request, template_name, {'object':laudo})    

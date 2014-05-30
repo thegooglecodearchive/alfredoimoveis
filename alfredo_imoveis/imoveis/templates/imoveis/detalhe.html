@@ -26,10 +26,21 @@
         <br/>
         <button type="submit" class="btn btn-info">Gravar</button>
         {% include 'imoveis/modalExcluiImovel.html' %}
-        <a href="{% url 'app_imoveis_ficha' imovel.id %}">
-            <button type="button" class="btn btn-main">Imprimir ficha do imóvel</button>
-        </a>
+        <a href="{% url 'app_imoveis_ficha' imovel.id %}" type="button" class="btn btn-main">Imprimir ficha do imóvel</a>
+        <a href="{% url 'app_imoveis_laudo_vistoria_add_imovel' imovel.id %}" type="submit" class="btn btn-info">Laudo de vistoria</a>
+
         Data do cadastro: {{imovel.data_cadastro}}
     </form>
+
+    <br>
+    <br>
+    <br>
+    <h3>Laudos de vistoria para este imóvel</h3>
+    {% for laudo in laudo_vistoria %}
+        <a href="{% url 'app_imoveis_laudo_vistoria_update' laudo.id %}">{{laudo}}</a><br>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
 {% endblock %}
 
