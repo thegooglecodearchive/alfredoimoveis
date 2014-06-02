@@ -1,5 +1,6 @@
 {% extends "template_base.html" %}
 {% load bootstrap %}
+
 {% block titulo %}
    Alfredo imóveis - Títulos
 {% endblock %}
@@ -20,34 +21,63 @@
     </div>
     {% endif%}
 
-    
+<div class="col-sm-12">
+    <h1>Edição de título</h1>
         <form method="POST" action="{% url 'app_financeiro_titulo_salvar' titulo.id %}">
             {% csrf_token %}
             {% include 'financeiro/titulo/form_titulo.html' %}
             <br/>
             <br/>
-            <button type="submit" class="btn btn-info">Gravar</button>
-            <a href="{% url 'app_financeiro_titulo_recibo' titulo.id %}" type="submit" class="btn btn-success">Recibo</a>
-
-            <div class="btn-group">
-                  <button type="button" class="btn btn-danger">Cartas de cobrança</button>
-                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Emitir</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                        <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_1' titulo.id %}">Modelo I</a></li>
-                        <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_2' titulo.id %}">Modelo II</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_3' titulo.id %}">Modelo III</a></li>
-                  </ul>
+            <p align="right"><button type="submit" class="btn btn-info">Gravar</button></p>
+        </form>
+            <br>
+</div>
+            <div class="col-sm-8">
+                <div class="well">
+                    <b>Valor restante: </b> {{valor_restante}}<br>
+                    <b>Multa restante: </b>{{multa_restante}}<br>
+                    <b>Juros: </b>{{juros_restantes}}<br>
+                </div>
             </div>
 
-            {% include 'financeiro/titulo/modalExcluiTitulo.html' %}
-        </form>
-        
-            {% for recibo in recibos %}
-                >>{{recibo}}
-            {% endfor %}
+            <div class="col-sm-12">
+                <a href="{% url 'app_financeiro_titulo_recibo' titulo.id %}" type="submit" class="btn btn-success">        Recibo
+                </a>
+
+                <div class="btn-group">
+                      <button type="button" class="btn btn-danger">Cartas de cobrança</button>
+                      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Emitir</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_1' titulo.id %}">Modelo I</a></li>
+                            <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_2' titulo.id %}">Modelo II</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'app_financeiro_titulo_carta_cobranca_modelo_3' titulo.id %}">Modelo III</a></li>
+                      </ul>
+                </div>
+
+
+                {% include 'financeiro/titulo/form_abater_titulo.html' %}
+                {% include 'financeiro/titulo/modalExcluiTitulo.html' %}
+            
+            <br>
+            <br>
+            <br>
+            {% if recibos %}
+                <br><b>Recibos emitidos:</b>
+                {% for recibo in recibos %}
+                    <a href="{% url 'app_financeiro_titulo_recibo' recibo.id %}">
+                        <br>{{recibo.titulo.descricao|slice:":20"}}...  Emitido por: {{recibo.usuario.username}} Dia: {{recibo.data_cadastro}}
+                    </a>
+                {% endfor %}
+            {% else %}
+                <h3>Nenhum recibo foi emitido para este título até agora</h3>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+        </div>
 {% endblock %}
 

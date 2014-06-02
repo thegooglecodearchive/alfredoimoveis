@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from financeiro.models.conta_caixa import ContaCaixa
 
 class ParametrosGerais(models.Model):
-    taxa_juros = models.DecimalField(max_digits=3, decimal_places=1)
+    taxa_juros = models.DecimalField(max_digits=4, decimal_places=2)
+    multa = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     texto_carta_aniv1 = models.TextField('Texto da carta de aniversário 1')
     texto_carta_aniv2 = models.TextField('Texto da carta de aniversário 2')
     texto_carta_aniv3 = models.TextField('Texto da carta de aniversário 3')

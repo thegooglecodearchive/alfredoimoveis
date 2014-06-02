@@ -19,6 +19,7 @@ class Titulo(models.Model):
     empresa = models.ForeignKey(Empresa)
     data_cadastro = models.DateTimeField(verbose_name='Data de cadastro', auto_now_add=True)
     vencimento = models.DateField(verbose_name='Data de vencimento')
+    data_quitacao = models.DateField(verbose_name='Data de quitação do título', null=True, blank=True)
     tipo = models.CharField(choices=TIPO_CONTA, max_length=1, verbose_name='Tipo da movimentação',
                             help_text='Informe o tipo da movimentação')
     usuario_cadastrou = models.ForeignKey(User, help_text='Não se preocupe, este campo será inserido automáticamente')
@@ -28,6 +29,8 @@ class Titulo(models.Model):
     deletado = models.NullBooleanField(null=True, blank=True, default=False)
     cliente = models.ForeignKey(Cliente, null=True)
     contrato_locacao = models.ForeignKey(ContratoLocacao, null=True, blank=True)
+    juros = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    multa = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
     class Meta:
         app_label = 'financeiro'

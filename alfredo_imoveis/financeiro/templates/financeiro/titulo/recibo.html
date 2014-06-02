@@ -20,8 +20,32 @@
     </div>
     {% endif%}
 
-    {{titulo}}
-    <h1>RECIBO EM FASE DE DESENVOLVIMENTO</h1>
-    
+<pre>
+RECIBO DE LOCATÁRIO
+Alfredo imóveis
+C.G.C 41.685.892/0001-99
+Rua Tiradentes - 137, Centro - Montes Claros
+__________________________________________________________________
+CONTRATO: {{recibo.titulo.contrato_locacao.pk}} VENCIMENTO: {{recibo.titulo.vencimento}}       RECIBO: XXXXX/01-10
+IMÓVEL: {{recibo.titulo.contrato_locacao.imovel.endereco}}
+Proprietário: {{recibo.titulo.contrato_locacao.imovel.proprietario.nome}}
+Locatário: {{recibo.titulo.contrato_locacao.locatario.nome}}
+__________________________________________________________________
+Aluguel………….(+) {{recibo.titulo.valor}}         Recebemos do locatário acima as importancias descriminadas 
+Juros ……………(+)   00,00         ao lado provenientes do aluguel e encargos do imóvel ao 
+Multa ……………(+)   00,00         período de 00/00/00 a 00/00/00.
+                    Montes Claros, 00 de mes de ano.
+
+                        __________________________
+                            Alfredo Imóveis
+
+
+
+TOTAL …………….  500,00        
+(quinhentos reais)          Este recibo só tem valor firmado pela administradora sem 
+rasuras, emendas ou ressalvas.
+NÃO QUITA DÉBITOS ANTERIORES.
+ 
+</pre>    
 {% endblock %}
 

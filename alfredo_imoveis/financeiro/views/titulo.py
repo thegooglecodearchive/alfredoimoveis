@@ -4,7 +4,10 @@ from django.shortcuts import render, get_object_or_404
 from financeiro.models.titulo import Titulo, Recibo
 from funcionarios.models import Funcionario
 from financeiro.forms.titulo import TituloForm
+from parametros.models import ParametrosGerais
 from datetime import datetime, date
+from decimal import *
+
 
 today = date.today()
 
@@ -29,6 +32,11 @@ def detalhe(request,id,mensagem=''):
     titulo = get_object_or_404(Titulo, id=id)
     dados['form'] = TituloForm(instance=titulo)
     dados['titulo'] = titulo
+    recibos = Recibo.objects.filter(titulo=titulo)
+    dados['recibos'] = recibos
+    dados['multa'] = titulo.multa
+    dados['juros'] = titulo.juros
+    informacoes_titulo(dados,titulo)
     return render(request, template_detalhe, dados)
 
 def delete(request, id):
@@ -75,7 +83,6 @@ def filtrar(request):
 
 def salvar(request,id):
     dados = {}
-
     form = TituloForm(request.POST or None)
 
     if form.is_valid():
@@ -87,8 +94,6 @@ def salvar(request,id):
         titulo.usuario_cadastrou = request.user
         titulo.data_cadastro = today
         titulo.save()
-        recibos = Recibo.objects.filter(titulo=titulo)
-        dados['recibos'] = recibos
         mensagem = 'Título salvo com sucesso!'
         return detalhe(request, titulo.id, mensagem)
     else:
@@ -106,7 +111,7 @@ def recibo(request,id):
     titulo = get_object_or_404(Titulo,pk=id)
     recibo = Recibo(titulo=titulo, data_cadastro=today,usuario=request.user,descricao='...')
     recibo.save()
-    dados['titulo'] = titulo
+    dados['recibo'] = recibo
     return render(request, template_recibo, dados)
 
 def carta_cobranca_modelo_1(request,id):
@@ -130,3 +135,39 @@ def carta_cobranca_modelo_3(request,id):
     dados['data'] = today
     dados['titulo'] = get_object_or_404(Titulo,pk=id)
     return render(request, template_carta_cobranca_modelo_3,dados)    
+
+def abater_titulo(request,id):
+    dados = {}
+    
+    titulo = get_object_or_404(Titulo, pk=id)
+    #import pdb;pdb.set_trace()
+
+    titulo.multa = titulo.multa + Decimal(request.POST.get('multa',0))
+    titulo.juros = titulo.juros + Decimal(request.POST.get('juros',0))
+    titulo.pagamento_parcial = titulo.pagamento_parcial + Decimal(request.POST.get('valor',0))
+    titulo.save()
+
+    return detalhe(request,id)
+
+def informacoes_titulo(dados = {}, titulo=None):
+    parametros = get_object_or_404(ParametrosGerais, pk=1)
+
+    # Calculando a multa restante
+    dados['multa_restante'] = 0
+
+    if (titulo.vencimento < today) and (titulo.valor > titulo.pagamento_parcial):
+        dados['atrasado'] = 'Sim'
+        if (parametros.multa - titulo.multa) > 0:
+            dados['multa_restante'] = (parametros.multa - titulo.multa)
+
+    dados['juros_restantes'] = 0            
+    
+    # Calculando o valor restante e o juros restante
+    if (titulo.valor - titulo.pagamento_parcial) > 0:
+        dados['valor_restante'] = titulo.valor - titulo.pagamento_parcial
+        if titulo.vencimento < today:
+            dados['juros_restantes'] = ((titulo.valor - titulo.pagamento_parcial)  * parametros.taxa_juros)/100
+    else:
+        dados['valor_restante'] = 0
+
+

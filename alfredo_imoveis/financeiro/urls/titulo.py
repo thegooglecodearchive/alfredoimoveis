@@ -9,6 +9,7 @@ urlpatterns = patterns('financeiro.views.titulo',
     url(r'^salvar/(?P<id>\d+)/$', 'salvar', name='app_financeiro_titulo_salvar'),
     url(r'^recibo/(?P<id>\d+)/$', 'recibo', name='app_financeiro_titulo_recibo'),
     url(r'^filtrar/$', 'filtrar', name='app_financeiro_titulo_filtrar'),
+    url(r'^abater_titulo/(?P<id>\d+)/$', 'abater_titulo', name='app_financeiro_titulo_abater'),
     
     url(r'^carta_cobranca_modelo_1/(?P<id>\d+)/$', 'carta_cobranca_modelo_1', name='app_financeiro_titulo_carta_cobranca_modelo_1'),
     url(r'^carta_cobranca_modelo_2/(?P<id>\d+)/$', 'carta_cobranca_modelo_2', name='app_financeiro_titulo_carta_cobranca_modelo_2'),
