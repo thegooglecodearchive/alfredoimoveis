@@ -123,3 +123,30 @@ def relatorio(request):
 
 def relatorios(request):
     pass
+
+def cartas_aniversario_home(request):
+    return render(request,'clientes/cartas_aniversario_home.html')
+
+def cartas_cobranca_automatizada(request):
+    return render(request,'clientes/cartas_cobranca_automatizada.html')    
+
+def cartas_aniversario_filtrar(request):
+    dados = {}
+
+    if request.POST.get('filtrar_imprimir', False):
+        
+        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
+        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
+        clientes = Cliente.objects.filter(data_nascimento__range=[dataini,datafim])        
+        dados['clientes'] = clientes
+        dados['data'] = today
+        return render(request, 'clientes/cartas_aniversario.html', dados)
+    else:
+        return render(request,'clientes/cartas_aniversario_home.html',dados)
+
+def cartas_aniversario_individual(request,id):
+    dados = {}
+    cliente = Cliente.objects.filter(pk=id)
+    dados['clientes'] = cliente
+    dados['data'] = today
+    return render(request, 'clientes/cartas_aniversario.html', dados)

@@ -10,4 +10,9 @@ urlpatterns = patterns('clientes.views',
     url(r'^filtrar/$', 'filtrar', name='app_clientes_filtrar'),
     url(r'^relatorio/$', 'relatorio', name='app_clientes_relatorio'),
     url(r'^tabela/$', 'tabela', name='app_clientes_tabela'),
+    
+    url(r'^cartas_cobranca_automatizada/$', 'cartas_cobranca_automatizada', name='app_clientes_cartas_cobranca_automatizada'),
+    url(r'^cartas_aniversario_home/$', 'cartas_aniversario_home', name='app_clientes_cartas_aniversario_home'),
+    url(r'^cartas_aniversario_individual/(?P<id>\d+)/$', 'cartas_aniversario_individual', name='app_clientes_cartas_aniversario_individual'),
+    url(r'^cartas_aniversario_filtrar/$', 'cartas_aniversario_filtrar', name='app_clientes_cartas_aniversario_filtrar'),
 )

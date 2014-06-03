@@ -28,6 +28,7 @@
         {% include 'clientes/form_cliente.html' %}
         <br/>
         <button type="submit" class="btn btn-info">Gravar</button>
+        <a href="{% url 'app_clientes_cartas_aniversario_individual' cliente.id %}" class="btn btn-success">Carta de aniversário</a>
         {% include 'clientes/modalExcluiCliente.html' %}
         Data do cadastro: {{cliente.data_cadastro}}
     </form>
