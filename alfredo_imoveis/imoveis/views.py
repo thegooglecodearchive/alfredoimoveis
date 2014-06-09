@@ -79,8 +79,7 @@ def adiciona(request):
 
 def filtrar(request):
     dados = {}
-    #imoveis = Imovel.objects.all()
-
+    
     if request.POST['dataini'] and request.POST['datafim']:
         dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
         datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
@@ -90,14 +89,17 @@ def filtrar(request):
 
     filtra_inativos = request.POST.get('ativo', False)
 
-    imoveis = Imovel.objects.filter(id = request.POST['codigo'],
-                                    descricao__contains=request.POST['descricao'],
-                                    data_cadastro__range=[dataini,datafim],
-                                    endereco__rua__contains=request.POST['rua'],
-                                    endereco__bairro__nome__contains=request.POST['bairro'],
-                                    endereco__bairro__cidade__nome__contains=request.POST['cidade'],
-                                    proprietario__nome__contains=request.POST['proprietario'],
-                                    ativo= not filtra_inativos)
+    if request.POST['codigo']:
+        imoveis = Imovel.objects.filter(pk = request.POST['codigo'])
+    else:
+        imoveis = Imovel.objects.filter(descricao__contains=request.POST['descricao'],
+                                        data_cadastro__range=[dataini,datafim],
+                                        endereco__rua__contains=request.POST['rua'],
+                                        endereco__bairro__nome__contains=request.POST['bairro'],
+                                        endereco__bairro__cidade__nome__contains=request.POST['cidade'],
+                                        proprietario__nome__contains=request.POST['proprietario'],
+                                        ativo= not filtra_inativos
+                                        )
 
     dados['imoveis'] = imoveis
 

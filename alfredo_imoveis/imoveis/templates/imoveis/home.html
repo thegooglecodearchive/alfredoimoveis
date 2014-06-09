@@ -8,7 +8,7 @@
     <h1>Imóveis</h1>
     <br/>
     {% include 'imoveis/filtroGrid.html' %}
-
+>>{{imoveis}}
     <div class="row">
         {% if imoveis %}
             <div class="row">
@@ -31,11 +31,13 @@
                                     <th>Proprietário</th>
                                     <th>Última vistoria</th>
                                     <th>Valor do aluguel</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for imovel in imoveis %}
                                     <tr class="odd gradeX">
+                                        <td>{{imovel.id}}</td>
                                         <td>{{imovel.descricao}}</td>
                                         <td>{{imovel.proprietario}}</td>
                                         <td>{{imovel.ultima_vistoria}}</td>
@@ -59,6 +61,8 @@
             </div>
                     <!-- /.col-lg-12 -->
         </div> <!--Row-->
+}
+}
 {% else %}
     <div class="col-lg-4">
         <div class="alert alert-dismissable alert-success">
