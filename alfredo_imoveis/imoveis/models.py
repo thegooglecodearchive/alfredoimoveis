@@ -13,6 +13,7 @@ TIPO_CONTRATO = (
 class Imovel(models.Model):
     endereco = models.ForeignKey(Endereco, null = False, blank = False, verbose_name='Endereço')
     descricao = models.CharField(u'Imóvel', max_length=120)
+    cod_ref_site = models.CharField(u'Código de referência no site', max_length=120, null=True, blank=True)
     valor_iptu = models.DecimalField('Valor do IPTU',max_digits=6, decimal_places=2)
     valor_aluguel = models.DecimalField('Valor do Aluguel',max_digits=6, decimal_places=2)
     ultima_vistoria = models.DateField(u'Data da última vistoria', null=True, blank=True)
@@ -39,6 +40,7 @@ class ContratoLocacao(models.Model):
     fiador3 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador3_contrato')
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
     tipo_contrato = models.CharField(max_length=1, choices=TIPO_CONTRATO, verbose_name='Tipo do contrato')
+    observacao = models.TextField(verbose_name='Observações do contrato', null=True, blank=True)
     gerou_receber = models.BooleanField(verbose_name='Já gerou contas a receber', default=False, editable=False)
 
     def __unicode__(self):

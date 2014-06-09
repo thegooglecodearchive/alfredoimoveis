@@ -12,7 +12,7 @@
 	</div>
 	<div class="col-sm-4">
 		{{form.valor_iptu|bootstrap}}
-		{{form.ativo|bootstrap}}
+		<p> &nbsp;{{form.ativo|bootstrap}}</p>
 	</div>
 	<div class="col-sm-4">
 		{{form.valor_aluguel|bootstrap}}
@@ -35,5 +35,11 @@
     </div>
     <div class="col-sm-4">
         {{formEndereco.cep|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+    	{{form.cod_ref_site|bootstrap}}
     </div>
 </div>
