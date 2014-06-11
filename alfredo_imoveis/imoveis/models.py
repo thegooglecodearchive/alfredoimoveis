@@ -114,6 +114,7 @@ class LaudoVistoria(models.Model):
     guarda_roupas = models.CharField(max_length=100, verbose_name=u'Guarda-roupas',null=True, blank=True)
     rede_protecao = models.CharField(max_length=100, verbose_name=u'Rede de protecao',null=True, blank=True)
     chaves = models.CharField(max_length=100, verbose_name=u'Chaves',null=True, blank=True)
+    observacao = models.TextField(verbose_name='Observações sobre a vistoria', null=True, blank=True)
 
 
     def __unicode__(self):
