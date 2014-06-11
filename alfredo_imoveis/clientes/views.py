@@ -77,22 +77,22 @@ def filtrar(request):
     clientes = Cliente.objects.all()
 
     if request.POST['nome']:
-        clientes = clientes.filter(nome__contains = request.POST['nome'])
+        clientes = clientes.filter(nome__icontains = request.POST['nome'])
     if request.POST['codigo']:
-        clientes = clientes.filter(id = request.POST['codigo'])
+        clientes = clientes.filter(id__icontains = request.POST['codigo'])
 
     if request.POST['endereco']:
-        if clientes.filter(endereco__rua__contains = request.POST['endereco']):
-            clientes = clientes.filter(endereco__rua__contains = request.POST['endereco'])
+        if clientes.filter(endereco__rua__icontains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__rua__icontains = request.POST['endereco'])
 
-        if clientes.filter(endereco__bairro__nome__contains = request.POST['endereco']):
-            clientes = clientes.filter(endereco__bairro__nome__contains = request.POST['endereco'])
+        if clientes.filter(endereco__bairro__nome__icontains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__bairro__nome__icontains = request.POST['endereco'])
 
-        if clientes.filter(endereco__bairro__cidade__nome__contains = request.POST['endereco']):
-            clientes = clientes.filter(endereco__bairro__cidade__nome__contains = request.POST['endereco'])
+        if clientes.filter(endereco__bairro__cidade__nome__icontains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__bairro__cidade__nome__icontains = request.POST['endereco'])
 
-        if clientes.filter(endereco__bairro__cidade__uf__contains = request.POST['endereco']):
-            clientes = clientes.filter(endereco__bairro__cidade__uf__contains = request.POST['endereco'])
+        if clientes.filter(endereco__bairro__cidade__uf__icontains = request.POST['endereco']):
+            clientes = clientes.filter(endereco__bairro__cidade__uf__icontains = request.POST['endereco'])
 
     if request.POST.get('ativo', False):
         clientes = clientes.filter(ativo=False)

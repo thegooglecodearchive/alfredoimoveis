@@ -19,7 +19,7 @@ class Cliente(models.Model):
     nome = models.CharField(max_length = 150, null = False, blank = False)
     cnpj_cpf = models.CharField(max_length = 20,  null = True,  blank = True )
     rg = models.CharField(max_length = 11,  null = True,  blank = True)
-    orgao_expeditor = models.CharField(max_length = 5,  null = True,  blank = True, verbose_name=u'Órgão expeditor')
+    orgao_expeditor = models.CharField(max_length = 15,  null = True,  blank = True, verbose_name=u'Órgão expeditor')
     nome_pai = models.CharField(max_length = 100,  null = True,  blank = True, verbose_name=u'Nome do pai' )
     nome_mae = models.CharField(max_length = 100,  null = True,  blank = True, verbose_name=u'Nome da mãe' )
     nacionalidade = models.CharField(max_length = 50,  null = True,  blank = True, verbose_name=u'Nacionalidade' )

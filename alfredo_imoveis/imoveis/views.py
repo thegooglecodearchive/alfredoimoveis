@@ -9,6 +9,7 @@ from imoveis.models import ContratoLocacao, ContratoAdministrativo, LaudoVistori
 from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
+from alfredo_imoveis.views import busca_configuracoes
 
 today = date.today()
 
@@ -90,14 +91,14 @@ def filtrar(request):
     filtra_inativos = request.POST.get('ativo', False)
 
     if request.POST['codigo']:
-        imoveis = Imovel.objects.filter(pk = request.POST['codigo'])
+        imoveis = Imovel.objects.filter(pk__icontains = request.POST['codigo'])
     else:
-        imoveis = Imovel.objects.filter(descricao__contains=request.POST['descricao'],
+        imoveis = Imovel.objects.filter(descricao__icontains=request.POST['descricao'],
                                         data_cadastro__range=[dataini,datafim],
-                                        endereco__rua__contains=request.POST['rua'],
-                                        endereco__bairro__nome__contains=request.POST['bairro'],
-                                        endereco__bairro__cidade__nome__contains=request.POST['cidade'],
-                                        proprietario__nome__contains=request.POST['proprietario'],
+                                        endereco__rua__icontains=request.POST['rua'],
+                                        endereco__bairro__nome__icontains=request.POST['bairro'],
+                                        endereco__bairro__cidade__nome__icontains=request.POST['cidade'],
+                                        proprietario__nome__icontains=request.POST['proprietario'],
                                         ativo= not filtra_inativos
                                         )
 
@@ -317,3 +318,14 @@ def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_visto
         laudo.delete()
         return redirect('app_imoveis_laudo_vistoria_home')
     return render(request, template_name, {'object':laudo})    
+
+def laudo_vistoria_delete(request,pk,template_name='laudo_vistoria/laudo_vistoria_imprimir.html'):    
+    dados = {}
+    busca_configuracoes(dados)
+    
+    laudo = get_object_or_404(LaudoVistoria,pk=pk)
+    
+    dados['laudo'] = laudo
+    dados['contrato_locacao'] = ContratoLocacao.objects.get(imovel = laudo.imovel)
+    dados['data'] = today
+    return render(request,template_name,dados)

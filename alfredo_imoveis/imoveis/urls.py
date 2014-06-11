@@ -31,6 +31,7 @@ urlpatterns = patterns('imoveis.views',
     url(r'^laudo_vistoria_adicionar_imovel/(?P<pk>\d+)/$', 'laudo_vistoria_create', name='app_imoveis_laudo_vistoria_add_imovel'),
     url(r'^laudo_vistoria_editar/(?P<pk>\d+)$', 'laudo_vistoria_update', name='app_imoveis_laudo_vistoria_update'),
     url(r'^laudo_vistoria_delete/(?P<pk>\d+)$', 'laudo_vistoria_delete', name='app_imoveis_laudo_vistoria_delete'),
+    url(r'^laudo_vistoria_imprimir/(?P<pk>\d+)$', 'laudo_vistoria_delete', name='app_imoveis_laudo_vistoria_imprimir'),
 
 
 )

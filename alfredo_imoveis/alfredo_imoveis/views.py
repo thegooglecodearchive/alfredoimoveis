@@ -3,6 +3,7 @@ __author__ = 'gpzim98'
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from funcionarios.models import Funcionario
+from parametros.models import ParametrosGerais
 
 template_home = 'index.html'
 template_dashboard = 'dashboard.html'
@@ -27,3 +28,10 @@ def dashboard(request):
 
 def home_barra(request):
     return redirect('/')
+
+def busca_configuracoes(dados = {}):
+    parametros = ParametrosGerais.objects.get(id=1)
+    dados['parametros'] = parametros
+    return dados
+
+    

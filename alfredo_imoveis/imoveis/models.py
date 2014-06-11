@@ -12,7 +12,7 @@ TIPO_CONTRATO = (
 # Create your models here.
 class Imovel(models.Model):
     endereco = models.ForeignKey(Endereco, null = False, blank = False, verbose_name='Endereço')
-    descricao = models.CharField(u'Imóvel', max_length=120)
+    descricao = models.CharField(u'Descrição do imóvel', max_length=120)
     cod_ref_site = models.CharField(u'Código de referência no site', max_length=120, null=True, blank=True)
     valor_iptu = models.DecimalField('Valor do IPTU',max_digits=6, decimal_places=2)
     valor_aluguel = models.DecimalField('Valor do Aluguel',max_digits=6, decimal_places=2)
@@ -21,6 +21,7 @@ class Imovel(models.Model):
     proprietario = models.ForeignKey(Cliente,verbose_name='Proprietário')
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
     ativo = models.BooleanField(default=True, verbose_name='Imóvel ativo')
+    tipo_imovel = models.CharField(max_length=1, choices=TIPO_CONTRATO, verbose_name='Tipo do imóvel', default='R')
 
     def __unicode__(self):
         return self.descricao + '-' + self.endereco.rua + '-' + self.proprietario.nome
@@ -29,6 +30,9 @@ class Imovel(models.Model):
     def disponivel(self):
         pass
 
+    def retorna_tipo_imovel(self):
+        return 'Residencial' if self.tipo_imovel == 'R' else 'Comercial'
+       
 class ContratoLocacao(models.Model):
     imovel = models.OneToOneField(Imovel)
     inicio_contrato = models.DateField(u'Data do início do contrato')
@@ -94,7 +98,7 @@ class LaudoVistoria(models.Model):
     pisos = models.CharField(max_length=100, verbose_name=u'Pisos',null=True, blank=True)
     ceramico = models.CharField(max_length=100, verbose_name=u'ceramico',null=True, blank=True)
     paredes = models.CharField(max_length=100, verbose_name=u'Paredes',null=True, blank=True)
-    azulejos = models.CharField(max_length=100, verbose_name=u'Azulejos',null=True, blank=True)
+    azulejos = models.CharField(max_length=100, verbose_name=u'Azuleijos',null=True, blank=True)
     vidros = models.CharField(max_length=100, verbose_name=u'Vidros',null=True, blank=True)
     portas = models.CharField(max_length=100, verbose_name=u'Portas',null=True, blank=True)
     fechaduras = models.CharField(max_length=100, verbose_name=u'Fechaduras',null=True, blank=True)
@@ -102,7 +106,7 @@ class LaudoVistoria(models.Model):
     janelas = models.CharField(max_length=100, verbose_name=u'Janelas',null=True, blank=True)
     muros = models.CharField(max_length=100, verbose_name=u'Muros',null=True, blank=True)
     grades = models.CharField(max_length=100, verbose_name=u'Grades',null=True, blank=True)
-    telhado = models.CharField(max_length=100, verbose_name=u'Teclado',null=True, blank=True)
+    telhado = models.CharField(max_length=100, verbose_name=u'Telhado',null=True, blank=True)
     forro = models.CharField(max_length=100, verbose_name=u'Forro',null=True, blank=True)
     laje = models.CharField(max_length=100, verbose_name=u'Laje',null=True, blank=True)
     portao = models.CharField(max_length=100, verbose_name=u'Portão',null=True, blank=True)

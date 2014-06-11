@@ -58,9 +58,9 @@ def salvar(request,id):
 
 def filtrar(request):
     dados = {}
-    contas_caixa = ContaCaixa.objects.filter(descricao__contains=request.POST['descricao'],
-                                             empresa__nome__contains=request.POST['empresa'],
-                                             conta_caixa_superior__descricao__contains=request.POST['conta_caixa_superior'])
+    contas_caixa = ContaCaixa.objects.filter(descricao__icontains=request.POST['descricao'],
+                                             empresa__nome__icontains=request.POST['empresa'],
+                                             conta_caixa_superior__descricao__icontains=request.POST['conta_caixa_superior'])
     dados['contas_caixa'] = contas_caixa
 
     if request.POST.get('relatorio', False):

@@ -1,0 +1,150 @@
+{% extends 'template_relatorio_base.html'%}
+{% block conteudo %}
+<img src="{{parametros.url_logo}}">
+<br>
+
+<h3>TERMO DE VISTORIA E REVISÃO DE IMÓVEIS</h3><br>
+
+<b>Nº DE CONTRATO:</b>{{laudo.id}}<br>
+
+<b>TIPO DE IMÓVEL:</b> {{laudo.imovel.retorna_tipo_imovel}}<br>
+
+<b>ENDEREÇO: </b>{{laudo.imovel.endereco}}<br>
+
+<b>PROPRIETARIO:</b>{{laudo.imovel.proprietario.nome}}<br>
+
+<b>LOCATARIO:</b>{{contrato_locacao.locatario.nome}}
+
+<br>
+<br>
+<h4>ESTADO DO IMÓVEL</h4>
+1 - PINTURA<br>
+a) Parte interna <br>
+{{laudo.pintura_interna}}<br>
+b) Parte Externa<br>
+{{laudo.pintura_externa}}<br>
+c) Muros<br>
+{{laudo.muros}}<br>
+d) Ferragens<br>
+{{laudo.gerragens}}<br>
+e) cores e tipos de tinta:<br><br>
+{{laudo.tipos_cores}}<br>
+
+<h4>2 - PARTE ELÉTRICA</h4>
+a) Lâmpadas comuns<br>
+{{laudo.lampadas_comuns}}<br>
+b) Lustres<br>
+{{laudo.lustres}}<br>
+c) Globos<br>
+{{laudo.globos}}<br>
+d) Fluorecentes<br>
+{{laudo.lampadas_fluorecentes}}<br>
+e) Lampião<br>
+{{laudo.lampiao}}<br>
+f) Interruptores<br>
+{{laudo.interruptores}}<br>
+g) Luminárias<br>
+{{laudo.luminarias}}<br>
+h) Espelho/Banheiro<br>
+{{laudo.espelhos_banheiro}}<br>
+i) Campanhia<br>
+{{laudo.campainha}}<br>
+j) Ar condicionado<br>
+{{laudo.ar_condicionado}}<br>
+k) Instalação<br>
+{{laudo.instalacao}}<br>
+l) Interfone<br>
+{{laudo.interfone}}<br>
+m) Portão eletrônico<br><br>
+{{laudo.portao_eletronico}}<br>
+
+<h4>3 - PARTE HIDRÁULICA</h4>
+a) Torneiras<br>
+{{laudo.torneiras}}<br>
+b) Chuveiro<br>
+{{laudo.chuveiro}}<br>
+c) Vaso<br>
+{{laudo.vaso}}<br>
+d) Lavatório<br>
+{{laudo.lavatorio}}<br>
+e) Tanque<br>
+{{laudo.tanque}}<br>
+f) Bidê<br>
+{{laudo.bide}}<br>
+g) Descarga<br>
+{{laudo.descarga}}<br>
+i) Box<br>
+{{laudo.box}}<br>
+j) Rede Esgoto<br>
+{{laudo.rede_esgoto}}<br>
+
+
+<h4>4 - CONSERVAÇÃO</h4>
+a) Tacos<br>
+{{laudo.tacos}}<br>
+b) Piso<br>
+{{laudo.pisos}}<br>
+c) Cerâmico<br>
+{{laudo.ceramico}}<br>
+d) Paredes<br>
+{{laudo.paredes}}<br>
+e) Azulejos<br>
+{{laudo.azulejos}}<br>
+f) Vidros<br>
+{{laudo.vidros}}<br>
+g) Portas<br>
+{{laudo.portas}}<br>
+h) Fechaduras<br>
+{{laudo.fechaduras}}<br>
+i) Trincos<br>
+{{laudo.trincos}}<br>
+j) Janelas<br>
+{{laudo.janelas}}<br>
+k) Muro<br>
+{{laudo.muros}}<br>
+l) Grades<br>
+{{laudo.grades}}<br>
+m) Telhado<br>
+{{laudo.telhado}}<br>
+n) Forro<br>
+{{laudo.forro}}<br>
+o) Laje<br>
+{{laudo.laje}}<br>
+p) Portão<br>
+{{laudo.portao}}<br>
+q) Armários<br>
+{{laudo.armarios}}<br>
+r) Guarda-roupas<br>
+{{laudo.guarda_roupas}}<br>
+s) Rede de proteção<br>
+{{laudo.rede_protecao}}<br>
+t) Chave<br>
+{{laudo.chaves}}<br>
+
+OBSERVAÇÕES:
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+Montes Claros, {{data}}<br>
+<br>
+<br>
+Assinatura das partes.<br>
+
+
+________________________________________________<br>
+LOCADOR<br>
+
+
+________________________________________________<br>
+LOCATARIO<br>
+
+{% endblock %}

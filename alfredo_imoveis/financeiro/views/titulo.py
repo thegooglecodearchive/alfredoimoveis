@@ -67,13 +67,13 @@ def filtrar(request):
     else:
         tipo = ''
 
-    dados['titulos'] = Titulo.objects.filter(empresa__nome__contains=request.POST['empresa'],
+    dados['titulos'] = Titulo.objects.filter(empresa__nome__icontains=request.POST['empresa'],
                                              deletado=request.POST.get('deletados', False),
-                                             descricao__contains=request.POST['descricao'],
-                                             conta_caixa__descricao__contains=request.POST['conta_caixa'],
+                                             descricao__icontains=request.POST['descricao'],
+                                             conta_caixa__descricao__icontains=request.POST['conta_caixa'],
                                              vencimento__range=[dataini, datafim],
                                              valor__range=[valorini, valorfim],
-                                             tipo__contains=tipo)
+                                             tipo__icontains=tipo)
 
     if request.POST.get('relatorio', False):
         dados['data'] = today

@@ -42,6 +42,18 @@
 
     <!-- Page-Level Plugin Scripts - Tables -->
     <script src="{{STATIC_URL}}bootstrap/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#dataTables-example').dataTable( {
+                "language": {
+                    "url": "{{STATIC_URL}}bootstrap/traducao/dataTables.ptbr.lang"
+                }
+            } );
+        } );
+    </script>
+
+
     <script src="{{STATIC_URL}}bootstrap/js/dataTables.bootstrap.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
