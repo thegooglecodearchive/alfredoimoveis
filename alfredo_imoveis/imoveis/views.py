@@ -326,6 +326,6 @@ def laudo_vistoria_delete(request,pk,template_name='laudo_vistoria/laudo_vistori
     laudo = get_object_or_404(LaudoVistoria,pk=pk)
     
     dados['laudo'] = laudo
-    dados['contrato_locacao'] = ContratoLocacao.objects.get(imovel = laudo.imovel)
+    dados['contrato_locacao'] = ContratoLocacao.objects.filter(imovel = laudo.imovel)
     dados['data'] = today
     return render(request,template_name,dados)
