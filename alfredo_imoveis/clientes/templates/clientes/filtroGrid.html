@@ -3,27 +3,28 @@
         <h3 class="panel-title">Consulta avançada de clientes</h3>
     </div>
     <div class="panel-body">
-        <form method="POST" class="navbar-form navbar-left" role="search"
+        <form method="POST"
                   action="{% url 'app_clientes_filtrar' %}">
             {% csrf_token %}
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3">
                     <p>
                        <input class="form-control" type="text" name="codigo" placeholder="Código">
                     </p>
                     <input class="form-control" type="text" name="nome" placeholder="Nome">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-sm-3">
                     <input class="form-control" type="text" name="endereco" placeholder="Endereço">
                 </div>
 
-                <div class="col-md-3">
-                    <label> Inativos   </label>
-                    <input class="form-control" type="checkbox" name="ativo">
+                <div class="col-sm-3">
+                    <label>
+                      <input type="checkbox" name="ativo">   Inativos
+                    </label>         
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-sm-3">
                     <label> Mês do cadastro </label>
                     <br/>De<input class="form-control" type="date" name="dataini">
                     <br/>
@@ -32,8 +33,10 @@
             </div>
 
             <button type="submit" class="btn btn-info">Filtrar</button>
-            <label> Gerar relatório  </label>
-            <input class="form-control" type="checkbox" name="relatorio">
+            <label> 
+               <input  type="checkbox" name="relatorio">   Gerar relatório
+            </label>
+            
         </form>
     </div>
 </div>

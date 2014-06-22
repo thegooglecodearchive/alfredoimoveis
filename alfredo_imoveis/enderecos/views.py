@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
+from alfredo_imoveis.views import busca_configuracoes
 
 from forms import BairroForm
 from models import Bairro, Cidade
@@ -18,6 +19,7 @@ def bairro_home(request,dados={}):
     dados['lista_bairros'] = Bairro.objects.all().order_by('id')
     form = BairroForm()
     dados['form'] = form
+    busca_configuracoes(request,dados)
     return render(request,template_bairro_novo,dados)
 
 def bairro_detalhe(request, id):
@@ -37,7 +39,7 @@ def bairro_adiciona(request):
     if request.method == 'POST':
         if form.is_valid():
             bairro = form.save()
-            dados['mensagem'] = 'Bairro {nome} cadastrado com sucesso'.format(nome=bairro.nome)
+            dados['mensagem'] = u'Bairro {nome} cadastrado com sucesso'.format(nome=bairro.nome)
             return bairro_home(request,dados)
         else:
             dados['form'] = form

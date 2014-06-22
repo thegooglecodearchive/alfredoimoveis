@@ -69,6 +69,7 @@
                 {{mensagem}}
             {% else %}
                 Você ainda não possui <strong>imóveis</strong> cadastrados
+                <a href="{% url 'app_imoveis_add' %}" type="button" class="btn btn-info">Novo </a>
             {% endif %}
 
         </div>

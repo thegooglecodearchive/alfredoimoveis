@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block titulo%}Alfredo Imóveis{% endblock %}</title>
+    <title>{% block titulo%}{{nome_empresa}} {% endblock %}</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap  -->
     <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}bootstrap/css/font-awesome.css" rel="stylesheet">
+    
     <link href="{{STATIC_URL}}bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <link href="{{STATIC_URL}}bootstrap/css/sb-admin.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">
+    
+    <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.min.js"></script>
 
     {% block css %}{% endblock %}
     {% block scripts %}{% endblock %}

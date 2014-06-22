@@ -9,7 +9,7 @@
                 <div class="panel-heading">
                     <h3>Cidades
                     <a href="{% url 'app_enderecos_cidade_add' %}">
-                          <input type="button" class="btn btn-sm btn-info" value="Novo" >
+                          <input type="button" class="btn btn-sm btn-info" value="Nova cidade" >
                     </a>
                     </h3>
                 </div>
@@ -52,20 +52,14 @@
         </div> <!--Row-->
         {% else %}
             <div class="col-lg-4">
-                <h3>Cidades
-                    <br>
-                    <br>
-                    <a href="{% url 'app_enderecos_cidade_add' %}">
-                          <input type="button" class="btn btn-sm btn-info" value="Nova cidade" >
-                    </a>
-                    <br>
-                    <br>
-                <div class="alert alert-dismissable alert-success">
+                <h3>Cidades</h3>
+                    <div class="alert alert-dismissable alert-success">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     {% if mensagem %}
                         {{mensagem}}
                     {% else %}
                         Você ainda não possui <strong>cidades</strong> cadastradas
+                        <a href="{% url 'app_enderecos_cidade_add' %}" type="button" class="btn btn-sm btn-info" >Nova cidade</a>
                     {% endif %}
 
                 </div>

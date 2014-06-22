@@ -3,14 +3,15 @@ __author__ = 'gpzim98'
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from funcionarios.models import Funcionario
+from empresas.models import Empresa
 from parametros.models import ParametrosGerais
 
 template_home = 'index.html'
 template_dashboard = 'dashboard.html'
 
-
 def home(request):
     if request.user.is_authenticated():
+        configura_sessao(request)
         return dashboard(request)
     else:
         return redirect('url_login')
@@ -24,14 +25,21 @@ def dashboard(request):
                                isso pode causar sérios problemas no sistema, acesse o cadastro de funcionários
                                e crie um funcionário para este usuário.
                             """
+    busca_configuracoes(request,dados)
     return render(request, template_dashboard, dados)
 
 def home_barra(request):
     return redirect('/')
 
-def busca_configuracoes(dados = {}):
-    parametros = ParametrosGerais.objects.get(id=1)
+def busca_configuracoes(request,dados = {}):
+    parametros = ParametrosGerais.objects.filter(id=1)
     dados['parametros'] = parametros
+    dados['nome_empresa'] = request.session['nome_empresa']
     return dados
 
-    
+def configura_sessao(request):
+    if request.user.is_authenticated():
+        funcionario = Funcionario.objects.get(usuario=request.user)
+        request.session['nome_empresa'] = funcionario.empresa.nome
+    else:
+        request.session['nome_empresa'] = 'Empresa não definida'

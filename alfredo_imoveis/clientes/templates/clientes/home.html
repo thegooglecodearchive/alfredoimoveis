@@ -71,9 +71,11 @@
                     {% if mensagem %}
                         {{mensagem}}
                     {% else %}
-                        Você ainda não possui <strong>clientes</strong> cadastrados
+                        <p>
+                             Você ainda não possui <strong>clientes</strong> cadastrados
+                            <a input type="button" class="btn btn-sm btn-info"  href="{% url 'app_clientes_novo' %}">Novo</a>
+                        </p>
                     {% endif %}
-
                 </div>
             </div>
         {% endif %}

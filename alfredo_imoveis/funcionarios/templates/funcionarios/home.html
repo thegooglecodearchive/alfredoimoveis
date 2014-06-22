@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>Funcionários
-                    <a href="{% url 'app_funcionario_add' %}"><input type="button" class="btn btn-info" value="Novo"/></a></h3>
+                    <a href="{% url 'app_funcionario_add' %}"><input type="button" class="btn btn-info" value="Novo funcionário"/></a></h3>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -56,7 +56,19 @@
                 <!-- /.col-lg-12 -->
     </div> <!--Row-->
 {% else %}
-    Nenhum funcionário cadastrado
+    <div class="col-lg-4">
+                <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {% if mensagem %}
+                        {{mensagem}}
+                    {% else %}
+                        <p>
+                             Você ainda não possui <strong>clientes</strong> cadastrados
+                            <a href="{% url 'app_funcionario_add' %}"><input type="button" class="btn btn-info" value="Novo funcionário1"/></a></h3> 
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
 {% endif %}
 {% endblock %}
         

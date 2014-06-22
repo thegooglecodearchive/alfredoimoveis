@@ -1,5 +1,5 @@
 {% extends 'template_base.html'%}
-
+{% block titulo%}{{nome_empresa}} - Cadastro de bairros{% endblock %}
 {% block conteudo %}
    <div class="row">
         {% if lista_bairros %}
@@ -59,20 +59,13 @@
         {% else %}
             <div class="col-lg-4">
                 <h3>Bairros</h3>
-                <br>
-                <a href="{% url 'app_enderecos_bairro_add' %}" 
-                      type="button" 
-                      class="btn btn-sm btn-info">Novo bairro
-                </a>
-                <br>
-                <br>
-
                 <div class="alert alert-dismissable alert-success">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     {% if mensagem %}
                         {{mensagem}}
                     {% else %}
                         Você ainda não possui <strong>Bairros</strong> cadastrados
+                        <a href="{% url 'app_enderecos_bairro_add' %}"  type="button"  class="btn btn-sm btn-info">Novo bairro</a>
                     {% endif %}
 
                 </div>

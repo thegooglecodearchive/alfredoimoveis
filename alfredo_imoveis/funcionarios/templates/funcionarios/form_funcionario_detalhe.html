@@ -8,6 +8,7 @@
             {% csrf_token %}
             {% include 'funcionarios/campos_form_funcionario.html' %}
             <input type="submit" class="btn btn-info" value="Salvar">
+            <a input type="button" class="btn btn-danger"  href="{% url 'app_funcionario_delete' funcionario.id %}">Deletar funcionário</a>
         </form>
     </div>
 </div>

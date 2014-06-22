@@ -1,3 +1,4 @@
+# encoding: utf8
 """
 Django settings for alfredo_imoveis project.
 
@@ -103,3 +104,4 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templatespadrao'),
 )
+

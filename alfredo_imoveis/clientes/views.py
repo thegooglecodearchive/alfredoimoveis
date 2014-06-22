@@ -7,6 +7,7 @@ from enderecos.forms import EnderecoForm
 from datetime import datetime, date
 from imoveis.models import Imovel
 from funcionarios.models import Funcionario
+from alfredo_imoveis.views import  busca_configuracoes
 
 today = date.today()
 
@@ -73,7 +74,7 @@ def delete(request,id):
 
 def filtrar(request):
     dados = {}
-
+    busca_configuracoes(request,dados)
     clientes = Cliente.objects.all()
 
     if request.POST['nome']:
