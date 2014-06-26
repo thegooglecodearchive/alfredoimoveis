@@ -64,17 +64,24 @@ WSGI_APPLICATION = 'alfredo_imoveis.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
+if True:
+    DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': 'alfredo_imoveis',
-        'USER': 'postgres',
-        'PASSWORD': 'senha',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'alfredo.db',
     }
 }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE':'django.db.backends.postgresql_psycopg2',
+            'NAME': 'alfredo_imoveis',
+            'USER': 'postgres',
+            'PASSWORD': 'senha',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

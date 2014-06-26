@@ -321,7 +321,7 @@ def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_visto
 
 def laudo_vistoria_delete(request,pk,template_name='laudo_vistoria/laudo_vistoria_imprimir.html'):    
     dados = {}
-    busca_configuracoes(dados)
+    busca_configuracoes(request,dados)
     
     laudo = get_object_or_404(LaudoVistoria,pk=pk)
     

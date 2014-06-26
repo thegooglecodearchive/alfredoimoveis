@@ -8,6 +8,11 @@ TIPO_CLIENTES = (
     ('F', 'FIADOR'),
 )
 
+TIPO_PESSOA = (
+    ('F', u'FÍSICA'),
+    ('J', u'JURÍDICA'),
+)
+
 ESTATO_CIVIL = (
     ('S', 'SOLTEIRO'),
     ('C', 'CASADO'),
@@ -17,7 +22,7 @@ ESTATO_CIVIL = (
 
 class Cliente(models.Model):
     nome = models.CharField(max_length = 150, null = False, blank = False)
-    cnpj_cpf = models.CharField(max_length = 20,  null = True,  blank = True )
+    cnpj_cpf = models.CharField(max_length = 20,  null = False,  blank = False)
     rg = models.CharField(max_length = 11,  null = True,  blank = True)
     orgao_expeditor = models.CharField(max_length = 15,  null = True,  blank = True, verbose_name=u'Órgão expeditor')
     nome_pai = models.CharField(max_length = 100,  null = True,  blank = True, verbose_name=u'Nome do pai' )
@@ -29,7 +34,7 @@ class Cliente(models.Model):
     ativo = models.NullBooleanField(null = True,             blank = True )
     data_cadastro= models.DateField(auto_now_add = True, null = True, blank = True)
     data_nascimento= models.DateField(null = True, blank = True, verbose_name=u'Data de nascimento')
-    telefone_fixo = models.CharField(max_length = 11,  null = True,  blank = True, 
+    telefone_fixo = models.CharField(max_length = 11,  null = False,  blank = False, 
                                 verbose_name = 'Telefone Fixo')
     telefone_comercial = models.CharField(max_length = 11,  null = True,  blank = True, 
                                  verbose_name = 'Telefone Comercial')
@@ -37,11 +42,13 @@ class Cliente(models.Model):
                                  verbose_name = 'Celular')
     celular_2 = models.CharField(max_length = 11,  null = True,  blank = True, 
                                  verbose_name = 'Celular 2')
-    email = models.EmailField(null=True, blank=True)
+    email = models.EmailField(null=False, blank=False)
     tipo_cliente = models.CharField(max_length=1, choices=TIPO_CLIENTES, default = 'C',
                                             verbose_name = u'Tipo')
     estado_civil = models.CharField(max_length=1, choices=ESTATO_CIVIL, default = 'S',
                                             verbose_name = u'Estado civíl')
+    tipo_pessoa = models.CharField(max_length=1, choices=TIPO_PESSOA, default = 'F',
+                                            verbose_name = u'Tipo da pessoa')
     profissao = models.CharField(max_length = 50,  null = True,  blank = True, verbose_name=u'Profissão' )
     empresa_trabalha = models.CharField(max_length = 50,  null = True,  blank = True, verbose_name=u'Empresa onde trabalha' )
     renda = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=u'Renda mensal', default=0)

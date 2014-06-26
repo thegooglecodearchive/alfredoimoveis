@@ -4,9 +4,11 @@
    <div class="row">
         {% if lista_bairros %}
         <div class="row">
+           {% if mensagem%}
             <div class="alert alert-info fade in">
                 {{mensagem}}    
             </div>
+            {% endif %}
     </div>
             <div class="row">
         <div class="col-lg-12">

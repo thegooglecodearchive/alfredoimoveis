@@ -17,7 +17,7 @@
                 <div class="panel-heading">
                     <h3>Clientes
                         <a href="{% url 'app_clientes_novo' %}">
-                            <input type="button" class="btn btn-sm btn-info" value="Novo">
+                            <input type="button" class="btn btn-sm btn-info" value="Novo cliente">
                         </a>
                     </h3>
                 </div>
@@ -42,7 +42,7 @@
                                         <td>{{cliente.id}}</td>
                                         <td>{{cliente.nome}}</td>
                                         <td>{{cliente.cnpj_cpf}}</td>
-                                        <td>{{cliente.telefone}}</td>
+                                        <td>{{cliente.telefone_fixo}}</td>
                                         <td>{{cliente.email}}</td>
                                         <td>{{cliente.endereco}}</td>
                                         <td>
@@ -73,7 +73,7 @@
                     {% else %}
                         <p>
                              Você ainda não possui <strong>clientes</strong> cadastrados
-                            <a input type="button" class="btn btn-sm btn-info"  href="{% url 'app_clientes_novo' %}">Novo</a>
+                            <a input type="button" class="btn btn-sm btn-info"  href="{% url 'app_clientes_novo' %}">Novo cliente</a>
                         </p>
                     {% endif %}
                 </div>

@@ -22,7 +22,7 @@ class Cidade(models.Model):
 class Bairro(models.Model):
     nome = models.CharField(max_length = 150, null = False, blank = False,
                             verbose_name = 'Bairro', help_text='Informe o nome do bairro')
-    cidade = models.ForeignKey(Cidade)
+    cidade = models.ForeignKey(Cidade, null=False, blank=False)
 
     def __unicode__(self):
         return self.nome + " - " + self.cidade.nome
@@ -31,12 +31,11 @@ class Bairro(models.Model):
         return reverse('app_enderecos_bairro_update', kwargs={'pk': self.pk})
 
 class Endereco(models.Model):
-    rua = models.CharField(max_length = 150, null  = True, blank = True)
+    rua = models.CharField(max_length = 150, null  = False, blank = False)
     numero = models.IntegerField(null  = True, blank = True, default=0)
-    bairro = models.ForeignKey(Bairro, null  = True, blank = True,related_name='bairro')
-    cep = models.CharField(max_length = 9,   null  = True, blank = True)
+    bairro = models.ForeignKey(Bairro, null  = False, blank = False,related_name='bairro')
+    cep = models.CharField(max_length = 9,   null  = False, blank = False)
     complemento = models.CharField(max_length=100,null  = True, blank = True)
-
     rua_comercial = models.CharField(max_length = 150, null  = True, blank = True)
     numero_comercial = models.IntegerField(null  = True, blank = True, default=0, verbose_name=u'Nº comercial')
     bairro_comercial = models.ForeignKey(Bairro, null  = True, blank = True, related_name='bairro_comercial')
