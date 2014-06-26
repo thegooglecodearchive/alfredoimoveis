@@ -2,3 +2,4 @@
 static
 *.swp
 *.db
+*migrations
