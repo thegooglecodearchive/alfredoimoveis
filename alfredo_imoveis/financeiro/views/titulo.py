@@ -23,7 +23,8 @@ template_carta_cobranca_modelo_3 = 'financeiro/titulo/carta_cobranca_modelo_3.ht
 def home(request):
     dados = {}
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['titulos'] = Titulo.objects.filter(empresa=funcionario[0].empresa, deletado=False)
+    dados['titulos'] = Titulo.objects.filter(empresa=funcionario[0].empresa, deletado=False) if funcionario else ""
+    dados['mensagem_erro'] = verifica_existencia_parametros()
     return render(request, template_home, dados)
 
 def detalhe(request,id,mensagem=''):
@@ -103,6 +104,7 @@ def salvar(request,id):
 
 def adicionar(request):
     dados = {}
+    dados['mensagem_erro'] = verifica_existencia_parametros()
     dados['form'] = TituloForm()
     return render(request, template_novo, dados)
 
@@ -171,3 +173,6 @@ def informacoes_titulo(dados = {}, titulo=None):
         dados['valor_restante'] = 0
 
 
+def verifica_existencia_parametros():
+    return U"""ATENÇÃO, configure os parâmetros antes de prosseguir com a operação,  
+        a falta destes pode causar problemas na gravação do registro"""  if ParametrosGerais.objects.all().count() == 0 else ""

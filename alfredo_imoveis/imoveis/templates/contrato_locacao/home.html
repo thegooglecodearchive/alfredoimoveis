@@ -71,6 +71,7 @@
                         {{mensagem}}
                     {% else %}
                         Você ainda não possui <strong>contratos</strong> cadastrados
+                        <a href="{% url 'app_imoveis_contrato_add' %}" input type="button" class="btn btn-sm btn-info">Novo</a>
                     {% endif %}
 
                 </div>

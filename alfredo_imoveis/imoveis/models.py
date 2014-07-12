@@ -12,7 +12,7 @@ TIPO_CONTRATO = (
 # Create your models here.
 class Imovel(models.Model):
     endereco = models.ForeignKey(Endereco, null = False, blank = False, verbose_name='Endereço')
-    descricao = models.CharField(u'Descrição do imóvel', max_length=120)
+    descricao = models.CharField(u'Descrição do imóvel', max_length=300)
     cod_ref_site = models.CharField(u'Código de referência no site', max_length=120, null=True, blank=True)
     valor_iptu = models.DecimalField('Valor do IPTU',max_digits=6, decimal_places=2)
     valor_aluguel = models.DecimalField('Valor do Aluguel',max_digits=6, decimal_places=2)
@@ -39,9 +39,9 @@ class ContratoLocacao(models.Model):
     termino_contrato = models.DateField(u'Data do término do contrato')
     data_emissao_contrato = models.DateField(auto_now_add=True)
     locatario = models.ForeignKey(Cliente, related_name='locatario_contrato')
-    fiador1 = models.ForeignKey(Cliente, related_name='fiador1_contrato')
-    fiador2 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador2_contrato')
-    fiador3 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador3_contrato')
+    fiador1 = models.ForeignKey(Cliente, related_name='fiador1_contrato', verbose_name=u'Primeiro fiador')
+    fiador2 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador2_contrato', verbose_name=u'Segundo fiador')
+    fiador3 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador3_contrato', verbose_name=u'Terceiro fiador')
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
     tipo_contrato = models.CharField(max_length=1, choices=TIPO_CONTRATO, verbose_name='Tipo do contrato')
     observacao = models.TextField(verbose_name='Observações do contrato', null=True, blank=True)

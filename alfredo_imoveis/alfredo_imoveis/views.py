@@ -39,7 +39,7 @@ def busca_configuracoes(request,dados = {}):
 
 def configura_sessao(request):
     if request.user.is_authenticated():
-        funcionario = Funcionario.objects.get(usuario=request.user)
-        request.session['nome_empresa'] = funcionario.empresa.nome
+        funcionario = Funcionario.objects.filter(usuario=request.user)
+        request.session['nome_empresa'] =  funcionario[0].empresa.nome if funcionario else  'Empresa não definida'
     else:
         request.session['nome_empresa'] = 'Empresa não definida'

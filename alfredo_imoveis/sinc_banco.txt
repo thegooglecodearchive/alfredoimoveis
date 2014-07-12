@@ -6,6 +6,16 @@
 ./manage.py schemamigration imoveis --initial
 ./manage.py schemamigration parametros --initial
 
+./manage.py migrate funcionarios
+
+./manage.py migrate clientes 
+./manage.py migrate empresas
+./manage.py migrate enderecos
+./manage.py migrate financeiro
+./manage.py migrate funcionarios
+./manage.py migrate imoveis
+./manage.py migrate parametros
+
 ./manage.py migrate clientes --fake
 ./manage.py migrate empresas --fake
 ./manage.py migrate enderecos --fake

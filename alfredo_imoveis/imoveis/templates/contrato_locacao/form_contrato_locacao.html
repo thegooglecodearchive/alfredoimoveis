@@ -1,0 +1,33 @@
+{% load bootstrap %}
+
+<div class="row">
+    <div class="col-sm-12">  
+        {{form.imovel|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">  
+        {{form.locatario|bootstrap}}
+        {{form.fiador1|bootstrap}}
+        {{form.tipo_contrato|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.inicio_contrato|bootstrap}}
+        {{form.fiador2|bootstrap}}
+        {{form.empresa|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+        {{form.termino_contrato|bootstrap}}
+        {{form.fiador3|bootstrap}}
+     </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        {{form.observacao|bootstrap}}
+    </div>
+</div>
+        
+
+        

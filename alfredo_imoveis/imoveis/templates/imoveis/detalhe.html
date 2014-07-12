@@ -25,7 +25,7 @@
         {% csrf_token %}
         {% include 'imoveis/form_imovel.html' %}
         <br/>
-        <button type="submit" class="btn btn-info">Gravar</button>
+        <button type="submit" class="btn btn-info">Salvar</button>
         {% include 'imoveis/modalExcluiImovel.html' %}
         <a href="{% url 'app_imoveis_ficha' imovel.id %}" type="button" class="btn btn-main">Imprimir ficha do imóvel</a>
         <a href="{% url 'app_imoveis_laudo_vistoria_add_imovel' imovel.id %}" type="submit" class="btn btn-info">Laudo de vistoria</a>

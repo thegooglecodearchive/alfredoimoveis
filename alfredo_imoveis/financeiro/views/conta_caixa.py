@@ -16,7 +16,7 @@ template_relatorio = 'financeiro/conta_caixa/relatorio.html'
 def home(request):
     dados = {}
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['contas_caixa'] = ContaCaixa.objects.filter(empresa=funcionario[0].empresa)
+    dados['contas_caixa'] = ContaCaixa.objects.filter(empresa=funcionario[0].empresa) if funcionario else ""
     return render(request, template_home, dados)
 
 def adicionar(request):

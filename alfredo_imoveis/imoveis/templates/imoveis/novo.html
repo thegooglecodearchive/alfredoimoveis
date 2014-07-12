@@ -24,7 +24,7 @@
     <form method="POST" action="{% url 'app_imoveis_salvar' 0 %}">
         {% csrf_token %}
         {% include 'imoveis/form_imovel.html' %}
-        <button type="submit" class="btn btn-info">Gravar</button>
+        <button type="submit" class="btn btn-info">Salvar</button>
     </form>
     
 {% endblock %}

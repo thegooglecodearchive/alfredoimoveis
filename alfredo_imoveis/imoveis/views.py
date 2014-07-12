@@ -28,7 +28,7 @@ def home(request):
     dados = {}
     #import pdb;pdb.set_trace()
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['imoveis'] = Imovel.objects.filter(empresa=funcionario[0].empresa,ativo=True)
+    dados['imoveis'] = Imovel.objects.filter(empresa=funcionario[0].empresa,ativo=True) if funcionario else ""
     return render(request, template_home,dados)
 
 def detalhe(request,id,mensagem=''):
@@ -127,7 +127,7 @@ def contrato_detalhe(request,id,mensagem=None):
 def contrato_home(request):
     dados = {}
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['contratos'] = ContratoLocacao.objects.filter(empresa=funcionario[0].empresa)
+    dados['contratos'] = ContratoLocacao.objects.filter(empresa=funcionario[0].empresa) if funcionario else ""
     return render(request,template_contrato_home, dados)
 
 def contrato_salvar(request,id):
@@ -179,16 +179,16 @@ def contrato_gerar_receber(request,id):
     if contrato.inicio_contrato > contrato.termino_contrato:
         dados['mensagem_erro'] = """
                             As contas a receber deste contrato não foram geradas pois a data inicial de
-                            vigência do contrato é maior do que a data final, por favor corrija este problema primeiro.
+                            vigência do contrato é maior ou igual a data final, por favor corrija este problema primeiro.
                             """
-        return render(request, template_contrato_detalhe, dados)
+        return contrato_detalhe(request,id,dados['mensagem_erro'])
 
     if not parametros[0].conta_caixa:
         dados['mensagem_erro'] = """
                             As contas a receber deste contrato não foram geradas pois não existe uma conta-caixa para
-                            contratos informados no cadastro de parâmetros. Por favor resolva este problema antes de continuar
+                            contratos informada no cadastro de parâmetros. Por favor resolva este problema antes de continuar
                             """
-        return render(request, template_contrato_detalhe, dados)
+        return contrato_detalhe(request,id,dados['mensagem_erro'])
 
     num_parcelas = month_between(contrato.inicio_contrato, contrato.termino_contrato) + 1
 

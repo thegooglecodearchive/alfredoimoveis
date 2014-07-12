@@ -7,6 +7,12 @@
 {% block conteudo %}
 <h1>Títulos a pagar e receber</h1>
 
+{% if mensagem_erro %}
+    <div class="alert alert-dismissable alert-danger">
+        {{mensagem_erro}}
+    </div>
+{% endif %}
+
     <br/>
     {% include 'financeiro/titulo/filtroGrid.html' %}
     <div class="row">

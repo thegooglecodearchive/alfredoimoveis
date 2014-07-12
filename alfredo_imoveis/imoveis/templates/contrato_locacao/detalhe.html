@@ -18,11 +18,8 @@
                 document.getElementById("gera_receber_contrato").click();
             }
         }
-
     }
 </script>
-
-
 
     {% if mensagem %}
         <br/>
@@ -50,10 +47,9 @@
         {% endif %}
 
         <div class="panel-body">
-            <form method="POST" class="navbar-form navbar-left" role="search"
-                  action="{% url 'app_imoveis_contrato_salvar' contrato.id %}">
+            <form method="POST" action="{% url 'app_imoveis_contrato_salvar' contrato.id %}">
                 {% csrf_token %}
-                {{form|bootstrap}}
+                {% include 'contrato_locacao/form_contrato_locacao.html' %}
                 <br/>
                 <br/>
                 <button type="submit" class="btn btn-info">Gravar</button>
@@ -62,7 +58,7 @@
                     <button type="button" class="btn btn-main">Imprimir contrato</button>
                 </a>
             </form>
-            
+            <br>
                 <button type="button" class="btn btn-danger"
                         onclick="confirmaReceber('{{contrato.gerou_receber}}');">Gerar títulos a receber</button>
 

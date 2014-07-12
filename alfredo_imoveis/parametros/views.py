@@ -17,7 +17,7 @@ def home(request):
             form = ClasseParametrosGerais(instance=p)
         else:
             form = ClasseParametrosGerais()
-            dados['mensagem'] = 'Você ainda não cadastrou parâmetros cadastrados'
+            dados['mensagem'] = 'Você ainda não cadastrou parâmetros'
         dados['form'] = form
         return render(request, template_parametros, dados)
     else:

@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block conteudo %}
+
+{% if mensagem_erro %}
+    <div class="alert alert-dismissable alert-danger">
+        {{mensagem_erro}}
+    </div>
+{% endif %}
+
     <h2>Novo título a pagar e receber</h2>
 
     {% if mensagem %}

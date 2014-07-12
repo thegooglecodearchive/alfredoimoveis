@@ -15,3 +15,7 @@ class ParametrosGerais(models.Model):
                                 help_text="Informe o usuário gerente da empresa")
     conta_caixa = models.ForeignKey(ContaCaixa, null=True, blank=True,
                                     verbose_name='Conta caixa para financeiro de contratos')
+
+
+    def __unicode__(self):
+        return unicode(self.id) + " - " + u"Parâmetros "

@@ -7,7 +7,9 @@
 {% block conteudo %}
         {% if mensagem %}
             <div class="color-swatch brand-primary">
-                <button type="button" class="btn btn-info">{{mensagem}}</button>
+            <div class="alert alert-dismissable alert-success">
+                  {{mensagem}}
+            </div>
                 <br>
                 <br>
             </div>
@@ -19,7 +21,7 @@
                      <br/>
                     {{form|bootstrap}}
                     <br />
-                    <input type="submit" class="btn btn-primary"/>
+                    <input type="submit" class="btn btn-primary" value="Salvar" />
                 </form>
             </div>
         </div>
