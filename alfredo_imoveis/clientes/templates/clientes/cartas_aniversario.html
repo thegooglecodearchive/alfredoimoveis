@@ -1,9 +1,17 @@
 {% extends 'template_relatorio_base.html' %}
  {% block conteudo %}
-        {{clientes.count}}
         {% for cliente in clientes %}
             <br>
             <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2><img src="{{url_logo}}"> Alfredo Imóveis</h2>
+                </div>
+                <div class="col-sm-6">
+                    <img src="http://cdn.vectorstock.com/i/composite/17,61/cake-ans-happy-birthday-vector-831761.jpg">
+                </div>
+            </div>
+
             <p>
                 {{cliente.nome}}<br>
                 {{cliente.endereco.rua}} {{cliente.endereco.numero}} {{cliente.endereco.complemento}}<br>
@@ -11,26 +19,11 @@
             </p>
 
             <br>
-            <br>
-            <br>
-            <br>
              <h4 align="justify">
                 
-                Sempre nos sentimos muito honrados em tê-lo como cliente e em poder atendê-lo com eficiência. Hoje a nossa equipe está especialmente feliz, porque é o seu aniversário e, portanto, uma oportunidade única para desejarmos  tudo o que for de melhor para si. 
-                <br>
-                <br>
-                Que a vida continue a proporcionar-lhe apenas bons eventos e que nunca lhe falte saúde e disposição para lutar pelos seus objetivos e conquistar cada vez mais o seu espaço. 
-                
-                <br>
-                <br>
-                Que o seu dia seja carregado de muita felicidade e alegria, e que a sua vida seja guiada para muitos outros sucessos e novas conquistas. 
-                Nossa parceria foi construída de forma muito positiva e só temos a agradecer pela confiança e por sempre trazer com você muita simpatia.
-
-                Receba os melhores votos da Alfredo imóveis!
-                Parabéns e tenha um feliz aniversário!
+            {{texto_carta|safe}}
 
             </h4>
-
 
             <br>
              <h4>Alfredo Imóveis.</h4>
@@ -42,20 +35,7 @@
              <br>
              <br>
              <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-        {% endfor %}
+        
+
+        {% endfor%}
 {% endblock %}        

@@ -8,6 +8,7 @@ from datetime import datetime, date
 from imoveis.models import Imovel
 from funcionarios.models import Funcionario
 from alfredo_imoveis.views import  busca_configuracoes
+from parametros.models import ParametrosGerais
 
 today = date.today()
 
@@ -133,21 +134,41 @@ def cartas_cobranca_automatizada(request):
 
 def cartas_aniversario_filtrar(request):
     dados = {}
+    mes = request.POST['mes']
+    dia = request.POST['dia']
+    carrega_parametros_carta_aniversario(request, dados)
+
+    clientes = Cliente.objects.filter(data_nascimento__month=mes)        
+    dados['clientes'] = clientes
+        
+    if dia != '0':
+        clientes = Cliente.objects.filter(data_nascimento__day=dia)  
 
     if request.POST.get('filtrar_imprimir', False):
-        
-        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
-        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
-        clientes = Cliente.objects.filter(data_nascimento__range=[dataini,datafim])        
-        dados['clientes'] = clientes
-        dados['data'] = today
         return render(request, 'clientes/cartas_aniversario.html', dados)
     else:
         return render(request,'clientes/cartas_aniversario_home.html',dados)
 
+        #dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
+        #datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
 def cartas_aniversario_individual(request,id):
     dados = {}
     cliente = Cliente.objects.filter(pk=id)
     dados['clientes'] = cliente
-    dados['data'] = today
+    carrega_parametros_carta_aniversario(request, dados)
     return render(request, 'clientes/cartas_aniversario.html', dados)
+
+def carrega_parametros_carta_aniversario(request, dados):
+    modelo = request.POST['modelo']
+    
+    if modelo == 'texto1':
+        texto_carta = ParametrosGerais.objects.all()[0].texto_carta_aniv1
+    elif modelo == 'texto2':
+        texto_carta = ParametrosGerais.objects.all()[0].texto_carta_aniv2
+    else:
+        texto_carta = ParametrosGerais.objects.all()[0].texto_carta_aniv3
+
+    dados['url_logo'] = ParametrosGerais.objects.all()[0].url_logo
+
+    dados['data'] = today
+    dados['texto_carta'] = texto_carta

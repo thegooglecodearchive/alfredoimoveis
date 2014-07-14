@@ -7,22 +7,142 @@
             {% csrf_token %}
             <div class="row">
                 
-               <div class="col-sm-6">
-               <label>Filtrar pela data de nascimento</label> 
-                    <br>De<input class="form-control" type="date" name="dataini" required>
+               <div class="col-sm-4">
+                    <label>Modelo da carta</label> 
+                    <select class="form-control" name="modelo">
+                          <option value="texto1">Texto I</option>
+                          <option value="texto2">Texto II</option>
+                          <option value="texto3">Texto III</option>
+                    </select>
                </div>
             
-                <div class="col-sm-6">
-                    <br>Até<input class="form-control" type="date" name="datafim" required>
-                    <br/>
+                <div class="col-sm-4">
+                        <label>Dia do nascimento</label> 
+                        <select class="form-control" name="dia">
+                              <option value="0">Não filrar pelo dia</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="21">21</option>
+                              <option value="22">22</option>
+                              <option value="23">23</option>
+                              <option value="24">24</option>
+                              <option value="25">25</option>
+                              <option value="26">26</option>
+                              <option value="27">27</option>
+                              <option value="28">28</option>
+                              <option value="29">29</option>
+                              <option value="30">30</option>
+                              <option value="31">31</option>
+                        </select>
+                </div>
+
+                <div class="col-sm-4">
+                    <label>Mês do nascimento</label> 
+                        <select class="form-control" name="mes">
+                              <option value="1">Janeiro</option>
+                              <option value="2">Fevereiro</option>
+                              <option value="3">Março</option>
+                              <option value="4">Abril</option>
+                              <option value="5">Maio</option>
+                              <option value="6">Junho</option>
+                              <option value="7">Julho</option>
+                              <option value="8">Agosto</option>
+                              <option value="9">Setembro</option>
+                              <option value="10">Outubro</option>
+                              <option value="11">Novembro</option>
+                              <option value="12">Dezembro</option>
+                        </select>
                 </div>
 
             </div>
             <br>
             <button type="submit" class="btn btn-info">Filtrar</button>
 
-            <label>Filtrar e Imprmir</label>
+            <label>Quero imprimir a carta em seguida</label>
             <input type="checkbox" name="filtrar_imprimir" />
         </form>
     </div>
 </div>
+
+    <div class="row">
+        {% if clientes %}
+            <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Aniversariantes</h3> 
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th>CPF/CNPJ</th>
+                                    <th>Telefone</th>
+                                    <th>E-mail</th>
+                                    <th>Dt. Nascimento</th>
+                                    <th>Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cliente in clientes %}
+                                    <tr class="odd gradeX">
+                                        <td>{{cliente.id}}</td>
+                                        <td>{{cliente.nome}}</td>
+                                        <td>{{cliente.cnpj_cpf}}</td>
+                                        <td>{{cliente.telefone_fixo}}</td>
+                                        <td>{{cliente.email}}</td>
+                                        <td>{{cliente.data_nascimento}}</td>
+                                        <td>
+                                            <a href="{% url 'app_clientes_detalhe' cliente.id %}">
+                                                <img src="{{STATIC_URL}}bootstrap/img/edit.png">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </a>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                    <!-- /.panel -->
+            </div>
+                    <!-- /.col-lg-12 -->
+        </div> <!--Row-->
+        {% else %}
+            <div class="col-lg-4">
+                <div class="alert alert-dismissable alert-success">
+                    {% if mensagem %}
+                        {{mensagem}}
+                    {% else %}
+                        <p>
+                             Nenhum <strong>aniversariante</strong> selecionado, tente outro filtro!
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
