@@ -11,6 +11,7 @@ class ContaCaixa(models.Model):
 
     class Meta:
         app_label = 'financeiro'
+        ordering = ['descricao']
 
     def __unicode__(self):
         return self.descricao[:20:]

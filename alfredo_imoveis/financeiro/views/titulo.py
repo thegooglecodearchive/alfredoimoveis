@@ -2,9 +2,11 @@
 __author__ = 'gpzim98'
 from django.shortcuts import render, get_object_or_404
 from financeiro.models.titulo import Titulo, Recibo
+from financeiro.models.conta_caixa import ContaCaixa
 from funcionarios.models import Funcionario
 from financeiro.forms.titulo import TituloForm
 from parametros.models import ParametrosGerais
+from clientes.models import Cliente
 from datetime import datetime, date
 from decimal import *
 
@@ -25,6 +27,8 @@ def home(request):
     funcionario = Funcionario.objects.filter(usuario=request.user)
     dados['titulos'] = Titulo.objects.filter(empresa=funcionario[0].empresa, deletado=False) if funcionario else ""
     dados['mensagem_erro'] = verifica_existencia_parametros()
+    dados['clientes'] = Cliente.objects.all()
+    dados['contas_caixa'] = ContaCaixa.objects.all()
     return render(request, template_home, dados)
 
 def detalhe(request,id,mensagem=''):
@@ -49,37 +53,14 @@ def delete(request, id):
 def filtrar(request):
     dados = {}
 
-    if request.POST['dataini'] and request.POST['datafim']:
-        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
-        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
-    else:
-        dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
-        datafim = datetime.strptime('2500-12-31', '%Y-%m-%d')
-
-    if request.POST.get('valor_titulo', False):
-        valorini=float(request.POST.get('valor_titulo', False))
-        valorfim=float(request.POST.get('valor_titulo', False))
-    else:
-        valorini=0
-        valorfim=999999
-
-    if request.POST['tipo'] in ('R', 'D'):
-        tipo = request.POST['tipo']
-    else:
-        tipo = ''
-
-    dados['titulos'] = Titulo.objects.filter(empresa__nome__icontains=request.POST['empresa'],
-                                             deletado=request.POST.get('deletados', False),
-                                             descricao__icontains=request.POST['descricao'],
-                                             conta_caixa__descricao__icontains=request.POST['conta_caixa'],
-                                             vencimento__range=[dataini, datafim],
-                                             valor__range=[valorini, valorfim],
-                                             tipo__icontains=tipo)
+    dados['titulos'] = filtra_titulos(request)
 
     if request.POST.get('relatorio', False):
         dados['data'] = today
         return render(request,template_relatorio,dados)
     else:
+        dados['clientes'] = Cliente.objects.all()
+        dados['contas_caixa'] = ContaCaixa.objects.all()
         return render(request, template_home,dados)
 
 def salvar(request,id):
@@ -176,3 +157,37 @@ def informacoes_titulo(dados = {}, titulo=None):
 def verifica_existencia_parametros():
     return U"""ATENÇÃO, configure os parâmetros antes de prosseguir com a operação,  
         a falta destes pode causar problemas na gravação do registro"""  if ParametrosGerais.objects.all().count() == 0 else ""
+
+def filtra_titulos(request):
+    titulos = Titulo.objects.all()
+    
+    if request.POST['cliente'] != '0':
+        titulos = Titulo.objects.filter(cliente__id=request.POST['cliente'])
+
+    if request.POST['contas_cx'] != '0':
+        titulos = titulos.filter(conta_caixa=request.POST['contas_cx'])
+
+    if request.POST['tipo'] in ('R', 'D'):
+        titulos = titulos.filter(tipo=request.POST['tipo']) 
+    
+    if request.POST.get('valor_titulo', False):
+        valorini=float(request.POST.get('valor_titulo', False))
+        valorfim=float(request.POST.get('valor_titulo', False))
+    else:
+        valorini=0
+        valorfim=999999
+    titulos = titulos.filter(valor__range=[valorini,valorfim]) 
+
+    if request.POST['dataini'] and request.POST['datafim']:
+        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
+        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
+    else:
+        dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
+        datafim = datetime.strptime('2500-12-31', '%Y-%m-%d')
+    titulos = titulos.filter(vencimento__range=[dataini, datafim]) 
+
+    titulos = titulos.filter(descricao__icontains=request.POST['descricao'])
+    titulos = titulos.filter(deletado=request.POST.get('deletados', False))
+    titulos = titulos.filter(empresa__nome__icontains=request.POST['empresa'])
+
+    return titulos        

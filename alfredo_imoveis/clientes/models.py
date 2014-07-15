@@ -14,10 +14,11 @@ TIPO_PESSOA = (
 )
 
 ESTATO_CIVIL = (
-    ('S', 'SOLTEIRO'),
+    ('A', 'AMAZIADO'),
     ('C', 'CASADO'),
     ('D', 'DIVORCIADO'),
-    ('A', 'AMAZIADO'),
+    ('S', 'SOLTEIRO'),
+    ('V', 'VIÚVO'),
 )
 
 class Cliente(models.Model):
@@ -63,4 +64,7 @@ class Cliente(models.Model):
     observacoes = models.TextField(null=True, blank=True, verbose_name=u'Observações')
     
     def __unicode__(self):
-        return "Cod: " + str(self.id) + " - " +  self.nome
+        return self.nome + " - " + "Cod:" + str(self.id) 
+
+    class Meta:
+        ordering = ['nome']

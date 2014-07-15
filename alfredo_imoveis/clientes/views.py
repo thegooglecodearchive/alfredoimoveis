@@ -149,8 +149,6 @@ def cartas_aniversario_filtrar(request):
     else:
         return render(request,'clientes/cartas_aniversario_home.html',dados)
 
-        #dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
-        #datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
 def cartas_aniversario_individual(request,id):
     dados = {}
     cliente = Cliente.objects.filter(pk=id)

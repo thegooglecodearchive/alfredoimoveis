@@ -3,39 +3,60 @@
         <h3 class="panel-title">Consultar títulos</h3>
     </div>
     <div class="panel-body">
-        <form method="POST" class="navbar-form navbar-left" role="search"
-                  action="{% url 'app_financeiro_titulo_filtrar' %}">
+        <form method="POST" action="{% url 'app_financeiro_titulo_filtrar' %}">
             {% csrf_token %}
             <div class="row">
-                <div class="col-md-3">
-                    <input class="form-control" type="text" name="descricao" placeholder="Descrição">
+                <div class="col-sm-6">
+                    <label>Selecione um cliente</label>
+                    <select class="form-control" name="cliente">
+                        <option class="form-control" value="0" selected="selected">Selecione um cliente</option>
+                        {% for cliente in clientes%}
+                            <option class="form-control" value="{{cliente.id}}">{{cliente.nome}}</option>
+                        {% endfor %}
+                    </select>
                     <br/>
+                </div>
+                <div class="col-sm-3">
+                    De:     <input class="form-control" type="date" name="dataini">
+                </div>
+                <div class="col-sm-3">
+                    Até:<input class="form-control" type="date" name="datafim">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Informe a descrição do título</label>
+                    <input class="form-control" type="text" name="descricao" placeholder="Descrição">
+                    <label>Escolhe o tipo do título</label>
                     <select class="form-control" name="tipo">
                         <option class="form-control"></option>
-                        <option class="form-control" value="D" name="despesa">Despesa</option>
+                        <option class="form-control" value="D" name="despesa" selected="selected">Despesa</option>
                         <option class="form-control" value="R" name="receita">Receita</option>
                     </select>
                     <br/>
                 </div>
-                <div class="col-md-3">
+                <div class="col-sm-3">
+                    <label>Selecione a empresa</label>
                     <input class="form-control" type="text" name="empresa" placeholder="empresa">
-                    <input class="form-control" type="text" name="conta_caixa" placeholder="Conta-caixa">
+                    <label>Selecione a conta-caixa</label>
+                    <select class="form-control" name="contas_cx">
+                        <option class="form-control" value="0" selected="selected">Selecione uma conta-caixa</option>
+                        {% for conta in contas_caixa%}
+                            <option class="form-control" value="{{conta.id}}">{{conta.descricao}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <div class="col-md-3">
-                    De<input class="form-control" type="date" name="dataini">
-                    <br/>
-                    Até<input class="form-control" type="date" name="datafim">
-                    <p class="help-block">Vencimento do título</p>
-                </div>
-                <div class="col-md-3">
+                <div class="col-sm-3">
+                    <label>Informe o valor do título procurado</label>
                     <input class="form-control" type="number" name="valor_titulo" placeholder="Valor do título">
+                    <br>
                     <label> Doc. deletados</label>
-                    <input class="form-control" type="checkbox" name="deletados">
+                    <input type="checkbox" name="deletados">
                 </div>
             </div>
             <button type="submit" class="btn btn-info">Filtrar</button>
             <label> Gerar relatório  </label>
-            <input class="form-control" type="checkbox" name="relatorio">
+            <input type="checkbox" name="relatorio" >
         </form>
     </div>
 </div>

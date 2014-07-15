@@ -36,6 +36,7 @@ class Titulo(models.Model):
         app_label = 'financeiro'
         verbose_name = 'Título'
         verbose_name_plural = 'Títulos'
+        ordering =['descricao']
 
     def __unicode__(self):
         return self.descricao[:20:]+' '+self.vencimento.strftime('%d/%m/%y')\

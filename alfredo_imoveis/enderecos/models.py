@@ -15,6 +15,7 @@ class Cidade(models.Model):
     class Meta:
         verbose_name = u'Município'
         verbose_name_plural = u'Municípios'
+        ordering = ['nome']
 
     def get_absolute_url(self):
         return reverse('app_enderecos_cidade_update', kwargs={'pk': self.pk})
@@ -29,6 +30,9 @@ class Bairro(models.Model):
 
     def get_absolute_url(self):
         return reverse('app_enderecos_bairro_update', kwargs={'pk': self.pk})
+
+    class Meta:
+        ordering = ['nome']
 
 class Endereco(models.Model):
     rua = models.CharField(max_length = 150, null  = False, blank = False)
@@ -48,5 +52,8 @@ class Endereco(models.Model):
             return self.rua + ' - ' + str(self.bairro)
         else:
             return 'Sem endereço cadastrado'
+
+    class Meta:
+        ordering = ['rua']
 
 

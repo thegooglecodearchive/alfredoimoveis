@@ -32,6 +32,9 @@ class Imovel(models.Model):
 
     def retorna_tipo_imovel(self):
         return 'Residencial' if self.tipo_imovel == 'R' else 'Comercial'
+
+    class Meta:
+        ordering = ['descricao']
        
 class ContratoLocacao(models.Model):
     imovel = models.OneToOneField(Imovel)
