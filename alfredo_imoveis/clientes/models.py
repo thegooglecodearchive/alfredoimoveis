@@ -35,13 +35,13 @@ class Cliente(models.Model):
     ativo = models.NullBooleanField(null = True,             blank = True )
     data_cadastro= models.DateField(auto_now_add = True, null = True, blank = True)
     data_nascimento= models.DateField(null = True, blank = True, verbose_name=u'Data de nascimento')
-    telefone_fixo = models.CharField(max_length = 11,  null = False,  blank = False, 
+    telefone_fixo = models.CharField(max_length = 13,  null = False,  blank = False, 
                                 verbose_name = 'Telefone Fixo')
-    telefone_comercial = models.CharField(max_length = 11,  null = True,  blank = True, 
+    telefone_comercial = models.CharField(max_length = 13,  null = True,  blank = True, 
                                  verbose_name = 'Telefone Comercial')
-    celular = models.CharField(max_length = 11,  null = True,  blank = True, 
+    celular = models.CharField(max_length = 13,  null = True,  blank = True, 
                                  verbose_name = 'Celular')
-    celular_2 = models.CharField(max_length = 11,  null = True,  blank = True, 
+    celular_2 = models.CharField(max_length = 13,  null = True,  blank = True, 
                                  verbose_name = 'Celular 2')
     email = models.EmailField(null=False, blank=False)
     tipo_cliente = models.CharField(max_length=1, choices=TIPO_CLIENTES, default = 'C',

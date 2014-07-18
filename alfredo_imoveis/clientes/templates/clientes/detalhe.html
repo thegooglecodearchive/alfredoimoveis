@@ -26,7 +26,7 @@
         {% csrf_token %}
         {% include 'clientes/form_cliente.html' %}
         <br/>
-        <button type="submit" class="btn btn-info">Gravar</button>
+        <button type="submit" class="btn btn-info">Salvar</button>
         {% include 'clientes/modalExcluiCliente.html' %}
         Data do cadastro: {{cliente.data_cadastro}}
     </form>

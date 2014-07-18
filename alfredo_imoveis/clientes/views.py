@@ -129,9 +129,6 @@ def relatorios(request):
 def cartas_aniversario_home(request):
     return render(request,'clientes/cartas_aniversario_home.html')
 
-def cartas_cobranca_automatizada(request):
-    return render(request,'clientes/cartas_cobranca_automatizada.html')    
-
 def cartas_aniversario_filtrar(request):
     dados = {}
     mes = request.POST['mes']

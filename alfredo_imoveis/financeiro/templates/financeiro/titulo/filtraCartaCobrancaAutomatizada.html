@@ -3,7 +3,7 @@
         <h3 class="panel-title">Consultar títulos</h3>
     </div>
     <div class="panel-body">
-        <form method="POST" action="{% url 'app_financeiro_titulo_filtrar' %}">
+        <form method="POST" action="{% url 'app_financeiro_titulo_carta_cobranca_filtrar' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm-6">
@@ -50,13 +50,20 @@
                     <label>Informe o valor do título procurado</label>
                     <input class="form-control" type="number" name="valor_titulo" placeholder="Valor do título">
                     <br>
-                    <label> Doc. deletados</label>
-                    <input type="checkbox" name="deletados">
+                </div>
+                <div class="col-sm-3">
+                    <label>Escolha o modelo da carta</label>
+                    <select class="form-control" name="modelo_carta">
+                        <option class="form-control"></option>
+                        <option class="form-control" value="M1" name="modelo1" selected="selected">Modelo I</option>
+                        <option class="form-control" value="M2" name="modelo2">Modelo II</option>
+                        <option class="form-control" value="M3" name="modelo3">Modelo III</option>
+                    </select>
                 </div>
             </div>
             <button type="submit" class="btn btn-info">Filtrar</button>
-            <label> Gerar relatório  </label>
-            <input type="checkbox" name="relatorio" >
+            <label> Imprimir cartas</label>
+            <input type="checkbox" name="imprimir" >
         </form>
     </div>
 </div>

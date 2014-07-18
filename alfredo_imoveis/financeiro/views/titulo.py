@@ -10,7 +10,6 @@ from clientes.models import Cliente
 from datetime import datetime, date
 from decimal import *
 
-
 today = date.today()
 
 template_home = 'financeiro/titulo/home.html'
@@ -100,23 +99,22 @@ def recibo(request,id):
 def carta_cobranca_modelo_1(request,id):
     dados = {}
     dados['data'] = today
-    dados['titulo'] = get_object_or_404(Titulo,pk=id)
+    dados['titulos'] = Titulo.objects.filter(id=id)
     return render(request, template_carta_cobranca_modelo_1,dados)
 
 def carta_cobranca_modelo_2(request,id):
     dados = {}
     dados['data'] = today
-    titulo = get_object_or_404(Titulo,pk=id)
-    dados['titulo'] = titulo
-    data_de = date(titulo.vencimento.year, titulo.vencimento.month+1,titulo.vencimento.day)
-    dados['periodo_de'] = titulo.vencimento
+    dados['titulos'] = Titulo.objects.filter(id=id)
+    data_de = date(Titulo.objects.filter(id=id)[0].vencimento.year, Titulo.objects.filter(id=id)[0].vencimento.month+1,Titulo.objects.filter(id=id)[0].vencimento.day)
+    dados['periodo_de'] = Titulo.objects.filter(id=id)[0].vencimento
     dados['periodo_ate'] = data_de
     return render(request, template_carta_cobranca_modelo_2,dados)
 
 def carta_cobranca_modelo_3(request,id):
     dados = {}
     dados['data'] = today
-    dados['titulo'] = get_object_or_404(Titulo,pk=id)
+    dados['titulos'] = Titulo.objects.filter(id=id)
     return render(request, template_carta_cobranca_modelo_3,dados)    
 
 def abater_titulo(request,id):
@@ -191,3 +189,31 @@ def filtra_titulos(request):
     titulos = titulos.filter(empresa__nome__icontains=request.POST['empresa'])
 
     return titulos        
+
+def cartas_cobranca_automatizada(request):
+    dados = {}
+
+    dados['clientes'] = Cliente.objects.filter(ativo=True)
+    dados['contas_caixa'] = ContaCaixa.objects.all()
+    return render(request,'financeiro/titulo/cartas_cobranca_automatizada.html', dados)  
+
+def cartas_cobranca_automatizada_filtrar(request):
+    dados = {}
+
+    dados['titulos'] = filtra_titulos(request)
+
+    if request.POST.get('imprimir', False):
+        dados['data'] = today
+        return render(request,get_modelo_carta(request),dados)
+    else:
+        dados['contas_caixa'] = ContaCaixa.objects.all()
+        dados['clientes'] = Cliente.objects.filter(ativo=True)
+        return render(request,'financeiro/titulo/cartas_cobranca_automatizada.html', dados)        
+
+def get_modelo_carta(request):
+    if request.POST['modelo_carta'] == 'M1':
+        return template_carta_cobranca_modelo_1
+    elif request.POST['modelo_carta'] == 'M2':
+        return template_carta_cobranca_modelo_2
+    else:
+        return template_carta_cobranca_modelo_3

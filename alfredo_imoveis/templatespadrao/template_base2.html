@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo%}{{nome_empresa}} {% endblock %}</title>
+
+    <!-- Bootstrap  -->
+    <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/jquery.metisMenu.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- Data Tables  -->
+    <link href="{{STATIC_URL}}bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}bootstrap/css/sb-admin.css" rel="stylesheet">
+    <script src="{{STATIC_URL}}bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/jquery.dataTables.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/sb-admin.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">
+    
+    <!--JQuery Input Masks-->
+    <script src="{{STATIC_URL}}bootstrap/js/jquery.maskedinput-1.3.min.js"></script>
+
+    {% block css %}{% endblock %}
+    {% block scripts %}{% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    {% include 'menu_superior.html' %}
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class="container theme-showcase" role="main">
+        {% block conteudo%}{% endblock %}
+    </div>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#dataTables-example').dataTable( {
+                "language": {
+                    "url": "{{STATIC_URL}}bootstrap/traducao/dataTables.ptbr.lang"
+                }
+            } );
+        } );
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').dataTable();
+    });
+    </script>
+
+  </body>
+
+<script>
+        jQuery(function($){
+               $("#id_data_nascimento").mask("99/99/9999");
+               $("#campoTelefone").mask("(999) 999-9999");
+               $("#campoSenha").mask("***-****");
+        });
+</script>
+
+</html>

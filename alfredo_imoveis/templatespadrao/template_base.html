@@ -6,17 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block titulo%}{{nome_empresa}} {% endblock %}</title>
 
-    <!-- Bootstrap  -->
+    <!-- Bootstrap  css-->
     <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link href="{{STATIC_URL}}bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <link href="{{STATIC_URL}}bootstrap/css/sb-admin.css" rel="stylesheet">
     
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+    <!-- Bootstrap  Js-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+    <script src="{{STATIC_URL}}bootstrap/js/jquery-1.10.2.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/sb-admin.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+
+    <!--Data table CSS-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/datatable/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">
     
-    <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.min.js"></script>
+    <!--Data table CSS-->
+    <script type="text/javascript" language="javascript" src="{{STATIC_URL}}bootstrap/datatable/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="{{STATIC_URL}}bootstrap/datatable/jquery.dataTables.js"></script>
+    
+    <!--JQuery Input Mask-->
+    <script type="text/javascript" language="javascript" src="{{STATIC_URL}}bootstrap/datatable/jquery.maskedinput.js"></script>
+    <script type="text/javascript" language="javascript" src="{{STATIC_URL}}bootstrap/js/jquery.maskMoney.js"></script>
 
     {% block css %}{% endblock %}
     {% block scripts %}{% endblock %}
@@ -37,18 +47,7 @@
     <div class="container theme-showcase" role="main">
         {% block conteudo%}{% endblock %}
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
-
-
-    <!-- Core Scripts - Include with every page -->
-    <script src="{{STATIC_URL}}bootstrap/js/jquery.metisMenu.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Tables -->
-    <script src="{{STATIC_URL}}bootstrap/js/jquery.dataTables.js"></script>
-
+    
     <script type="text/javascript">
         $(document).ready(function() {
             $('#dataTables-example').dataTable( {
@@ -59,17 +58,37 @@
         } );
     </script>
 
-
-    <script src="{{STATIC_URL}}bootstrap/js/dataTables.bootstrap.js"></script>
-
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="{{STATIC_URL}}bootstrap/js/sb-admin.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
         $('#dataTables-example').dataTable();
     });
     </script>
+
   </body>
+
+<script>
+        jQuery(function($){
+               $("#id_data_nascimento").mask("99/99/9999");
+               $("#id_celular").mask("(99)9999-9999");
+               $("#id_celular_2").mask("(99)9999-9999");
+               $("#id_telefone_fixo").mask("(99)9999-9999");
+               $("#id_telefone_comercial").mask("(99)9999-9999");
+               $("#id_cnpj_cpf").mask("999.999.999-99");
+               $("#id_renda").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+        });
+</script>
+
+<script type="text/javascript">
+            $(document).ready(function(){ 
+                    $('#id_tipo_pessoa').click(function(){ 
+                            if($('#id_tipo_pessoa :selected').text()=='JURÍDICA' ){
+                                $("#id_cnpj_cpf").mask("9999.9999.9999-99");                
+                            }
+                            else{
+                                $("#id_cnpj_cpf").mask("999.999.999-99");
+                            }
+                    });
+        });
+    </script>
+
 </html>

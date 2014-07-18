@@ -7,16 +7,17 @@
 </div>
 <div class="row">
 	<div class="col-sm-4">
-		{{ form.cnpj_cpf|bootstrap}}
-		{{ form.data_nascimento|bootstrap}}            
-	</div>
-	<div class="col-sm-4">
-		{{ form.rg|bootstrap }}
-		{{ form.estado_civil|bootstrap }}
-	</div>
-	<div class="col-sm-4">
-		{{ form.orgao_expeditor|bootstrap }}
-		{{ form.conjuge|bootstrap }}
+	              {{ form.tipo_pessoa|bootstrap}}            	
+                            {{ form.rg|bootstrap }}
+                            {{ form.conjuge|bootstrap }}
+    </div>
+    <div class="col-sm-4">
+        {{ form.cnpj_cpf|bootstrap}}
+        {{ form.orgao_expeditor|bootstrap }}
+    </div>
+    <div class="col-sm-4">
+                            {{ form.data_nascimento|bootstrap}}            
+                            {{ form.estado_civil|bootstrap }}
 	</div>	
 </div>
 <div class="row">
@@ -37,7 +38,7 @@
 </div>
 <div class="row">
     <div class="col-sm-6">
-        {{ form.tipo_pessoa|bootstrap}}            
+        tipo pes
     </div>
 </div>
 
