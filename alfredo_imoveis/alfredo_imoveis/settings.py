@@ -46,7 +46,6 @@ INSTALLED_APPS = (
     'funcionarios',
     'imoveis',
     'financeiro',
-    'input_mask',
 )
 
 MIDDLEWARE_CLASSES = (
