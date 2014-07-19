@@ -35,15 +35,15 @@ class Bairro(models.Model):
         ordering = ['nome']
 
 class Endereco(models.Model):
-    rua = models.CharField(max_length = 150, null  = False, blank = False)
+    rua = models.CharField(max_length = 150, null  = False, blank = False, verbose_name=u'Rua / Av.')
     numero = models.IntegerField(null  = True, blank = True, default=0)
     bairro = models.ForeignKey(Bairro, null  = False, blank = False,related_name='bairro')
-    cep = models.CharField(max_length = 9,   null  = False, blank = False)
+    cep = models.CharField(max_length = 10,   null  = False, blank = False)
     complemento = models.CharField(max_length=100,null  = True, blank = True)
-    rua_comercial = models.CharField(max_length = 150, null  = True, blank = True)
+    rua_comercial = models.CharField(max_length = 150, null  = True, blank = True, verbose_name=u'Rua / Av. Comercial')
     numero_comercial = models.IntegerField(null  = True, blank = True, default=0, verbose_name=u'Nº comercial')
     bairro_comercial = models.ForeignKey(Bairro, null  = True, blank = True, related_name='bairro_comercial')
-    cep_comercial = models.CharField(max_length = 9,   null  = True, blank = True)
+    cep_comercial = models.CharField(max_length = 10,   null  = True, blank = True)
     complemento_comercial = models.CharField(max_length=100,null  = True, blank = True)
 
     def __unicode__(self):

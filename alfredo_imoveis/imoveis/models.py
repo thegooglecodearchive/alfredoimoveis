@@ -5,11 +5,10 @@ from clientes.models import Cliente
 from empresas.models import Empresa
 
 TIPO_CONTRATO = (
+    ('C', 'COMERCIAL'),
     ('R', 'RESIDENCIAL'),
-    ('C', 'COMERCIAL')
 )
 
-# Create your models here.
 class Imovel(models.Model):
     endereco = models.ForeignKey(Endereco, null = False, blank = False, verbose_name='Endereço')
     descricao = models.CharField(u'Descrição do imóvel', max_length=300)
@@ -24,7 +23,7 @@ class Imovel(models.Model):
     tipo_imovel = models.CharField(max_length=1, choices=TIPO_CONTRATO, verbose_name='Tipo do imóvel', default='R')
 
     def __unicode__(self):
-        return self.descricao + '-' + self.endereco.rua + '-' + self.proprietario.nome
+        return self.proprietario.nome + ' - '+ str(self.proprietario.id) + ' - '+ self.descricao[:50:] + '-' + self.endereco.rua
 
     @property
     def disponivel(self):

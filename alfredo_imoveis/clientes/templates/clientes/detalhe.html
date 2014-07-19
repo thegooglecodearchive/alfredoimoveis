@@ -68,12 +68,14 @@
                                     <th>Proprietário</th>
                                     <th>Última vistoria</th>
                                     <th>Valor do aluguel</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for imovel in imoveis %}
                                     <tr class="odd gradeX">
-                                        <td>{{imovel.descricao}}</td>
+                                        <td>{{imovel.id}}</td>
+                                        <td>{{imovel.descricao|slice:":50"}}</td>
                                         <td>{{imovel.proprietario}}</td>
                                         <td>{{imovel.ultima_vistoria}}</td>
                                         <td>{{imovel.valor_aluguel}}</td>

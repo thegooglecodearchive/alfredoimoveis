@@ -1,15 +1,23 @@
-./manage.py schemamigration clientes --auto
-./manage.py schemamigration empresas --auto
-./manage.py schemamigration enderecos --auto
-./manage.py schemamigration financeiro --auto
-./manage.py schemamigration funcionarios --auto
-./manage.py schemamigration imoveis --auto
-./manage.py schemamigration parametros --auto
+rm -rf enderecos/migrations
+rm -rf parametros/migrations
+rm -rf empresas/migrations
+rm -rf clientes/migrations
+rm -rf financeiro/migrations
+rm -rf funcionarios/migrations
+rm -rf imoveis/migrations
 
-./manage.py migrate clientes 
-./manage.py migrate empresas
+./manage.py schemamigration enderecos --initial
+./manage.py schemamigration empresas --initial
+./manage.py schemamigration funcionarios --initial
+./manage.py schemamigration clientes --initial
+./manage.py schemamigration financeiro --initial
+./manage.py schemamigration imoveis --initial
+./manage.py schemamigration parametros --initial
+
 ./manage.py migrate enderecos
+./manage.py migrate empresas
 ./manage.py migrate financeiro
-./manage.py migrate funcionarios
-./manage.py migrate imoveis
 ./manage.py migrate parametros
+./manage.py migrate funcionarios
+./manage.py migrate clientes 
+./manage.py migrate imoveis

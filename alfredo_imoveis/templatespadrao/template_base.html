@@ -69,12 +69,20 @@
 <script>
         jQuery(function($){
                $("#id_data_nascimento").mask("99/99/9999");
+               $("#id_vencimento").mask("99/99/9999");
+               $("#data_ini").mask("99/99/9999");
+               $("#data_fim").mask("99/99/9999");
+               $("#id_termino_contrato").mask("99/99/9999");
+               $("#id_ultima_vistoria").mask("99/99/9999");
+               $("#id_cep_comercial").mask("99.999-999");
+               $("#id_cep").mask("99.999-999");
+               $("#id_inicio_contrato").mask("99/99/9999");
                $("#id_celular").mask("(99)9999-9999");
                $("#id_celular_2").mask("(99)9999-9999");
                $("#id_telefone_fixo").mask("(99)9999-9999");
                $("#id_telefone_comercial").mask("(99)9999-9999");
                $("#id_cnpj_cpf").mask("999.999.999-99");
-               $("#id_renda").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+               $("#id_cpf").mask("999.999.999-99");
         });
 </script>
 

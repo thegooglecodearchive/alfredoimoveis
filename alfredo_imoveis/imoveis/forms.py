@@ -6,6 +6,7 @@ from imoveis.models import ContratoAdministrativo, LaudoVistoria
 
 
 class ImovelForm(forms.ModelForm):
+    descricao = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = Imovel
         exclude = ['endereco']

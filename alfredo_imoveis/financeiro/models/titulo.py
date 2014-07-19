@@ -9,8 +9,8 @@ from clientes.models import Cliente
 from imoveis.models import ContratoLocacao
 
 TIPO_CONTA = (
-    ('R', 'RECEITA'),
     ('D', 'DESPESA'),
+    ('R', 'RECEITA'),
 )
 
 class Titulo(models.Model):

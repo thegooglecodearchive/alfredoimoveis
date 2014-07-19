@@ -13,10 +13,10 @@ from models import Bairro, Cidade
 template_bairro_novo = 'enderecos/bairro/bairro.html'
 template_bairro_add = 'enderecos/bairro/bairro_add.html'
 
-mensagem_geral = 'Aloow'
+mensagem_geral = ''
 
 def bairro_home(request,dados={}):
-    dados['lista_bairros'] = Bairro.objects.all().order_by('id')
+    dados['lista_bairros'] = Bairro.objects.all().order_by('nome')
     form = BairroForm()
     dados['form'] = form
     busca_configuracoes(request,dados)
@@ -26,7 +26,7 @@ def bairro_detalhe(request, id):
     dados = {}
     bairro = get_object_or_404(Bairro, id=id)
     form = BairroForm(instance=bairro)
-    dados['lista_bairros'] = Bairro.objects.all()
+    dados['lista_bairros'] = Bairro.objects.all().order_by('nome')
     dados['form'] = form
     dados['bairro'] = bairro
     dados['detalhe'] = 'detalhe'

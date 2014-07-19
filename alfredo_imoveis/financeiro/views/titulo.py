@@ -177,11 +177,11 @@ def filtra_titulos(request):
     titulos = titulos.filter(valor__range=[valorini,valorfim]) 
 
     if request.POST['dataini'] and request.POST['datafim']:
-        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
-        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
+        dataini = datetime.strptime(request.POST['dataini'], '%d/%m/%Y')
+        datafim = datetime.strptime(request.POST['datafim'], '%d/%m/%Y')
     else:
         dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
-        datafim = datetime.strptime('2500-12-31', '%Y-%m-%d')
+        datafim = datetime.strptime('2500-01-01', '%Y-%m-%d')
     titulos = titulos.filter(vencimento__range=[dataini, datafim]) 
 
     titulos = titulos.filter(descricao__icontains=request.POST['descricao'])
