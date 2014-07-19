@@ -16,8 +16,8 @@ rm -rf imoveis/migrations
 
 ./manage.py migrate enderecos
 ./manage.py migrate empresas
+./manage.py migrate clientes 
 ./manage.py migrate financeiro
 ./manage.py migrate parametros
 ./manage.py migrate funcionarios
-./manage.py migrate clientes 
 ./manage.py migrate imoveis
