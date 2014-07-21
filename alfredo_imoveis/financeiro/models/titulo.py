@@ -24,14 +24,18 @@ class Titulo(models.Model):
                             help_text='Informe o tipo da movimentação')
     usuario_cadastrou = models.ForeignKey(User, help_text='Não se preocupe, este campo será inserido automáticamente')
     valor = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Valor do título')
+    valor_copasa = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Valor da COPASA no mês', default=0,null=True,blank=True)
+    valor_cemig = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Valor da CEMIG no mês', default=0,null=True,blank=True)
+    valor_outros = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Valor para outros gastos', default=0,null=True,blank=True)
+    perc_juros = models.DecimalField(max_digits=4, decimal_places=2, default=0.0, null=True, blank=True)
+    perc_multa = models.DecimalField(max_digits=4, decimal_places=2, default=0.0, null=True, blank=True)
     pagamento_parcial = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Valor pago até o momento',
                                             null=True, blank=True, default=0)
     deletado = models.NullBooleanField(null=True, blank=True, default=False)
     cliente = models.ForeignKey(Cliente, null=True)
     contrato_locacao = models.ForeignKey(ContratoLocacao, null=True, blank=True)
-    juros = models.DecimalField(max_digits=4, decimal_places=2, default=0)
-    multa = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-
+    observacoes = models.TextField(null=True, blank=True)
+    
     class Meta:
         app_label = 'financeiro'
         verbose_name = 'Título'

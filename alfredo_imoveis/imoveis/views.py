@@ -10,7 +10,7 @@ from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
 from alfredo_imoveis.views import busca_configuracoes
-
+from funcoes import month_between
 today = date.today()
 
 # Create your views here.
@@ -211,14 +211,6 @@ def contrato_gerar_receber(request,id):
     contrato.save()
     dados['contrato'] = contrato
     return render(request, template_contrato_detalhe, dados)
-
-
-def month_between(d1, d2):
-    #import pdb;pdb.set_trace()
-
-    d1 = datetime.strptime(d1.__str__(), "%Y-%m-%d")
-    d2 = datetime.strptime(d2.__str__(), "%Y-%m-%d")
-    return abs((d2.month - d1.month))
 
 def gera_parcelas(num_parcelas,dataini,valor,conta_caixa,cliente,contrato,empresa,usuario):
     venc = dataini

@@ -23,5 +23,5 @@ class TituloForm(forms.ModelForm, ROFormMixin):
 
     class Meta:
         model = Titulo
-        exclude = ['usuario_cadastrou', 'deletado', 'juros', 'multa']
+        exclude = ['usuario_cadastrou', 'deletado', 'juros', 'perc_multa']
 

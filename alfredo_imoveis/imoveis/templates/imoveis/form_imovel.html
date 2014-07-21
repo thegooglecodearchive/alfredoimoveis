@@ -8,11 +8,11 @@
 <div class="row">
 	<div class="col-sm-4">
 		{{form.proprietario|bootstrap}}
-		{{form.empresa|bootstrap}}
-	</div>
-	<div class="col-sm-4">
-		{{form.valor_iptu|bootstrap}}
-		<p> &nbsp;{{form.ativo|bootstrap}}</p>
+		{{form.valor_condominio|bootstrap}}
+              </div>
+    <div class="col-sm-4">
+                            {{form.valor_iptu|bootstrap}}
+        {{form.vencimento_iptu|bootstrap}}
 	</div>
 	<div class="col-sm-4">
 		{{form.valor_aluguel|bootstrap}}
@@ -43,5 +43,11 @@
 
 <div class="row">
     <div class="col-sm-4">
+        {{form.empresa|bootstrap}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <p> &nbsp;{{form.ativo|bootstrap}}</p>
     </div>
 </div>

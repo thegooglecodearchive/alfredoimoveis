@@ -34,9 +34,16 @@
 </div>
             <div class="col-sm-8">
                 <div class="well">
-                    <b>Valor restante: </b> {{valor_restante}}<br>
-                    <b>Multa restante: </b>{{multa_restante}}<br>
-                    <b>Juros: </b>{{juros_restantes}}<br>
+                    <b>{{status}}</b><br>
+                    <b>COPASA: </b>{{copasa}}<br>
+                    <b>CEMIG: </b>{{cemig}}<br>
+                    <b>Multa: </b>{{multa}}<br>
+                    <b>Juros: </b>{{juros}}<br>
+                    <b>Outros gastos: </b>{{valor_outros}}<br>
+                    <b>Total: </b>{{total}}<br>
+                    {% if dia_quitacao %}
+                        <b>Este título foi quidato em:  {{dia_quitacao}}</b>
+                    {% endif %}
                 </div>
             </div>
 

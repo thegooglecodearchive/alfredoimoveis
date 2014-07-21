@@ -20,6 +20,18 @@
 
 <div class="row">
     <div class="col-sm-4">  
+    {{form.valor_copasa|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+    {{form.valor_cemig|bootstrap}}
+    </div>
+    <div class="col-sm-4">  
+    {{form.valor_outros|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">  
         {{form.valor|bootstrap}}
     </div>
     <div class="col-sm-4">  
@@ -37,17 +49,14 @@
     <div class="col-sm-4">  
         {{form.empresa|bootstrap}}
     </div>
-    <div class="col-sm-4">  
-        <label>Juros</label>
-        <input type="text" readonly="true" value="{{juros}}" class=" form-control">
-    </div>
 </div>
+
 <div class="row">
-    <div class="col-sm-4">  
-    <label>Multa</label>
-        <input type="text" readonly="true" value="{{multa}}" class=" form-control">
+    <div class="col-sm-12">  
+        {{form.observacoes|bootstrap}}
     </div>
 </div>
+    
 
         
 
