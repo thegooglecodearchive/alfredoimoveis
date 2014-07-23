@@ -8,6 +8,10 @@ TIPO_CONTRATO = (
     ('C', 'COMERCIAL'),
     ('R', 'RESIDENCIAL'),
 )
+LOCAL_CHAVES = (
+    ('P', 'PROPRIETÁRIO'),
+    ('I', 'IMOBILIÁRIA'),
+)
 
 class Imovel(models.Model):
     endereco = models.ForeignKey(Endereco, null = False, blank = False, verbose_name='Endereço')
@@ -23,6 +27,11 @@ class Imovel(models.Model):
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
     ativo = models.BooleanField(default=True, verbose_name='Imóvel ativo')
     tipo_imovel = models.CharField(max_length=1, choices=TIPO_CONTRATO, verbose_name='Tipo do imóvel', default='R')
+    area_construida = models.DecimalField(u'Área construída',max_digits=6, decimal_places=2, null=True, blank=True)
+    area_lote = models.DecimalField(u'Área do lote',max_digits=6, decimal_places=2, null=True, blank=True)
+    local_chaves = models.CharField(max_length=1, choices=LOCAL_CHAVES, verbose_name='Local das chaves', default='I', null=True, blank=True)
+    horario_visitas = models.CharField(u'Horário de visitas', max_length=100, null=True, blank=True)
+    pavimentos = models.IntegerField(verbose_name=u'Pavimentos', null=True, blank=True)
 
     def __unicode__(self):
         return self.proprietario.nome + ' - '+ str(self.proprietario.id) + ' - '+ self.descricao[:50:] + '-' + self.endereco.rua
@@ -33,6 +42,8 @@ class Imovel(models.Model):
 
     def retorna_tipo_imovel(self):
         return 'Residencial' if self.tipo_imovel == 'R' else 'Comercial'
+    def get_local_chaves(self):
+        return 'Na imobiliária' if self.local_chaves == 'I' else u'Com o proprietário'
 
     class Meta:
         ordering = ['descricao']

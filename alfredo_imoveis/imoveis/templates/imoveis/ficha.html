@@ -1,19 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <h1>Alfredo imóveis</h1>
-    <h2>Sistema de gestão de imobiliária</h2>
-    <h3>Ficha de imóvel</h3>
-    {{imovel.descricao}}
-    {{imovel.endereco.rua}} {{imovel.endereco.bairro.nome}} {{imovel.bairro.cidade.nome}}
-    {{imovel.valor_iptu}}
-    {{imovel.valor_aluguel}}
+{% extends "template_relatorio_base.html" %}
+{% block conteudo%}
+<div class="row">
+	<div class="col-sm-3">
+		<img src="{{logo}}" width="100" height="50">
+	</div>
+	<div class="col-sm-9">
+		<h3>Alfredo Imóveis e Empreendimentos Ltda.</h3>
+		<h4>A imobiliária dos bons negócios.</h4>
+	</div>
+	<div class="col-sm-12">
+		<h2>REF: {{imovel.cod_ref_site}}</h2> 
+		<h2><u>TIPO DO IMÓVEL:</u> {{imovel.retorna_tipo_imovel}}</h2> 
+		<h3>Endereço: {{imovel.endereco}}</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<h4>Estilo da construção: ??? O que é isso?<br>
+		<h4>Área construída: {{imovel.area_construida}}</h4>
+		<h4>Chaves: {{imovel.get_local_chaves}}</h4>
+		<h4>Data de entrada: {{imovel.data_cadastro}}</h4>
+	</div>
+	<div class="col-sm-6">
+		<h4>Pavimentos: {{imovel.pavimentos}}</h4>
+		<h4>Área do lote: {{imovel.area_lote}}</h4>
+		<h4>Horário de visita: {{imovel.horario_visitas}}</h4>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<h3>Descrição do imóvel</h3>
+		<h4>{{imovel.descricao}}</h4>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-6">
+		<h4>Valor do aluguel:{{imovel.valor_aluguel}}</h4>
+		<h4>Visitado por Alfredo</h4>
+	</div>
+	<div class="col-sm-6">
+		<h4>(X) Estuda proposta</h4>
+		<h4>Capitação Alfredo Imóveis</h4>
+	</div>
+</div>
 
+
+<h4>PROPRIETÁRIO: {{imovel.proprietario.nome}}</h4>
+<h4>Endereço proprietário:{{imovel.proprietario.endereco}}</h4>
+<h4>Telefone: {{imovel.proprietario.telefone_fixo}}</h4>
 
     <h4>Montes Claros {{data}}</h4>
-</body>
-</html>
 
+</div>
+{% endblock %}

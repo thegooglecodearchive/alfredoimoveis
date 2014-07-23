@@ -81,16 +81,16 @@ def adiciona(request):
 def filtrar(request):
     dados = {}
     
-    if request.POST['dataini'] and request.POST['datafim']:
-        dataini = datetime.strptime(request.POST['dataini'], '%Y-%m-%d')
-        datafim = datetime.strptime(request.POST['datafim'], '%Y-%m-%d')
+    if request.POST.get('data_ini') and request.POST.get('data_fim'):
+        dataini = datetime.strptime(request.POST['data_ini'], '%Y-%m-%d')
+        datafim = datetime.strptime(request.POST['data_fim'], '%Y-%m-%d')
     else:
         dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
         datafim = datetime.strptime('2500-12-31', '%Y-%m-%d')
 
     filtra_inativos = request.POST.get('ativo', False)
 
-    if request.POST['codigo']:
+    if request.POST.get('codigo'):
         imoveis = Imovel.objects.filter(pk__icontains = request.POST['codigo'])
     else:
         imoveis = Imovel.objects.filter(descricao__icontains=request.POST['descricao'],
@@ -112,8 +112,10 @@ def filtrar(request):
 
 def ficha(request,id):
     dados = {}
+    parametros = get_object_or_404(ParametrosGerais, id=1)
     dados['imovel'] = Imovel.objects.get(id=id)
     dados['data'] = today
+    dados['logo'] = parametros.url_logo
     return render(request,'imoveis/ficha.html', dados)
 
 def contrato_detalhe(request,id,mensagem=None):

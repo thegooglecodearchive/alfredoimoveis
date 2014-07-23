@@ -35,14 +35,16 @@
             <div class="col-sm-8">
                 <div class="well">
                     <b>{{status}}</b><br>
-                    <b>COPASA: </b>{{copasa}}<br>
-                    <b>CEMIG: </b>{{cemig}}<br>
-                    <b>Multa: </b>{{multa}}<br>
-                    <b>Juros: </b>{{juros}}<br>
-                    <b>Outros gastos: </b>{{valor_outros}}<br>
-                    <b>Total: </b>{{total}}<br>
-                    {% if dia_quitacao %}
-                        <b>Este título foi quidato em:  {{dia_quitacao}}</b>
+                    <b>Este título foi liquidado com {{titulo.dias_atraso}} dias de atraso</b><br>
+                    <b>COPASA: </b>{{titulo.valor_copasa|floatformat:2}}<br>
+                    <b>CEMIG: </b>{{titulo.valor_cemig|floatformat:2}}<br>
+                    <b>Multa: </b>{{titulo.multa|floatformat:2}}<br>
+                    <b>Juros: </b>{{titulo.juros|floatformat:2}}<br>
+                    <b>Outros gastos: </b>{{titulo.valor_outros|floatformat:2}}<br>
+                    <b>Condomínio: </b>{{titulo.contrato_locacao.imovel.valor_condominio|floatformat:2}}<br>
+                    <b>Total: </b>{{titulo.total|floatformat:2}}<br>
+                    {% if titulo.liquidado %}
+                        <b>Este título foi liquidado em:  {{titulo.data_quitacao}}</b>
                     {% endif %}
                 </div>
             </div>

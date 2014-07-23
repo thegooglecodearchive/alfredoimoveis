@@ -9,11 +9,9 @@ from parametros.models import ParametrosGerais
 from clientes.models import Cliente
 from datetime import datetime, date
 from decimal import *
-from funcoes import month_between, days_between, calcula_meses_atraso
+from funcoes import month_between, days_between, calcula_meses_atraso, today
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
-
-today = date.today()
 
 template_home = 'financeiro/titulo/home.html'
 template_novo = 'financeiro/titulo/novo.html'
@@ -41,7 +39,6 @@ def detalhe(request,id,mensagem=''):
     dados['titulo'] = titulo
     recibos = Recibo.objects.filter(titulo=titulo)
     dados['recibos'] = recibos
-    informacoes_titulo(dados,titulo)
     return render(request, template_detalhe, dados)
 
 def delete(request, id):
@@ -120,74 +117,10 @@ def carta_cobranca_modelo_3(request,id):
 
 def abater_titulo(request,id):
     dados = {}
-    parametros = get_object_or_404(ParametrosGerais, pk=1)
-    
     titulo = get_object_or_404(Titulo, pk=id)
-    
-    titulo.pagamento_parcial = titulo.pagamento_parcial + Decimal(request.POST.get('valor',0))
-    titulo.data_quitacao = today
-    titulo.perc_juros = parametros.taxa_juros
-    titulo.perc_mult = parametros.multa
-    titulo.save()
-    
+    titulo.abater_valor(request.POST.get('valor',0))
     url = reverse('app_financeiro_titulo_detalhe', kwargs={'id':id})
     return redirect(url)
-
-def busca_informacoes_titulos_vencidos(dados = {}, titulo=None):
-    parametros = get_object_or_404(ParametrosGerais, pk=1)
-    qtd_mes_atraso = calcula_meses_atraso(titulo.vencimento, today) 
-    qtd_dias_atraso = days_between(titulo.vencimento, today)
-
-    dados['status'] = 'Este título esta %d dia(s) atrasado' %  qtd_dias_atraso
-        
-    multa = round(((parametros.multa * titulo.valor)/100),2)
-    dados['multa'] = multa
-
-    # Calcula os juros com a fórmula de juros compostos
-    juros = (titulo.valor * pow((1+(parametros.taxa_juros/100)),qtd_mes_atraso)) - titulo.valor
-    dados['juros'] = round(juros,2)
-    dados['total'] = round(float(juros) + float(multa) + calcula_valor_base_titulo(titulo),2)
-
-def busca_informacoes_titulos_liquidados(dados = {}, titulo=None):
-    qtd_mes_atraso = calcula_meses_atraso(titulo.vencimento, titulo.data_quitacao)
-    qtd_dias_atraso = days_between(titulo.vencimento, titulo.data_quitacao)
-
-    if qtd_dias_atraso > 5:
-        dados['status'] = 'Este título foi pago %d dia(s) atrasado' %  qtd_dias_atraso
-
-        titulo.perc_multa = titulo.perc_multa/100
-        multa = round((titulo.perc_multa * titulo.valor),2)
-        dados['multa'] = multa
-
-        # Calcula os juros que o cliente pagou no dia da quitação do título
-        juros = (titulo.valor * pow((1+(titulo.perc_juros/100)),qtd_mes_atraso)) - titulo.valor
-        dados['juros'] = round(juros,2)
-        dados['total'] = round(float(juros) + float(multa) + calcula_valor_base_titulo(titulo),2)
-    else:
-        dados['status'] = 'Este título não foi pago com atraso'
-        dados['dia_quitacao'] = titulo.data_quitacao if titulo.data_quitacao else ''
-        dados['total'] = calcula_valor_base_titulo(titulo)
-
-def calcula_valor_base_titulo(titulo):
-    return round((float(titulo.valor) + float(titulo.valor_cemig) + float(titulo.valor_copasa) + float(titulo.valor_outros)),2) 
-
-def informacoes_titulo(dados = {}, titulo=None):
-    dados['multa'] = '0'
-    dados['juros'] = '0'
-    dados['total'] = '0'
-    dados['copasa'] = titulo.valor_copasa
-    dados['cemig'] = titulo.valor_cemig
-    dados['valor_outros'] = titulo.valor_outros
-    data_carencia = date(titulo.vencimento.year, titulo.vencimento.month, titulo.vencimento.day+5)
-    
-    # Se o título estiver vencido envia para o template os juros e a perc_multa
-    if (data_carencia < today) and (titulo.valor > titulo.pagamento_parcial):
-        busca_informacoes_titulos_vencidos(dados, titulo)
-    elif titulo.pagamento_parcial >= titulo.valor:
-        busca_informacoes_titulos_liquidados(dados,titulo)
-    else:
-        dados['status'] = 'Este título não esta atrasado'
-        dados['total'] = calcula_valor_base_titulo(titulo)
 
 def verifica_existencia_parametros():
     return U"""ATENÇÃO, configure os parâmetros antes de prosseguir com a operação,  
