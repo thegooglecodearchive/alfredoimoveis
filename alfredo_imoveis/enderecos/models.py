@@ -49,7 +49,7 @@ class Endereco(models.Model):
     def __unicode__(self):
         end = self.rua + ' - ' + str(self.bairro)
         if len(end) > 10:
-            return self.rua + ' - ' + str(self.bairro)
+            return u'' + self.rua + ' - ' + str(self.bairro)
         else:
             return 'Sem endereço cadastrado'
 
