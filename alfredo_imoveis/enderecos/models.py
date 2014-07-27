@@ -51,7 +51,7 @@ class Endereco(models.Model):
         if len(end) > 10:
             return u'' + self.rua + ' - ' + str(self.bairro)
         else:
-            return 'Sem endereço cadastrado'
+            return u'Sem endereço cadastrado'
 
     class Meta:
         ordering = ['rua']
