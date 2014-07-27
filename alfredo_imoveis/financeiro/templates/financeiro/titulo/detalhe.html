@@ -34,18 +34,29 @@
 </div>
             <div class="col-sm-8">
                 <div class="well">
-                    <b>{{status}}</b><br>
-                    <b>Este título foi liquidado com {{titulo.dias_atraso}} dias de atraso</b><br>
+                    {% if titulo.liquidado %}
+                        <b>Este título foi liquidado em:  {{titulo.data_quitacao}}</b><br>
+                        <b>Este título foi pago com {{titulo.dias_atraso}} dias de atraso</b><br>
+                    {% else %}
+                        <b>Este título não esta quitado; dias de atraso deste título: {{titulo.dias_atraso}} dias</b><br>
+                    {% endif %}
                     <b>COPASA: </b>{{titulo.valor_copasa|floatformat:2}}<br>
                     <b>CEMIG: </b>{{titulo.valor_cemig|floatformat:2}}<br>
                     <b>Multa: </b>{{titulo.multa|floatformat:2}}<br>
                     <b>Juros: </b>{{titulo.juros|floatformat:2}}<br>
                     <b>Outros gastos: </b>{{titulo.valor_outros|floatformat:2}}<br>
-                    <b>Condomínio: </b>{{titulo.contrato_locacao.imovel.valor_condominio|floatformat:2}}<br>
-                    <b>Total: </b>{{titulo.total|floatformat:2}}<br>
-                    {% if titulo.liquidado %}
-                        <b>Este título foi liquidado em:  {{titulo.data_quitacao}}</b>
+                    <b>Condomínio: </b>{{titulo.valor_condominio_pago|floatformat:2}}<br>
+                    
+                    {% if titulo.contrato_locacao.imovel.iptu_vencido %}
+                            <b>IPTU pendente: </b>{{titulo.contrato_locacao.imovel.valor_iptu}}<br>
                     {% endif %}
+
+                    {% if titulo.valor_iptu_pago > 0 %}
+                            <b>IPTU pago: </b>{{titulo.valor_iptu_pago}}<br>
+                    {% endif %}
+
+                    <b>Valor restante a pagar: </b>{{titulo.valor_restante|floatformat:2}}<br>
+                    <b>TOTAL: </b>{{titulo.total|floatformat:2}}<br>
                 </div>
             </div>
 

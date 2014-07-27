@@ -1,51 +1,65 @@
 {% extends "template_base.html" %}
 {% load bootstrap %}
 {% block titulo %}
-   Alfredo imóveis - Títulos
+   {{empresa.nome}} - Títulos
 {% endblock %}
 
 {% block conteudo %}
-<h1>Recibo</h1>
-    {% if mensagem %}
-        <br/>
-        <div class="alert alert-info fade in">
-            {{mensagem}}
-        </div>
-    {% endif%}
-
-    {% if erros %}
-    <br/>
-    <div class="alert alert-danger fade in">
-        {{erros}}
-    </div>
-    {% endif%}
-
-<pre>
-RECIBO DE LOCATÁRIO
-Alfredo imóveis
-C.G.C 41.685.892/0001-99
-Rua Tiradentes - 137, Centro - Montes Claros
-__________________________________________________________________
-CONTRATO: {{recibo.titulo.contrato_locacao.pk}} VENCIMENTO: {{recibo.titulo.vencimento}}       RECIBO: XXXXX/01-10
-IMÓVEL: {{recibo.titulo.contrato_locacao.imovel.endereco}}
-Proprietário: {{recibo.titulo.contrato_locacao.imovel.proprietario.nome}}
+<h2>RECIBO DE LOCATÁRIO</h2>
+<h4>{{empresa.nome}}<br>
+C.G.C {{empresa.cnpj}}<br>
+{{empresa.endereco}}<br>
+</h4>
+<hr>
+CONTRATO: {{recibo.titulo.contrato_locacao.pk}}      VENCIMENTO: {{recibo.titulo.vencimento}}              RECIBO: {{recibo.titulo.conta_parcelas}}<br>
+IMÓVEL: {{recibo.titulo.contrato_locacao.imovel.endereco}}<br>
+Proprietário: {{recibo.titulo.contrato_locacao.imovel.proprietario.nome}}<br>
 Locatário: {{recibo.titulo.contrato_locacao.locatario.nome}}
-__________________________________________________________________
-Aluguel………….(+) {{recibo.titulo.valor}}         Recebemos do locatário acima as importancias descriminadas 
-Juros ……………(+)   00,00         ao lado provenientes do aluguel e encargos do imóvel ao 
-perc_multa ……………(+)   00,00         período de 00/00/00 a 00/00/00.
-                    Montes Claros, 00 de mes de ano.
+<hr><br>
+<div class="row">
+    <div class="col-sm-6">  
+        Aluguel...............................(+)  R$ {{recibo.titulo.valor|floatformat:2}} <br>
+        Multa ..................................(+)  R$ {{recibo.titulo.multa|floatformat:2}} <br>
+        Juros ..................................(+)  R$ {{recibo.titulo.juros|floatformat:2}} <br>
+        
+        {% if recibo.titulo.valor_iptu_pago%}
+            IPTU ....................................(+) R$ {{recibo.titulo.valor_iptu_pago}}<br>
+        {% endif %}
 
-                        __________________________
-                            Alfredo Imóveis
+        {% if recibo.titulo.valor_condominio_pago%}
+            Condomínio ......................(+) R$ {{recibo.titulo.valor_condominio_pago}}<br>
+        {% endif %}
 
+        {% if recibo.titulo.valor_outros %}
+            Outros valores ................(+) R$ {{recibo.titulo.valor_outros}}<br>
+        {% endif %}
+        
+        {% if recibo.titulo.valor_restante%}
+            Valor restante .................(+) R$ {{recibo.titulo.valor_restante|floatformat:2}}<br>
+        {% endif %}
+        <br>
+        <br>
+        <br>
+        TOTAL ................................(+) R$ {{recibo.titulo.total|floatformat:2}}<br>
+         ({{recibo.titulo.total_por_extenso}})          <br>
 
+    </div>
+    <div class="col-sm-6">  
+        Recebemos do locatário acima as importâncias descriminadas <br>
+        ao lado provenientes do aluguel e encargos do imóvel ao <br>
+        período de {{recibo.titulo.periodo}} à {{recibo.titulo.vencimento}}<br><br><br>
 
-TOTAL …………….  500,00        
-(quinhentos reais)          Este recibo só tem valor firmado pela administradora sem 
-rasuras, emendas ou ressalvas.
-NÃO QUITA DÉBITOS ANTERIORES.
+                    {{empresa.endereco.bairro.cidade.nome}}, {{data}}<br>
+
+                        ________________________________________________________<br>
+                            {{empresa.nome}}<br>
+        <br>
+        <br>
+        Este recibo só tem valor firmado pela administradora sem rasuras, emendas ou ressalvas.<br>
+        NÃO QUITA DÉBITOS ANTERIORES.<br>
  
-</pre>    
+    </div>
+</div>
+    
 {% endblock %}
 

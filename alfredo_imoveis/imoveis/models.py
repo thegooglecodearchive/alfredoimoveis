@@ -3,6 +3,8 @@ from django.db import models
 from enderecos.models import Endereco
 from clientes.models import Cliente
 from empresas.models import Empresa
+from funcoes import today
+from datetime import date
 
 TIPO_CONTRATO = (
     ('C', 'COMERCIAL'),
@@ -23,6 +25,7 @@ class Imovel(models.Model):
     ultima_vistoria = models.DateField(u'Data da última vistoria', null=True, blank=True)
     vencimento_iptu = models.DateField()
     data_cadastro = models.DateField(auto_now_add=True)
+    data_last_pag_iptu = models.DateField(null=True,blank=True, verbose_name=u'Data do último pagamento de IPTU')
     proprietario = models.ForeignKey(Cliente,verbose_name='Proprietário')
     empresa = models.ForeignKey(Empresa,verbose_name='Filial responsável')
     ativo = models.BooleanField(default=True, verbose_name='Imóvel ativo')
@@ -34,14 +37,23 @@ class Imovel(models.Model):
     pavimentos = models.IntegerField(verbose_name=u'Pavimentos', null=True, blank=True)
 
     def __unicode__(self):
-        return self.proprietario.nome + ' - '+ str(self.proprietario.id) + ' - '+ self.descricao[:50:] + '-' + self.endereco.rua
+        return self.proprietario.nome + u'[Cód. '+ str(self.proprietario.id) + '] - '+ self.descricao[:50:] + u'[Cód.' + str(self.id) + '] - ' + self.endereco.rua
 
     @property
     def disponivel(self):
         pass
+    
+    @property
+    def iptu_vencido(self):
+        """Se o IPTU estiver vencido retorna verdadeiro"""
+        return (self.vencimento_iptu.year <= today.year) and (self.vencimento_iptu.month <= today.month)
 
     def retorna_tipo_imovel(self):
+        """Retorna o tipo do imóvel, caso seja R retorna Residencial,
+                caso ele seja C retorna comercial
+        """
         return 'Residencial' if self.tipo_imovel == 'R' else 'Comercial'
+
     def get_local_chaves(self):
         return 'Na imobiliária' if self.local_chaves == 'I' else u'Com o proprietário'
 
@@ -53,7 +65,7 @@ class ContratoLocacao(models.Model):
     inicio_contrato = models.DateField(u'Data do início do contrato')
     termino_contrato = models.DateField(u'Data do término do contrato')
     data_emissao_contrato = models.DateField(auto_now_add=True)
-    locatario = models.ForeignKey(Cliente, related_name='locatario_contrato')
+    locatario = models.ForeignKey(Cliente, related_name='locatario_contrato', verbose_name=u'Locatário')
     fiador1 = models.ForeignKey(Cliente, related_name='fiador1_contrato', verbose_name=u'Primeiro fiador')
     fiador2 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador2_contrato', verbose_name=u'Segundo fiador')
     fiador3 = models.ForeignKey(Cliente, null=True, blank=True, related_name='fiador3_contrato', verbose_name=u'Terceiro fiador')
@@ -63,7 +75,7 @@ class ContratoLocacao(models.Model):
     gerou_receber = models.BooleanField(verbose_name='Já gerou contas a receber', default=False, editable=False)
 
     def __unicode__(self):
-        return self.imovel.descricao[:15:]+ ' - ' +self.locatario.nome
+        return self.imovel.descricao[:15:]+ ' - ' +self.locatario.nome + u'Cód. Contrato: ' + str(self.id)
 
 class ContratoAdministrativo(models.Model):
     imovel = models.OneToOneField(Imovel)
@@ -133,7 +145,7 @@ class LaudoVistoria(models.Model):
 
 
     def __unicode__(self):
-        return str(self.imovel.descricao)  + ' Data vistoria: ' + unicode(self.data_vistoria.strftime('%d-%m-%Y'))
+        return u'' + self.imovel.descricao  + u' Data vistoria: ' + unicode(self.data_vistoria.strftime('%d-%m-%Y'))
 
     def get_absolute_url(self):
         return reverse('app_imoveis_laudo_vistoria_home', kwargs={'pk': self.pk})

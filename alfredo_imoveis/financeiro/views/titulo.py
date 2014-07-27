@@ -80,51 +80,72 @@ def salvar(request,id):
         dados['erros'] = form.errors
         return render(request, template_novo, dados)
 
+
 def adicionar(request):
     dados = {}
     dados['mensagem_erro'] = verifica_existencia_parametros()
     dados['form'] = TituloForm()
     return render(request, template_novo, dados)
 
-def recibo(request,id):
+
+def recibo(request, id):
     dados = {}
-    titulo = get_object_or_404(Titulo,pk=id)
-    recibo = Recibo(titulo=titulo, data_cadastro=today,usuario=request.user,descricao='...')
+    titulo = get_object_or_404(Titulo, pk=id)
+    recibo = Recibo(
+        titulo=titulo, data_cadastro=today, usuario=request.user, descricao='')
+    dados['empresa'] = Funcionario.objects.get(usuario=request.user).empresa
+    dados['data'] = today
     recibo.save()
     dados['recibo'] = recibo
     return render(request, template_recibo, dados)
 
-def carta_cobranca_modelo_1(request,id):
-    dados = {}
-    dados['data'] = today
-    dados['titulos'] = Titulo.objects.filter(id=id)
-    return render(request, template_carta_cobranca_modelo_1,dados)
 
-def carta_cobranca_modelo_2(request,id):
+def carta_cobranca_modelo_1(request, id):
     dados = {}
     dados['data'] = today
     dados['titulos'] = Titulo.objects.filter(id=id)
-    data_de = date(Titulo.objects.filter(id=id)[0].vencimento.year, Titulo.objects.filter(id=id)[0].vencimento.month+1,Titulo.objects.filter(id=id)[0].vencimento.day)
+    return render(request, template_carta_cobranca_modelo_1, dados)
+
+
+def carta_cobranca_modelo_2(request, id):
+    dados = {}
+    dados['data'] = today
+    dados['titulos'] = Titulo.objects.filter(id=id)
+    data_de = date(
+        Titulo.objects.filter(id=id)[0].vencimento.year,
+        Titulo.objects.filter(id=id)[0].vencimento.month+1,
+        Titulo.objects.filter(id=id)[0].vencimento.day)
     dados['periodo_de'] = Titulo.objects.filter(id=id)[0].vencimento
     dados['periodo_ate'] = data_de
-    return render(request, template_carta_cobranca_modelo_2,dados)
+    return render(request, template_carta_cobranca_modelo_2, dados)
 
-def carta_cobranca_modelo_3(request,id):
+
+def carta_cobranca_modelo_3(request, id):
     dados = {}
     dados['data'] = today
     dados['titulos'] = Titulo.objects.filter(id=id)
-    return render(request, template_carta_cobranca_modelo_3,dados)    
+    return render(request, template_carta_cobranca_modelo_3, dados)
 
-def abater_titulo(request,id):
-    dados = {}
+
+def abater_titulo(request, id):
     titulo = get_object_or_404(Titulo, pk=id)
-    titulo.abater_valor(request.POST.get('valor',0))
-    url = reverse('app_financeiro_titulo_detalhe', kwargs={'id':id})
+    considera_condominio_quitado = request.POST.get('liquida_condominio', False)
+    considera_IPTU_quitado = request.POST.get('liquida_iptu', False)
+
+    titulo.abater_valor(
+        request.POST.get('valor', 0),
+        considera_IPTU_quitado, considera_condominio_quitado)
+
+    url = reverse('app_financeiro_titulo_detalhe', kwargs={'id': id})
     return redirect(url)
 
+
 def verifica_existencia_parametros():
-    return U"""ATENÇÃO, configure os parâmetros antes de prosseguir com a operação,  
-        a falta destes pode causar problemas na gravação do registro"""  if ParametrosGerais.objects.all().count() == 0 else ""
+    return U"""ATENÇÃO, configure os parâmetros
+                        antes de prosseguir com a operação,
+ a falta destes pode causar problemas na gravação
+ do registro""" if ParametrosGerais.objects.all().count() == 0 else ""
+
 
 def filtra_titulos(request):
     titulos = Titulo.objects.all()

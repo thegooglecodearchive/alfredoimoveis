@@ -218,11 +218,12 @@ def gera_parcelas(num_parcelas,dataini,valor,conta_caixa,cliente,contrato,empres
     venc = dataini
 
     for i in range(0,num_parcelas):
+        cont_parcelas = str(i) + '/' + str(num_parcelas)
         titulo = Titulo(descricao='Parcela de locação de imóvel referente ao contrato:{n_cont}'.format(n_cont=contrato.id),
                         conta_caixa=conta_caixa, empresa=empresa,tipo='R',
                         vencimento=date(venc.year, venc.month+i,venc.day),
                         data_cadastro=today, usuario_cadastrou=usuario, cliente=cliente,
-                        valor=valor,contrato_locacao=contrato)
+                        valor=valor,contrato_locacao=contrato, conta_parcelas=cont_parcelas)
         titulo.save()
 
 def adiciona_imovel_para_usuario(request, id_cliente):

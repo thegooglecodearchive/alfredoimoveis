@@ -2,7 +2,7 @@
 __author__ = 'gpzim98'
 
 from django.db import models
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from parametros.models import ParametrosGerais
 from empresas.models import Empresa
 from financeiro.models.conta_caixa import ContaCaixa
@@ -10,7 +10,8 @@ from django.contrib.auth.admin import User
 from clientes.models import Cliente
 from imoveis.models import ContratoLocacao
 from datetime import date
-from funcoes import month_between, days_between, calcula_meses_atraso, today
+from funcoes import days_between, calcula_meses_atraso, today
+from NumerosPorExtenso import extenso
 
 TIPO_CONTA = (
     ('D', 'DESPESA'),
@@ -18,7 +19,7 @@ TIPO_CONTA = (
 )
 
 
-class Titulo(models.Model) :
+class Titulo(models.Model):
     descricao = models.CharField(max_length=500, null=False, blank=False)
     conta_caixa = models.ForeignKey(ContaCaixa, null=True, blank=True)
     empresa = models.ForeignKey(Empresa)
@@ -30,19 +31,24 @@ class Titulo(models.Model) :
     tipo = models.CharField(
         choices=TIPO_CONTA, max_length=1, verbose_name='Tipo da movimentação',
         help_text='Informe o tipo da movimentação')
-    usuario_cadastrou = models.ForeignKey(
-        User, help_text='Não se preocupe, este campo será inserido automáticamente')
+    usuario_cadastrou = models.ForeignKey(User)
     valor = models.DecimalField(
         max_digits=6, decimal_places=2, verbose_name='Valor do título')
     valor_copasa = models.DecimalField(
-        max_digits=6, decimal_places=2, verbose_name='Valor da COPASA no mês', default=0, null=True, blank=True)
+        max_digits=6, decimal_places=2, verbose_name='Valor da COPASA no mês',
+        default=0, null=True, blank=True)
     valor_cemig = models.DecimalField(
-        max_digits=6, decimal_places=2, verbose_name='Valor da CEMIG no mês', default=0, null=True, blank=True)
+        max_digits=6, decimal_places=2, verbose_name='Valor da CEMIG no mês',
+        default=0, null=True, blank=True)
     valor_outros = models.DecimalField(
-        max_digits=6, decimal_places=2, verbose_name='Valor para outros gastos', default=0, null=True, blank=True)
+        max_digits=6, decimal_places=2, verbose_name='Valor para outros gastos',
+        default=0, null=True, blank=True)
     perc_juros = models.DecimalField(
         max_digits=4, decimal_places=2, default=0.0, null=True, blank=True)
-    taxa_multa = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    taxa_multa = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True)
+    valor_iptu_pago = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True)
     pagamento_parcial = models.DecimalField(
         max_digits=6, decimal_places=2, verbose_name='Valor pago até o momento',
         null=True, blank=True, default=0)
@@ -50,24 +56,51 @@ class Titulo(models.Model) :
     cliente = models.ForeignKey(Cliente, null=True)
     contrato_locacao = models.ForeignKey(
         ContratoLocacao, null=True, blank=True)
+    valor_condominio_pago = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True)
+    conta_parcelas = models.CharField(
+        null=True, blank=True, max_length=7,
+        verbose_name=u'Contagem das parcelas')
     observacoes = models.TextField(null=True, blank=True)
 
     @property
     def total(self):
+        """Calcula o total do título considerando juros,
+             multa, cemig, condomínio,
+             IPTU e o pagamento pagamento parcial
+        """
+
         if self.dias_atraso == 0:
             total = self.valor + self.valor_cemig + \
                 self.valor_copasa + self.valor_outros
+
             if self.contrato_locacao:
                 total += self.contrato_locacao.imovel.valor_condominio
-            total -= self.pagamento_parcial
-        elif self.dias_atraso > 0:
+
+                if self.contrato_locacao.imovel.iptu_vencido:
+                    total += self.contrato_locacao.imovel.valor_iptu
+
+            if self.liquidado:
+                total += self.valor_iptu_pago
+        else:
             total = self.valor + self.valor_cemig + \
                 self.valor_copasa + self.valor_outros + self.juros + self.multa
+
             if self.contrato_locacao:
                 total += self.contrato_locacao.imovel.valor_condominio
-            total -= self.pagamento_parcial
+
+                if self.contrato_locacao.imovel.iptu_vencido:
+                    total += self.contrato_locacao.imovel.valor_iptu
+
+            if self.liquidado:
+                total += self.valor_iptu_pago
 
         return total
+
+    @property
+    def valor_restante(self):
+        return self.total - self.pagamento_parcial
+
 
     @property
     def juros(self):
@@ -75,15 +108,18 @@ class Titulo(models.Model) :
 
         if self.liquidado:
             if self.dias_atraso > 0:
-                qtd_mes_atraso = calcula_meses_atraso(self.vencimento, self.data_quitacao)
-                juros = (self.valor * pow((1+(self.perc_juros/100)),qtd_mes_atraso)) - self.valor
+                qtd_mes_atraso = calcula_meses_atraso(
+                    self.vencimento, self.data_quitacao)
+                juros = (
+                    self.valor * pow((1 + (self.perc_juros / 100)), qtd_mes_atraso)) - self.valor
                 return juros
             else:
                 return 0
         else:
             if self.dias_atraso > 0:
                 qtd_mes_atraso = calcula_meses_atraso(self.vencimento, today)
-                juros = (self.valor * pow((1+(parametros.taxa_juros/100)),qtd_mes_atraso)) - self.valor
+                juros = (
+                    self.valor * pow((1 + (parametros.taxa_juros / 100)), qtd_mes_atraso)) - self.valor
                 return juros
             else:
                 return 0
@@ -91,16 +127,16 @@ class Titulo(models.Model) :
     @property
     def multa(self):
         parametros = get_object_or_404(ParametrosGerais, pk=1)
-        
+
         if self.liquidado:
             if self.dias_atraso > 0:
-                multa = (self.taxa_multa * self.valor)/100
+                multa = (self.taxa_multa * self.valor) / 100
                 return multa
             else:
                 return 0
         else:
             if self.dias_atraso > 0:
-                multa = (parametros.multa * self.valor)/100
+                multa = (parametros.multa * self.valor) / 100
                 return multa
             else:
                 return 0
@@ -108,7 +144,8 @@ class Titulo(models.Model) :
     @property
     def dias_atraso(self):
         data_carencia = date(
-            self.vencimento.year, self.vencimento.month, self.vencimento.day + 5)
+            self.vencimento.year, self.vencimento.month,
+            self.vencimento.day + 5)
 
         if self.liquidado:
             if data_carencia < self.data_quitacao:
@@ -136,19 +173,54 @@ class Titulo(models.Model) :
         ordering = ['descricao']
 
     def __unicode__(self):
-        return self.descricao[:20:] + ' ' + self.vencimento.strftime('%d/%m/%y')\
+        return self.descricao[:20:] + self.vencimento.strftime('%d/%m/%y')\
             + ' ' + \
             str(self.pagamento_parcial) + '/' + str(
                 self.valor) + ' ' + self.tipo
 
-    def abater_valor(self,valor):
+    def abater_valor(self, valor, IPTU_quitado=False, condominio_quitado=False):
         parametros = get_object_or_404(ParametrosGerais, pk=1)
-        
+
         self.data_quitacao = today
+        if condominio_quitado:
+            self.valor_condominio_pago =\
+                self.contrato_locacao.imovel.valor_condominio
+        else:
+            self.valor_condominio_pago = 0
+
+        if IPTU_quitado:
+            self.valor_iptu_pago = self.contrato_locacao.imovel.valor_iptu
+            self.contrato_locacao.imovel.data_last_pag_iptu = today
+            self.contrato_locacao.imovel.vencimento_iptu = date(
+                today.year + 1, today.month, today.day)
+            self.contrato_locacao.imovel.save()
+        else:
+            self.contrato_locacao.imovel.data_last_pag_iptu = None
+            self.valor_iptu_pago = 0
+            self.contrato_locacao.imovel.save()
+
         self.pagamento_parcial = valor
         self.perc_juros = parametros.taxa_juros
         self.taxa_multa = parametros.multa
         self.save()
+
+    @property
+    def periodo(self):
+        return date(
+            self.vencimento.year, self.vencimento.month - 1,
+            self.vencimento.day)
+
+    @property
+    def total_por_extenso(self):
+        total = self.total if self.total > 0 else self.total * -1
+        centavos = (total - int(total)) * 100
+
+        if centavos > 0:
+            centavos = extenso(centavos)
+            frase = extenso(total) + ' reais e ' + centavos + ' centavos'
+        else:
+            frase = extenso(total)
+        return frase.capitalize()
 
 
 class Recibo(models.Model):
@@ -158,7 +230,9 @@ class Recibo(models.Model):
     descricao = models.TextField()
 
     def __unicode__(self):
-        return u'Título:' + self.titulo.descricao + u' Usuário que emitiu:' + self.usuario.username + u' na data:' + self.data_cadastro.strftime('%m/%d/%y %H:%M:%S')
+        return u'Título:' + self.titulo.descricao + u' Usuário que emitiu:' +\
+            self.usuario.username + u' na data:' + self.data_cadastro.strftime(
+                '%m/%d/%y %H:%M:%S')
 
     class Meta:
         app_label = 'financeiro'

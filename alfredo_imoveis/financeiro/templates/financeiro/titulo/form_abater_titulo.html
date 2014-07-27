@@ -18,8 +18,23 @@
                   {% csrf_token %}
                    
                    <div class="form-group">
-                    <label for="exampleInputEmail1">Valor</label>
-                    <input type="number" class="form-control" step="any" name="valor" placeholder="Valor a abater na base to título">
+                     
+                     <label>Considerar condomínio como liquidado?</label>
+                     {% if titulo.valor_condominio_pago %}
+                          <input type="checkbox" name="liquida_condominio" checked="true"></input><br>
+                      {% else %}
+                          <input type="checkbox" name="liquida_condominio"></input><br>
+                     {% endif %}
+                    
+                     <label>Considerar IPTU como liquidado?</label>
+                     {% if titulo.valor_iptu_pago %}
+                          <input type="checkbox" name="liquida_iptu" checked="true"></input><br>
+                      {% else %}
+                          <input type="checkbox" name="liquida_iptu"></input><br>
+                     {% endif %}
+                    
+                      <label for="exampleInputEmail1">Valor</label>
+                      <input type="number" class="form-control" step="any" name="valor" placeholder="Valor a abater na base to título" required>
                   </div>
 
                   <div class="modal-footer">

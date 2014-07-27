@@ -27,10 +27,21 @@
         <br/>
         <button type="submit" class="btn btn-info">Salvar</button>
         {% include 'imoveis/modalExcluiImovel.html' %}
-        <a href="{% url 'app_imoveis_ficha' imovel.id %}" type="button" class="btn btn-main">Imprimir ficha do imóvel</a>
+        <a href="{% url 'app_imoveis_ficha' imovel.id %}" type="button" class="btn btn-success">Imprimir ficha do imóvel</a>
         <a href="{% url 'app_imoveis_laudo_vistoria_add_imovel' imovel.id %}" type="submit" class="btn btn-info">Laudo de vistoria</a>
 
-        Data do cadastro: {{imovel.data_cadastro}}
+        Data do cadastro: {{imovel.data_cadastro}}<br>
+        <br>
+        {% if imovel.data_last_pag_iptu %}
+            <div class="alert alert-success fade in">
+                    <p><strong>Data do último pagamento de IPTU: </strong>{{imovel.data_last_pag_iptu}}</p> 
+            </div>
+        {% else %}
+            <div class="alert alert-danger fade in">
+                <p>Data do último pagamento de IPTU não informado</p>
+            </div>
+        {% endif %}
+
     </form>
 
     <br>

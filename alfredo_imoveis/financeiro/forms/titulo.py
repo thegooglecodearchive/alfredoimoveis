@@ -3,11 +3,13 @@ __author__ = 'gpzim98'
 from django import forms
 from financeiro.models.titulo import Titulo
 
+
 #Read only somente após editar uma vez MUITO BOM
 def _get_cleaner(form, field):
     def clean_field():
-         return getattr(form.instance, field, None)
+        return getattr(form.instance, field, None)
     return clean_field
+
 
 class ROFormMixin(forms.BaseForm):
     def __init__(self, *args, **kwargs):
@@ -17,11 +19,15 @@ class ROFormMixin(forms.BaseForm):
                 for field in self.read_only:
                     self.fields[field].widget.attrs['readonly'] = "readonly"
                     setattr(self, "clean_" + field, _get_cleaner(self, field))
+
+
 #---------------------------------------------------------------------
 class TituloForm(forms.ModelForm, ROFormMixin):
-    read_only = ('valor', 'descricao', 'pagamento_parcial') #Fica habilitado apenas na primeira edição
+    #Fica habilitado apenas na primeira edição
+    read_only = ('valor', 'descricao', 'pagamento_parcial', 'conta_parcelas')
 
     class Meta:
         model = Titulo
-        exclude = ['usuario_cadastrou', 'deletado', 'juros', 'perc_multa']
-
+        exclude = [
+            'usuario_cadastrou', 'deletado', 'juros', 'perc_multa',
+            'valor_iptu_pago', 'valor_condominio_pago']
