@@ -47,13 +47,10 @@ class Endereco(models.Model):
     complemento_comercial = models.CharField(max_length=100,null  = True, blank = True)
 
     def __unicode__(self):
-        end = self.rua + ' - ' + str(self.bairro)
-        if len(end) > 10:
-            return u'' + self.rua + ' - ' + str(self.bairro)
-        else:
-            return u'Sem endereço cadastrado'
+        return u'' + self.rua + u' - ' + self.bairro.nome
 
     class Meta:
         ordering = ['rua']
+
 
 
