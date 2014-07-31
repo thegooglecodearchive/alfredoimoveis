@@ -2,10 +2,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from imoveis.models import Imovel
 from enderecos.forms import EnderecoForm
-from forms import ImovelForm, ContratoLocacaoForm, ContratoAdministrativoForm, LaudoVistoriaForm
+from forms import ImovelForm, ContratoLocacaoForm,\
+    ContratoAdministrativoForm, LaudoVistoriaForm
 from funcionarios.models import Funcionario
 from datetime import datetime, date
-from imoveis.models import ContratoLocacao, ContratoAdministrativo, LaudoVistoria
+from imoveis.models import ContratoLocacao,\
+    ContratoAdministrativo, LaudoVistoria
 from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
@@ -24,14 +26,17 @@ template_contrato_detalhe = 'contrato_locacao/detalhe.html'
 template_contrato_novo = 'contrato_locacao/novo.html'
 template_contrato_imprimir = 'contrato_locacao/imprimir.html'
 
+
 def home(request):
     dados = {}
     #import pdb;pdb.set_trace()
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['imoveis'] = Imovel.objects.filter(empresa=funcionario[0].empresa,ativo=True) if funcionario else ""
-    return render(request, template_home,dados)
+    dados['imoveis'] = Imovel.objects.filter(
+        empresa=funcionario[0].empresa, ativo=True) if funcionario else ""
+    return render(request, template_home, dados)
 
-def detalhe(request,id,mensagem=''):
+
+def detalhe(request, id, mensagem=''):
     dados = {}
     dados['mensagem'] = mensagem
     imovel = get_object_or_404(Imovel, id=id)
@@ -41,13 +46,15 @@ def detalhe(request,id,mensagem=''):
     dados['imovel'] = imovel
     return render(request, template_detalhe, dados)
 
-def delete(request,id):
+
+def delete(request, id):
     imovel = get_object_or_404(Imovel, id=id)
     imovel.ativo = False
     imovel.save()
     return home(request)
 
-def salvar(request,id):
+
+def salvar(request, id):
     dados = {}
 
     form = ImovelForm(request.POST or None)
@@ -76,11 +83,12 @@ def adiciona(request):
     dados = {}
     dados['form'] = ImovelForm()
     dados['formEndereco'] = EnderecoForm()
-    return render(request,template_novo,dados)
+    return render(request, template_novo, dados)
+
 
 def filtrar(request):
     dados = {}
-    
+
     if request.POST.get('data_ini') and request.POST.get('data_fim'):
         dataini = datetime.strptime(request.POST['data_ini'], '%Y-%m-%d')
         datafim = datetime.strptime(request.POST['data_fim'], '%Y-%m-%d')
@@ -91,34 +99,36 @@ def filtrar(request):
     filtra_inativos = request.POST.get('ativo', False)
 
     if request.POST.get('codigo'):
-        imoveis = Imovel.objects.filter(pk__icontains = request.POST['codigo'])
+        imoveis = Imovel.objects.filter(pk__icontains=request.POST['codigo'])
     else:
-        imoveis = Imovel.objects.filter(descricao__icontains=request.POST['descricao'],
-                                        data_cadastro__range=[dataini,datafim],
-                                        endereco__rua__icontains=request.POST['rua'],
-                                        endereco__bairro__nome__icontains=request.POST['bairro'],
-                                        endereco__bairro__cidade__nome__icontains=request.POST['cidade'],
-                                        proprietario__nome__icontains=request.POST['proprietario'],
-                                        ativo= not filtra_inativos
-                                        )
+        imoveis = Imovel.objects.filter(
+            descricao__icontains=request.POST['descricao'],
+            data_cadastro__range=[dataini, datafim],
+            endereco__rua__icontains=request.POST['rua'],
+            endereco__bairro__nome__icontains=request.POST['bairro'],
+            endereco__bairro__cidade__nome__icontains=request.POST['cidade'],
+            proprietario__nome__icontains=request.POST['proprietario'],
+            ativo=not filtra_inativos)
 
     dados['imoveis'] = imoveis
 
     if request.POST.get('relatorio', False):
         dados['data'] = today
-        return render(request,template_relatorio,dados)
+        return render(request, template_relatorio, dados)
     else:
-        return render(request, template_home,dados)
+        return render(request, template_home, dados)
 
-def ficha(request,id):
+
+def ficha(request, id):
     dados = {}
     parametros = get_object_or_404(ParametrosGerais, id=1)
     dados['imovel'] = Imovel.objects.get(id=id)
     dados['data'] = today
     dados['logo'] = parametros.url_logo
-    return render(request,'imoveis/ficha.html', dados)
+    return render(request, 'imoveis/ficha.html', dados)
 
-def contrato_detalhe(request,id,mensagem=None):
+
+def contrato_detalhe(request, id, mensagem=None):
     dados = {}
     dados['mensagem'] = mensagem
     contrato = get_object_or_404(ContratoLocacao, id=id)
@@ -126,13 +136,17 @@ def contrato_detalhe(request,id,mensagem=None):
     dados['contrato'] = contrato
     return render(request, template_contrato_detalhe, dados)
 
+
 def contrato_home(request):
     dados = {}
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['contratos'] = ContratoLocacao.objects.filter(empresa=funcionario[0].empresa) if funcionario else ""
-    return render(request,template_contrato_home, dados)
+    dados['contratos'] = ContratoLocacao.objects.filter(
+        empresa=funcionario[0].empresa) if funcionario else ""
+    return render(
+        request, template_contrato_home, dados)
 
-def contrato_salvar(request,id):
+
+def contrato_salvar(request, id):
     dados = {}
 
     if id not in (None, '0'):
@@ -146,7 +160,8 @@ def contrato_salvar(request,id):
 
         if id not in (None, '0'):
             contrato.id = id
-            contrato.data_emissao_contrato = ContratoLocacao.objects.get(id=id).data_emissao_contrato
+            contrato.data_emissao_contrato =\
+                ContratoLocacao.objects.get(id=id).data_emissao_contrato
 
         contrato.save()
         mensagem = 'Contrato de locação salvo com sucesso!'
@@ -156,43 +171,51 @@ def contrato_salvar(request,id):
         dados['erros'] = 'Erros nas informações foram encontrados!'
         return render(request, template_contrato_novo, dados)
 
-def contrato_imprimir(request,id):
+
+def contrato_imprimir(request, id):
     dados = {}
     dados['data'] = today
     dados['contrato'] = ContratoLocacao.objects.get(id=id)
-    return render(request,template_contrato_imprimir,dados)
+    return render(request, template_contrato_imprimir, dados)
 
 
-def contrato_delete(request,id):
+def contrato_delete(request, id):
     contrato = ContratoLocacao.objects.get(id=id)
     contrato.delete()
     return contrato_home(request)
 
+
 def contrato_adiciona(request):
     dados = {}
     dados['form'] = ContratoLocacaoForm()
-    return render(request,template_contrato_novo,dados)
+    return render(request, template_contrato_novo, dados)
 
-def contrato_gerar_receber(request,id):
+
+def contrato_gerar_receber(request, id):
     dados = {}
-    contrato = get_object_or_404(ContratoLocacao,id=id)
+    contrato = get_object_or_404(ContratoLocacao, id=id)
     parametros = ParametrosGerais.objects.all()
 
     if contrato.inicio_contrato > contrato.termino_contrato:
         dados['mensagem_erro'] = """
-                            As contas a receber deste contrato não foram geradas pois a data inicial de
-                            vigência do contrato é maior ou igual a data final, por favor corrija este problema primeiro.
+                            As contas a receber deste contrato não
+                            foram geradas pois a data inicial de
+                            vigência do contrato é maior ou igual a data final,
+                            por favor corrija este problema primeiro.
                             """
-        return contrato_detalhe(request,id,dados['mensagem_erro'])
+        return contrato_detalhe(request, id, dados['mensagem_erro'])
 
     if not parametros[0].conta_caixa:
         dados['mensagem_erro'] = """
-                            As contas a receber deste contrato não foram geradas pois não existe uma conta-caixa para
-                            contratos informada no cadastro de parâmetros. Por favor resolva este problema antes de continuar
+                            As contas a receber deste contrato não
+                            foram geradas pois não existe uma conta-caixa para
+                            contratos informada no cadastro de parâmetros.
+                            Por favor resolva este problema antes de continuar
                             """
-        return contrato_detalhe(request,id,dados['mensagem_erro'])
+        return contrato_detalhe(request, id, dados['mensagem_erro'])
 
-    num_parcelas = month_between(contrato.inicio_contrato, contrato.termino_contrato) + 1
+    num_parcelas = month_between(
+        contrato.inicio_contrato, contrato.termino_contrato) + 1
 
     funcionario = Funcionario.objects.filter(usuario=request.user)
 
@@ -200,13 +223,22 @@ def contrato_gerar_receber(request,id):
         titulos = Titulo.objects.filter(contrato_locacao=contrato)
         titulos.delete()
 
-    gera_parcelas(num_parcelas,contrato.inicio_contrato,contrato.imovel.valor_aluguel,
-                  parametros[0].conta_caixa,contrato.locatario,contrato,funcionario[0].empresa,request.user)
+    gera_parcelas(
+        num_parcelas, contrato.inicio_contrato,
+        contrato.imovel.valor_aluguel,
+        parametros[0].conta_caixa,
+        contrato.locatario, contrato,
+        funcionario[0].empresa, request.user)
 
-    dados['mens_parcelas'] = """Contas a receber geradas com sucesso: Qtd.: {num_parcelas}, Data da primeira parcela:
-                           {dataini} data da última parcela: {datafim}
-                        """.format(num_parcelas=num_parcelas, dataini=contrato.inicio_contrato.strftime("%d/%m/%y"),
-                                                             datafim=contrato.termino_contrato.strftime("%d/%m/%y"))
+    dados['mens_parcelas'] =\
+        """
+        Contas a receber geradas com sucesso:
+        Qtd.: {num_parcelas}, Data da primeira parcela:
+           {dataini} data da última parcela: {datafim}
+        """.format(
+        num_parcelas=num_parcelas,
+        dataini=contrato.inicio_contrato.strftime("%d/%m/%y"),
+        datafim=contrato.termino_contrato.strftime("%d/%m/%y"))
 
     dados['form'] = ContratoLocacaoForm(instance=contrato)
     contrato.gerou_receber = True
@@ -214,11 +246,14 @@ def contrato_gerar_receber(request,id):
     dados['contrato'] = contrato
     return render(request, template_contrato_detalhe, dados)
 
-def gera_parcelas(num_parcelas,dataini,valor,conta_caixa,cliente,contrato,empresa,usuario):
+
+def gera_parcelas(
+    num_parcelas, dataini, valor,
+        conta_caixa, cliente, contrato, empresa, usuario):
     venc = dataini
 
-    for i in range(0,num_parcelas):
-        cont_parcelas = str(i) + '/' + str(num_parcelas)
+    for i in range(0, num_parcelas):
+        cont_parcelas = str(i+1) + '/' + str(num_parcelas)
         titulo = Titulo(descricao='Parcela de locação de imóvel referente ao contrato:{n_cont}'.format(n_cont=contrato.id),
                         conta_caixa=conta_caixa, empresa=empresa,tipo='R',
                         vencimento=date(venc.year, venc.month+i,venc.day),

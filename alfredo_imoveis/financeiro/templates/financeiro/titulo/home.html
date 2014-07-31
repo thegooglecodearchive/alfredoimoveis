@@ -35,7 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Descrição</th>
+                                    <th>Cliente</th>
                                     <th>Conta-caixa</th>
                                     <th>Vencimento</th>
                                     <th>Tipo</th>
@@ -48,7 +48,7 @@
                                 {% for titulo in titulos %}
                                     <tr class="odd gradeX">
                                         <td>{{titulo.id}}</td>
-                                        <td>{{titulo.descricao}}</td>
+                                        <td>{{titulo.cliente.nome}}</td>
                                         <td>{{titulo.conta_caixa}}</td>
                                         <td>{{titulo.vencimento}}</td>
                                         <td>{{titulo.tipo}}</td>

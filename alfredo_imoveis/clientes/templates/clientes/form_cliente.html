@@ -14,6 +14,7 @@
     <div class="col-sm-4">
         {{ form.cnpj_cpf|bootstrap}}
         {{ form.orgao_expeditor|bootstrap }}
+        {{form.profissao|bootstrap}}
     </div>
     <div class="col-sm-4">
                             {{ form.data_nascimento|bootstrap}}            
@@ -106,8 +107,7 @@
 	</div>
 	<div class="col-sm-4">
 		{{form.celular|bootstrap}}
-                                {{form.celular_2|bootstrap}}
-		{{form.profissao|bootstrap}}
+                            {{form.celular_2|bootstrap}}
 	</div>
 	<div class="col-sm-4">
 		{{form.tipo_cliente|bootstrap}}
@@ -147,9 +147,9 @@
 
 <div class="row">
     <div class="col-sm-6">  
-        {{form.observacoes|bootstrap}}
+        {{form.referencias_pessoais|bootstrap}}
     </div>
     <div class="col-sm-6">  
-        {{form.referencias_pessoais|bootstrap}}
+        {{form.observacoes|bootstrap}}
     </div>
 </div>

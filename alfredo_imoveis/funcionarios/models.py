@@ -4,11 +4,12 @@ from django.contrib.auth.admin import User
 from enderecos.models import Endereco
 from empresas.models import Empresa
 
+
 # Create your models here.
 class Funcionario(models.Model):
     nome = models.CharField('Nome do funcionário', max_length=100)
-    rg = models.CharField('Identidade', max_length=20)
-    cpf = models.CharField('cpf', max_length=14)
+    rg = models.CharField(verbose_name=u'RG', max_length=20)
+    cpf = models.CharField(max_length=14, verbose_name=u'CPF')
     pis = models.CharField('PIS', max_length=11)
     telefone = models.CharField('Telefone', max_length=20)
     email = models.EmailField('email', max_length=100)

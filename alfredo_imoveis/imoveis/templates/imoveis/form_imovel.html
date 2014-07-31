@@ -1,31 +1,9 @@
 {% load bootstrap %}
 <div class="row">
-	<div class="col-sm-12">
-		{{form.descricao|bootstrap}}
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-4">
-		{{form.proprietario|bootstrap}}
-		{{form.valor_condominio|bootstrap}}
-              </div>
-    <div class="col-sm-4">
-                            {{form.valor_iptu|bootstrap}}
-        {{form.vencimento_iptu|bootstrap}}
-	</div>
-	<div class="col-sm-4">
-		{{form.valor_aluguel|bootstrap}}
-		{{form.ultima_vistoria|bootstrap}}
-	</div>
-</div>
-
-<div class="row">
     <div class="col-sm-12">
-    	{{formEndereco.rua|bootstrap}} 
+        {{formEndereco.rua|bootstrap}} 
     </div>
 </div>
-
 <div class="row">
     <div class="col-sm-4">
         {{formEndereco.numero|bootstrap}}
@@ -47,3 +25,27 @@
         {{form.pavimentos|bootstrap}}
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-sm-4">
+        {{form.proprietario|bootstrap}}
+        {{form.valor_condominio|bootstrap}}
+              </div>
+    <div class="col-sm-4">
+                            {{form.valor_iptu|bootstrap}}
+        {{form.vencimento_iptu|bootstrap}}
+    </div>
+    <div class="col-sm-4">
+        {{form.valor_aluguel|bootstrap}}
+        {{form.ultima_vistoria|bootstrap}}
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		{{form.descricao|bootstrap}}
+	</div>
+</div>
+
+

@@ -9,7 +9,7 @@ from parametros.models import ParametrosGerais
 from clientes.models import Cliente
 from datetime import datetime, date
 from decimal import *
-from funcoes import month_between, days_between, calcula_meses_atraso, today
+from funcoes import today
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 
@@ -18,20 +18,26 @@ template_novo = 'financeiro/titulo/novo.html'
 template_detalhe = 'financeiro/titulo/detalhe.html'
 template_relatorio = 'financeiro/titulo/relatorio.html'
 template_recibo = 'financeiro/titulo/recibo.html'
-template_carta_cobranca_modelo_1 = 'financeiro/titulo/carta_cobranca_modelo_1.html'
-template_carta_cobranca_modelo_2 = 'financeiro/titulo/carta_cobranca_modelo_2.html'
-template_carta_cobranca_modelo_3 = 'financeiro/titulo/carta_cobranca_modelo_3.html'
+template_carta_cobranca_modelo_1 =\
+    'financeiro/titulo/carta_cobranca_modelo_1.html'
+template_carta_cobranca_modelo_2 =\
+    'financeiro/titulo/carta_cobranca_modelo_2.html'
+template_carta_cobranca_modelo_3 =\
+    'financeiro/titulo/carta_cobranca_modelo_3.html'
+
 
 def home(request):
     dados = {}
     funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['titulos'] = Titulo.objects.filter(empresa=funcionario[0].empresa, deletado=False) if funcionario else ""
+    dados['titulos'] = Titulo.objects.filter(
+        empresa=funcionario[0].empresa, deletado=False) if funcionario else ""
     dados['mensagem_erro'] = verifica_existencia_parametros()
     dados['clientes'] = Cliente.objects.all()
     dados['contas_caixa'] = ContaCaixa.objects.all()
     return render(request, template_home, dados)
 
-def detalhe(request,id,mensagem=''):
+
+def detalhe(request, id, mensagem=''):
     dados = {}
     dados['mensagem'] = mensagem
     titulo = get_object_or_404(Titulo, id=id)
@@ -41,11 +47,13 @@ def detalhe(request,id,mensagem=''):
     dados['recibos'] = recibos
     return render(request, template_detalhe, dados)
 
+
 def delete(request, id):
     titulo = Titulo.objects.get(id=id)
     titulo.deletado = True
     titulo.save()
     return home(request)
+
 
 def filtrar(request):
     dados = {}
@@ -54,13 +62,14 @@ def filtrar(request):
 
     if request.POST.get('relatorio', False):
         dados['data'] = today
-        return render(request,template_relatorio,dados)
+        return render(request, template_relatorio, dados)
     else:
         dados['clientes'] = Cliente.objects.all()
         dados['contas_caixa'] = ContaCaixa.objects.all()
-        return render(request, template_home,dados)
+        return render(request, template_home, dados)
 
-def salvar(request,id):
+
+def salvar(request, id):
     dados = {}
     form = TituloForm(request.POST or None)
 
@@ -149,7 +158,7 @@ def verifica_existencia_parametros():
 
 def filtra_titulos(request):
     titulos = Titulo.objects.all()
-    
+
     if request.POST['cliente'] != '0':
         titulos = Titulo.objects.filter(cliente__id=request.POST['cliente'])
 
@@ -157,15 +166,15 @@ def filtra_titulos(request):
         titulos = titulos.filter(conta_caixa=request.POST['contas_cx'])
 
     if request.POST['tipo'] in ('R', 'D'):
-        titulos = titulos.filter(tipo=request.POST['tipo']) 
-    
+        titulos = titulos.filter(tipo=request.POST['tipo'])
+
     if request.POST.get('valor_titulo', False):
-        valorini=float(request.POST.get('valor_titulo', False))
-        valorfim=float(request.POST.get('valor_titulo', False))
+        valorini = float(request.POST.get('valor_titulo', False))
+        valorfim = float(request.POST.get('valor_titulo', False))
     else:
-        valorini=0
-        valorfim=999999
-    titulos = titulos.filter(valor__range=[valorini,valorfim]) 
+        valorini = 0
+        valorfim = 999999
+    titulos = titulos.filter(valor__range=[valorini, valorfim])
 
     if request.POST['dataini'] and request.POST['datafim']:
         dataini = datetime.strptime(request.POST['dataini'], '%d/%m/%Y')
@@ -173,20 +182,23 @@ def filtra_titulos(request):
     else:
         dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
         datafim = datetime.strptime('2500-01-01', '%Y-%m-%d')
-    titulos = titulos.filter(vencimento__range=[dataini, datafim]) 
+    titulos = titulos.filter(vencimento__range=[dataini, datafim])
 
     titulos = titulos.filter(descricao__icontains=request.POST['descricao'])
     titulos = titulos.filter(deletado=request.POST.get('deletados', False))
     titulos = titulos.filter(empresa__nome__icontains=request.POST['empresa'])
 
-    return titulos        
+    return titulos
+
 
 def cartas_cobranca_automatizada(request):
     dados = {}
 
     dados['clientes'] = Cliente.objects.filter(ativo=True)
     dados['contas_caixa'] = ContaCaixa.objects.all()
-    return render(request,'financeiro/titulo/cartas_cobranca_automatizada.html', dados)  
+    return render(
+        request, 'financeiro/titulo/cartas_cobranca_automatizada.html', dados)
+
 
 def cartas_cobranca_automatizada_filtrar(request):
     dados = {}
@@ -195,11 +207,14 @@ def cartas_cobranca_automatizada_filtrar(request):
 
     if request.POST.get('imprimir', False):
         dados['data'] = today
-        return render(request,get_modelo_carta(request),dados)
+        return render(request, get_modelo_carta(request), dados)
     else:
         dados['contas_caixa'] = ContaCaixa.objects.all()
         dados['clientes'] = Cliente.objects.filter(ativo=True)
-        return render(request,'financeiro/titulo/cartas_cobranca_automatizada.html', dados)        
+        return render(
+            request,
+            'financeiro/titulo/cartas_cobranca_automatizada.html', dados)
+
 
 def get_modelo_carta(request):
     if request.POST['modelo_carta'] == 'M1':
