@@ -15,7 +15,7 @@ CONTRATO: {{recibo.titulo.contrato_locacao.pk}}      VENCIMENTO: {{recibo.titulo
 IMÓVEL: {{recibo.titulo.contrato_locacao.imovel.endereco}}<br>
 Proprietário: {{recibo.titulo.contrato_locacao.imovel.proprietario.nome}}<br>
 Locatário: {{recibo.titulo.contrato_locacao.locatario.nome}}
-<hr><br>
+<hr>
 <div class="row">
     <div class="col-sm-6">  
         Aluguel...............................(+)  R$ {{recibo.titulo.valor|floatformat:2}} <br>
@@ -30,18 +30,21 @@ Locatário: {{recibo.titulo.contrato_locacao.locatario.nome}}
             Condomínio ......................(+) R$ {{recibo.titulo.valor_condominio_pago}}<br>
         {% endif %}
 
-        {% if recibo.titulo.valor_outros %}
-            Outros valores ................(+) R$ {{recibo.titulo.valor_outros}}<br>
+        {% if recibo.titulo.valor_encargos %}
+            *Encargos .........................(+) R$ {{recibo.titulo.valor_encargos}}<br>
         {% endif %}
         
         {% if recibo.titulo.valor_restante%}
             Valor restante .................(+) R$ {{recibo.titulo.valor_restante|floatformat:2}}<br>
         {% endif %}
-        <br>
-        <br>
+        
         <br>
         TOTAL ................................(+) R$ {{recibo.titulo.total|floatformat:2}}<br>
          ({{recibo.titulo.total_por_extenso}})          <br>
+        <pre>
+            {{recibo.titulo.get_descricao_encargos}}
+        </pre>
+
 
     </div>
     <div class="col-sm-6">  
@@ -57,9 +60,8 @@ Locatário: {{recibo.titulo.contrato_locacao.locatario.nome}}
         <br>
         Este recibo só tem valor firmado pela administradora sem rasuras, emendas ou ressalvas.<br>
         NÃO QUITA DÉBITOS ANTERIORES.<br>
- 
+
     </div>
 </div>
-    
 {% endblock %}
 

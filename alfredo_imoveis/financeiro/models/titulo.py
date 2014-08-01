@@ -40,8 +40,8 @@ class Titulo(models.Model):
     valor_cemig = models.DecimalField(
         max_digits=6, decimal_places=2, verbose_name='Valor da CEMIG no mês',
         default=0, null=True, blank=True)
-    valor_outros = models.DecimalField(
-        max_digits=6, decimal_places=2, verbose_name='Valor para outros gastos',
+    valor_encargos = models.DecimalField(
+        max_digits=6, decimal_places=2, verbose_name='Valores de encargos',
         default=0, null=True, blank=True)
     perc_juros = models.DecimalField(
         max_digits=4, decimal_places=2, default=0.0, null=True, blank=True)
@@ -62,6 +62,8 @@ class Titulo(models.Model):
         null=True, blank=True, max_length=7,
         verbose_name=u'Contagem das parcelas')
     observacoes = models.TextField(null=True, blank=True)
+    descricao_encargos = models.TextField(
+        null=True, blank=True, verbose_name=u'Descrição de encargos')
 
     @property
     def total(self):
@@ -72,7 +74,7 @@ class Titulo(models.Model):
 
         if self.dias_atraso == 0:
             total = self.valor + self.valor_cemig + \
-                self.valor_copasa + self.valor_outros
+                self.valor_copasa + self.valor_encargos
 
             if self.contrato_locacao:
                 total += self.contrato_locacao.imovel.valor_condominio
@@ -84,7 +86,8 @@ class Titulo(models.Model):
                 total += self.valor_iptu_pago
         else:
             total = self.valor + self.valor_cemig + \
-                self.valor_copasa + self.valor_outros + self.juros + self.multa
+                self.valor_copasa + self.valor_encargos + \
+                self.juros + self.multa
 
             if self.contrato_locacao:
                 total += self.contrato_locacao.imovel.valor_condominio
@@ -111,7 +114,8 @@ class Titulo(models.Model):
                 qtd_mes_atraso = calcula_meses_atraso(
                     self.vencimento, self.data_quitacao)
                 juros = (
-                    self.valor * pow((1 + (self.perc_juros / 100)), qtd_mes_atraso)) - self.valor
+                    self.valor * pow((1 +
+                        (self.perc_juros / 100)), qtd_mes_atraso)) - self.valor
                 return juros
             else:
                 return 0
@@ -119,7 +123,8 @@ class Titulo(models.Model):
             if self.dias_atraso > 0:
                 qtd_mes_atraso = calcula_meses_atraso(self.vencimento, today)
                 juros = (
-                    self.valor * pow((1 + (parametros.taxa_juros / 100)), qtd_mes_atraso)) - self.valor
+                    self.valor * pow((1 +
+                        (parametros.taxa_juros / 100)), qtd_mes_atraso)) - self.valor
                 return juros
             else:
                 return 0
@@ -221,6 +226,10 @@ class Titulo(models.Model):
         else:
             frase = extenso(total)
         return frase.capitalize()
+
+    @property
+    def get_descricao_encargos(self):
+        return u'Descrição dos encargos\n' + self.descricao_encargos
 
 
 class Recibo(models.Model):

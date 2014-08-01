@@ -40,6 +40,7 @@
                                     <th>Vencimento</th>
                                     <th>Tipo</th>
                                     <th>Valor</th>
+                                    <th>Situação</th>
                                     <th>Pagamento parcial</th>
                                     <th>Visualizar</th>
                                 </tr>
@@ -53,6 +54,13 @@
                                         <td>{{titulo.vencimento}}</td>
                                         <td>{{titulo.tipo}}</td>
                                         <td>{{titulo.valor}}</td>
+                                        
+                                        <td>{% if titulo.liquidado %}
+                                                <img src="{{STATIC_URL}}bootstrap/img/pago.jpg">
+                                        {%else %}
+                                                 <img src="{{STATIC_URL}}bootstrap/img/pendente.png">
+                                        {% endif %}</td>
+                                                                                
                                         <td>{{titulo.pagamento_parcial}}</td>
                                         <td>
                                             <a href="{% url 'app_financeiro_titulo_detalhe' titulo.id %}">

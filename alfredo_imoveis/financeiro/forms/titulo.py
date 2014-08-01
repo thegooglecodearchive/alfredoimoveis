@@ -24,7 +24,9 @@ class ROFormMixin(forms.BaseForm):
 #---------------------------------------------------------------------
 class TituloForm(forms.ModelForm, ROFormMixin):
     #Fica habilitado apenas na primeira edição
-    read_only = ('valor', 'descricao', 'pagamento_parcial', 'conta_parcelas')
+    read_only = (
+        'valor', 'descricao', 'pagamento_parcial',
+        'conta_parcelas', 'cliente', 'tipo', 'vencimento', 'contrato_locacao')
 
     class Meta:
         model = Titulo

@@ -44,8 +44,12 @@
                     <b>CEMIG: </b>{{titulo.valor_cemig|floatformat:2}}<br>
                     <b>Multa: </b>{{titulo.multa|floatformat:2}}<br>
                     <b>Juros: </b>{{titulo.juros|floatformat:2}}<br>
-                    <b>Outros gastos: </b>{{titulo.valor_outros|floatformat:2}}<br>
-                    <b>Condomínio: </b>{{titulo.valor_condominio_pago|floatformat:2}}<br>
+                    <b>Outros gastos: </b>{{titulo.valor_encargos|floatformat:2}}<br>
+                    {% if titulo.valor_condominio_pago %}
+                        <b>Condomínio: </b>{{titulo.valor_condominio_pago|floatformat:2}}<br>
+                    {% else %}
+                        <b>Condomínio: </b>{{titulo.contrato_locacao.imovel.valor_condominio|floatformat:2}}<br>
+                    {% endif %}
                     
                     {% if titulo.contrato_locacao.imovel.iptu_vencido %}
                             <b>IPTU pendente: </b>{{titulo.contrato_locacao.imovel.valor_iptu}}<br>
