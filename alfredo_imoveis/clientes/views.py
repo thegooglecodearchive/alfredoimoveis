@@ -186,5 +186,6 @@ def carrega_parametros_carta_aniversario(request, dados):
     else:
         texto_carta = ParametrosGerais.objects.all()[0].texto_carta_aniv3
 
+    dados['logo'] = Funcionario.objects.get(usuario=request.user).empresa.logo
     dados['data'] = today
     dados['texto_carta'] = texto_carta

@@ -25,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -100,7 +100,6 @@ USE_TZ = True
 MEDIA_URL = "/site_media/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'site_media', 'media')
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
