@@ -61,9 +61,6 @@ ROOT_URLCONF = 'alfredo_imoveis.urls'
 
 WSGI_APPLICATION = 'alfredo_imoveis.wsgi.application'
 
-MEDIA_ROOT = 'media'
-
-MEDIA_URL = "media/"
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -99,13 +96,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Arquivos de midia
+MEDIA_URL = "/site_media/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'site_media', 'media')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+STATIC_URL = '/site_media/static/'
 
-STATIC_URL = '/static/'
-
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'site_media', 'static')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'arquivosstaticospadrao'),
@@ -114,4 +115,8 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templatespadrao'),
 )
-
+"""print 'STATIC_ROOT' + STATIC_ROOT
+print 'STATIC_URL' + STATIC_URL
+print 'MEDIA_ROOT' + MEDIA_ROOT
+print 'MEDIA_URL' + MEDIA_URL
+"""
