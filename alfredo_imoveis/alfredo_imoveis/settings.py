@@ -61,20 +61,23 @@ ROOT_URLCONF = 'alfredo_imoveis.urls'
 
 WSGI_APPLICATION = 'alfredo_imoveis.wsgi.application'
 
+MEDIA_ROOT = 'media'
+
+MEDIA_URL = "media/"
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 if False:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'alfredo.db',
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'alfredo.db',
+        }
     }
-}
 else:
     DATABASES = {
         'default': {
-            'ENGINE':'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'alfredo_imoveis',
             'USER': 'postgres',
             'PASSWORD': 'senha',
