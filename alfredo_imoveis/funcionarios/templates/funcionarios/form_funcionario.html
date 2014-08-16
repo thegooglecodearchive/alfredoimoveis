@@ -4,15 +4,18 @@
         <h1>Criar/editar funcionários</h1>
         {% if erros %}      	
         	<div class="alert alert-danger fade in">
-				{{erros}}
-		    </div>
-
+                    {{erros}}
+              </div>
         {% endif %}
         <br/>
-        <form action="{% url 'app_funcionario_add' %}" method="POST">
+        {% if modo == 'EDICAO' %}
+            <form action="{% url 'app_funcionario_update' funcionario.id %}" method="POST">
+        {% else %}
+            <form action="{% url 'app_funcionario_add' %}" method="POST">
+        {% endif %}
             {% csrf_token %}
             {% include 'funcionarios/campos_form_funcionario.html' %}
             <input type="submit" class="btn btn-info" value="Salvar">
-        </form>
+           </form>
     </div>
 </div>

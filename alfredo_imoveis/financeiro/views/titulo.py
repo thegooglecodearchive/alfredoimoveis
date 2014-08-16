@@ -41,10 +41,26 @@ def detalhe(request, id, mensagem=''):
     dados = {}
     dados['mensagem'] = mensagem
     titulo = get_object_or_404(Titulo, id=id)
-    dados['form'] = TituloForm(instance=titulo)
+    form = TituloForm(instance=titulo)
+    for field in form.fields.values():
+        field.widget.attrs['disabled'] = True
+    dados['form'] = form
     dados['titulo'] = titulo
     recibos = Recibo.objects.filter(titulo=titulo)
     dados['recibos'] = recibos
+    return render(request, template_detalhe, dados)
+
+
+def editar(request, id, mensagem=''):
+    dados = {}
+    dados['mensagem'] = mensagem
+    titulo = get_object_or_404(Titulo, id=id)
+    form = TituloForm(instance=titulo)
+    dados['form'] = form
+    dados['titulo'] = titulo
+    recibos = Recibo.objects.filter(titulo=titulo)
+    dados['recibos'] = recibos
+    dados['modo'] = 'EDICAO'
     return render(request, template_detalhe, dados)
 
 

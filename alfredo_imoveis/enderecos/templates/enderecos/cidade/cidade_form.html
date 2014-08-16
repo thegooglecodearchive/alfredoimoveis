@@ -5,11 +5,20 @@
     <form method="POST">
             {% csrf_token %}
             {{form|bootstrap}}
-            <input type="submit" class="btn btn-info" value="Salvar">
+            
+            {% if modo == 'DETALHE' %}
+            	    {% if cidade.id %}
+	        <a href="{% url 'app_enderecos_cidade_update' cidade.id %}" class="btn btn-info">Editar</a>
+    	        <a href="{% url 'app_enderecos_cidade_delete' cidade.id %}" type="button" class="btn btn-danger">Deletar</a>
+                   {% endif %}
+
+            {% else %}
+            	  <input type="submit" class="btn btn-info" value="Salvar">
+            {% endif %}
 
             {% if object.id %}
-    		<a href="{% url 'app_enderecos_cidade_delete' object.id %}" type="button" class="btn btn-danger">Deletar</a>
-    	{% endif %}
+    	    <a href="{% url 'app_enderecos_cidade_delete' object.id %}" type="button" class="btn btn-danger">Deletar</a>
+            {% endif %}
 
     </form>
 

@@ -7,7 +7,14 @@
         <form action="{% url 'app_enderecos_bairro_update' bairro.id %}" method="POST">
             {% csrf_token %}
             {{form|bootstrap}}
-            <input type="submit" class="btn btn-info" value="Salvar">
+            
+            {% if modo == 'EDICAO' %}
+                <input type="submit" class="btn btn-info" value="Salvar">
+            {% else %}
+                <a type="button" href="{% url 'app_enderecos_bairro_form_edicao' bairro.id %}" 
+                 class="btn btn-info">Editar</a>
+            {% endif %}
+            
             <a type="button" href="{% url 'app_enderecos_bairro_delete' bairro.id %}" 
                  class="btn btn-danger">Deletar</a>
         </form>

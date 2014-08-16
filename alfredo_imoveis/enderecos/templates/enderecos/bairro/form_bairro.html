@@ -4,10 +4,27 @@
     <div class="col-lg-4">
         <h1>Bairros</h1>
         <br/>
-        <form action="{% url 'app_enderecos_bairro_add' %}" method="POST">
+
+       {% if mensagem%}
+        <div class="alert alert-info fade in">
+            {{mensagem}}    
+        </div>
+        {% endif %}
+
+        {% if modo == 'EDICAO' %}
+        	<form action="{% url 'app_enderecos_bairro_editar' bairro.id %}" method="POST">
+        {% else %}
+        	<form action="{% url 'app_enderecos_bairro_add' %}" method="POST">
+        {% endif %}
             {% csrf_token %}
             {{form|bootstrap}}
             <input type="submit" class="btn btn-info" value="Salvar">
+            
+
+            {% if bairro %}
+            		<a type="button" href="{% url 'app_enderecos_bairro_delete' bairro.id %}" 
+     			class="btn btn-danger">Deletar</a>
+     	{% endif %}
         </form>
     </div>
 </div>

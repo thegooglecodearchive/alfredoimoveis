@@ -161,8 +161,21 @@ def contrato_detalhe(request, id, mensagem=None):
     dados = {}
     dados['mensagem'] = mensagem
     contrato = get_object_or_404(ContratoLocacao, id=id)
+    form = ContratoLocacaoForm(instance=contrato)
+    for field in form.fields.values():
+        field.widget.attrs['disabled'] = True
+    dados['form'] = form
+    dados['contrato'] = contrato
+    return render(request, template_contrato_detalhe, dados)
+
+
+def contrato_editar(request, id, mensagem=None):
+    dados = {}
+    dados['mensagem'] = mensagem
+    contrato = get_object_or_404(ContratoLocacao, id=id)
     dados['form'] = ContratoLocacaoForm(instance=contrato)
     dados['contrato'] = contrato
+    dados['modo'] = 'EDICAO'
     return render(request, template_contrato_detalhe, dados)
 
 
@@ -305,17 +318,20 @@ def adiciona_imovel_para_usuario(request, id_cliente):
 
 
 # Contratos administrativos
-def contrato_administrativo_list(request,
-                                 template_name='contrato_administrativo/contrato_administrativo_list.html'):
+def contrato_administrativo_list(
+        request,
+        template_name=
+        'contrato_administrativo/contrato_administrativo_list.html'):
     contratos = ContratoAdministrativo.objects.all()
     data = {}
     data['object_list'] = contratos
     return render(request, template_name, data)
 
 
-def contrato_administrativo_create(request,
-                                   template_name=
-                                   'contrato_administrativo/contrato_administrativo_form.html'):
+def contrato_administrativo_create(
+        request,
+        template_name=
+        'contrato_administrativo/contrato_administrativo_form.html'):
     form = ContratoAdministrativoForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -325,7 +341,8 @@ def contrato_administrativo_create(request,
 
 def contrato_administrativo_update(
     request, pk,
-    template_name='contrato_administrativo/contrato_administrativo_form_update.html'):
+    template_name=
+        'contrato_administrativo/contrato_administrativo_form_update.html'):
     contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
     form = ContratoAdministrativoForm(request.POST or None, instance=contrato)
     if form.is_valid():
@@ -334,8 +351,20 @@ def contrato_administrativo_update(
     return render(request, template_name, {'form': form, 'object': contrato})
 
 
-def contrato_administrativo_delete(request,
-    pk, template_name='contrato_administrativo/contrato_administrativo_confirm_delete.html'):
+def contrato_administrativo_detalhe(
+    request, pk,
+    template_name=
+        'contrato_administrativo/contrato_administrativo_form_update.html'):
+    contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
+    form = ContratoAdministrativoForm(request.POST or None, instance=contrato)
+    for field in form.fields.values():
+        field.widget.attrs['disabled'] = True
+    return render(request, template_name, {'form': form, 'object': contrato})
+
+
+def contrato_administrativo_delete(
+    request, pk, template_name=
+        'contrato_administrativo/contrato_administrativo_confirm_delete.html'):
     contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
     if request.method == 'POST':
         contrato.delete()
@@ -348,10 +377,13 @@ def contrato_administrativo_gerar(request, pk):
     contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
     dados['contrato'] = contrato
     dados['data'] = today
-    return render(request, 'contrato_administrativo/imprimir_cintrato.html', dados)
+    return render(
+        request,
+        'contrato_administrativo/imprimir_cintrato.html', dados)
 
 
-def laudo_vistoria_list(request, template_name='laudo_vistoria/laudo_vistoria_list.html'):
+def laudo_vistoria_list(
+        request, template_name='laudo_vistoria/laudo_vistoria_list.html'):
     dados = {}
 
     laudos = LaudoVistoria.objects.all()
@@ -359,7 +391,9 @@ def laudo_vistoria_list(request, template_name='laudo_vistoria/laudo_vistoria_li
     return render(request, template_name, dados)
 
 
-def laudo_vistoria_create(request, template_name='laudo_vistoria/laudo_vistoria_form.html', pk=None):
+def laudo_vistoria_create(
+        request, template_name='laudo_vistoria/laudo_vistoria_form.html',
+        pk=None):
     if pk:
         imovel = get_object_or_404(Imovel, pk=pk)
         if imovel:
@@ -380,16 +414,35 @@ def laudo_vistoria_create(request, template_name='laudo_vistoria/laudo_vistoria_
     return render(request, template_name, {'form': form})
 
 
-def laudo_vistoria_update(request, pk, template_name='laudo_vistoria/laudo_vistoria_form_update.html'):
+def laudo_vistoria_detalhe(
+        request, pk,
+        template_name='laudo_vistoria/laudo_vistoria_form_update.html'):
+    laudo = get_object_or_404(LaudoVistoria, pk=pk)
+    form = LaudoVistoriaForm(request.POST or None, instance=laudo)
+
+    for field in form.fields.values():
+        field.widget.attrs['disabled'] = True
+    return render(
+        request, template_name,
+        {'form': form, 'object': laudo})
+
+
+def laudo_vistoria_update(
+        request, pk,
+        template_name='laudo_vistoria/laudo_vistoria_form_update.html'):
     laudo = get_object_or_404(LaudoVistoria, pk=pk)
     form = LaudoVistoriaForm(request.POST or None, instance=laudo)
     if form.is_valid():
         form.save()
         return redirect('app_imoveis_laudo_vistoria_home')
-    return render(request, template_name, {'form': form, 'object': laudo})
+    return render(
+        request, template_name,
+        {'form': form, 'object': laudo, 'modo': 'EDICAO'})
 
 
-def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_vistoria_confirm_delete.html'):
+def laudo_vistoria_delete(
+        request, pk,
+        template_name='laudo_vistoria/laudo_vistoria_confirm_delete.html'):
     laudo = get_object_or_404(LaudoVistoria, pk=pk)
     if request.method == 'POST':
         laudo.delete()
@@ -397,7 +450,9 @@ def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_visto
     return render(request, template_name, {'object': laudo})
 
 
-def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_vistoria_imprimir.html'):
+def laudo_vistoria_imprimir(
+        request, pk,
+        template_name='laudo_vistoria/laudo_vistoria_imprimir.html'):
     dados = {}
     busca_configuracoes(request, dados)
 

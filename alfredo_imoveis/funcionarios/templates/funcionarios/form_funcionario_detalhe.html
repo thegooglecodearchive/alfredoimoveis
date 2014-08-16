@@ -7,7 +7,7 @@
         <form action="{% url 'app_funcionario_update' funcionario.id %}" method="POST">
             {% csrf_token %}
             {% include 'funcionarios/campos_form_funcionario.html' %}
-            <input type="submit" class="btn btn-info" value="Salvar">
+            <a href="{% url 'app_funcionario_editar' funcionario.id %}" class="btn btn-info">Editar</a>
             {% include 'funcionarios/modalExcluiFuncionario.html' %}
         </form>
     </div>

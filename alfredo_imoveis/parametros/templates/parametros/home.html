@@ -34,7 +34,6 @@
   </div>
 </div>
 <!--Fim do modal de Help-->
-
         {% if mensagem %}
             <div class="color-swatch brand-primary">
             <div class="alert alert-dismissable alert-success">
@@ -46,12 +45,16 @@
         {% endif %}
         <div class="row">
             <div class="col-lg-12">
-                <form method="POST" action="{% url 'app_parametros_home' %}" class="well">
+                <form method="POST" action="{% url 'app_parametros_salvar' parametro.id %}" class="well">
                     {% csrf_token %}
                      <br/>
                     {{form|bootstrap}}
                     <br />
-                    <input type="submit" class="btn btn-primary" value="Salvar" />
+                    {% if modo == 'EDICAO' %}
+                        <input type="submit" class="btn btn-primary" value="Salvar" />
+                    {% else %}
+                      <a href="{% url 'app_parametros_editar' parametro.id %}" class="btn btn-primary">Editar</a>
+                    {% endif %}
                 </form>
             </div>
         </div>
