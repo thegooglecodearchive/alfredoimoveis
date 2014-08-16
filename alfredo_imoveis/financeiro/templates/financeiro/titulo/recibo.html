@@ -18,34 +18,92 @@ Locatário: {{recibo.titulo.contrato_locacao.locatario.nome}}
 <hr>
 <div class="row">
     <div class="col-sm-6">  
-        Aluguel...............................(+)  R$ {{recibo.titulo.valor|floatformat:2}} <br>
-        Multa ..................................(+)  R$ {{recibo.titulo.multa|floatformat:2}} <br>
-        Juros ..................................(+)  R$ {{recibo.titulo.juros|floatformat:2}} <br>
+    
+
+    <table style="width:250px">
         
+        <tr>
+          <td>Aluguel.............................</td>
+          <td>..............</td>
+          <td>(+)</td>
+          <td>&nbsp;R$</td>
+          <td align="right">&nbsp;{{recibo.titulo.valor}}</td>
+        </tr>
+        
+        <tr>
+          <td>Juros ................................</td>
+          <td>..............</td>
+          <td>(+)</td>
+          <td>&nbsp;R$</td>
+          <td align="right">&nbsp;{{recibo.titulo.juros|floatformat:2}}</td>
+        </tr>
+
+        <tr>
+          <td>Multa.................................</td>
+          <td>.............</td>
+          <td>(+)</td>
+          <td>&nbsp;R$</td>
+          <td align="right">&nbsp;{{recibo.titulo.multa|floatformat:2}}</td>
+        </tr>
+
         {% if recibo.titulo.valor_iptu_pago%}
-            IPTU ....................................(+) R$ {{recibo.titulo.valor_iptu_pago}}<br>
+        <tr>
+          <td>IPTU...................................</td>
+          <td>.............</td>
+          <td>(+)</td>
+          <td>&nbsp;R$</td>
+          <td align="right">&nbsp;{{recibo.titulo.valor_iptu_pago|floatformat:2}}</td>
+        </tr>
         {% endif %}
-
+        
         {% if recibo.titulo.valor_condominio_pago%}
-            Condomínio ......................(+) R$ {{recibo.titulo.valor_condominio_pago}}<br>
+            <tr>
+              <td>Condominio.....................</td>
+              <td>.............</td>
+              <td>(+)</td>
+              <td>&nbsp;R$</td>
+              <td align="right">&nbsp;{{recibo.titulo.valor_condominio_pago|floatformat:2}}</td>
+            </tr>
         {% endif %}
 
-        {% if recibo.titulo.valor_encargos %}
-            *Encargos .........................(+) R$ {{recibo.titulo.valor_encargos}}<br>
+        {% if recibo.titulo.valor_encargos%}
+            <tr>
+              <td>*Encargos........................</td>
+              <td>.............</td>
+              <td>(+)</td>
+              <td>&nbsp;R$</td>
+              <td align="right">&nbsp;{{recibo.titulo.valor_encargos|floatformat:2}}</td>
+            </tr>
         {% endif %}
-        
+
         {% if recibo.titulo.valor_restante%}
-            Valor restante .................(+) R$ {{recibo.titulo.valor_restante|floatformat:2}}<br>
+            <tr>
+              <td>Valor restante................</td>
+              <td>.............</td>
+              <td>(+)</td>
+              <td>&nbsp;R$</td>
+              <td align="right">&nbsp;{{recibo.titulo.valor_restante|floatformat:2}}</td>
+            </tr>
+        {% endif %}
+
+        <tr>
+              <td>Total..................................</td>
+              <td>.............</td>
+              <td>(+)</td>
+              <td>&nbsp;R$</td>
+              <td align="right">&nbsp;{{recibo.titulo.total|floatformat:2}}</td>
+        </tr>
+
+        <tr>
+            <td  colspan="7">({{recibo.titulo.total_por_extenso}})</td>
+        </tr>
+    </table>
+        {% if recibo.titulo.get_descricao_encargos|length > 25 %}
+            <pre>
+                {{recibo.titulo.get_descricao_encargos}}
+            </pre>
         {% endif %}
         
-        <br>
-        TOTAL ................................(+) R$ {{recibo.titulo.total|floatformat:2}}<br>
-         ({{recibo.titulo.total_por_extenso}})          <br>
-        <pre>
-            {{recibo.titulo.get_descricao_encargos}}
-        </pre>
-
-
     </div>
     <div class="col-sm-6">  
         Recebemos do locatário acima as importâncias descriminadas <br>

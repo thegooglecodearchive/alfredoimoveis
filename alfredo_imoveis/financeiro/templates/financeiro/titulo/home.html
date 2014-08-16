@@ -4,6 +4,8 @@
    Alfredo Imóveis - Clientes
 {% endblock %}
 
+
+
 {% block conteudo %}
 <h1>Títulos a pagar e receber</h1>
 
@@ -51,7 +53,7 @@
                                         <td>{{titulo.id}}</td>
                                         <td>{{titulo.cliente.nome}}</td>
                                         <td>{{titulo.conta_caixa}}</td>
-                                        <td>{{titulo.vencimento}}</td>
+                                        <td>{{titulo.vencimento|date:"d/m/Y"}}</td>
                                         <td>{{titulo.tipo}}</td>
                                         <td>{{titulo.valor}}</td>
                                         
@@ -97,3 +99,4 @@
         {% endif %}
     </div>    
 {% endblock %}
+

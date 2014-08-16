@@ -12,7 +12,7 @@ from financeiro.models.titulo import Titulo
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
 from alfredo_imoveis.views import busca_configuracoes
-from funcoes import month_between
+from funcoes import month_between, incrementa_mes
 today = date.today()
 
 # Create your views here.
@@ -39,9 +39,38 @@ def home(request):
 def detalhe(request, id, mensagem=''):
     dados = {}
     dados['mensagem'] = mensagem
+
     imovel = get_object_or_404(Imovel, id=id)
-    dados['formEndereco'] = EnderecoForm(instance=imovel.endereco)
-    dados['form'] = ImovelForm(instance=imovel)
+
+    form_endereco = EnderecoForm(instance=imovel.endereco)
+    for field in form_endereco.fields.values():
+        field.widget.attrs['disabled'] = True
+    dados['formEndereco'] = form_endereco
+
+    form = ImovelForm(instance=imovel)
+    for field in form.fields.values():
+        field.widget.attrs['disabled'] = True
+    dados['form'] = form
+
+    dados['laudo_vistoria'] = LaudoVistoria.objects.filter(imovel=imovel)
+    dados['imovel'] = imovel
+    return render(request, template_detalhe, dados)
+
+
+def editar(request, id, mensagem=''):
+    dados = {}
+    dados['mensagem'] = mensagem
+
+    dados['modo'] = 'EDICAO'
+
+    imovel = get_object_or_404(Imovel, id=id)
+
+    form_endereco = EnderecoForm(instance=imovel.endereco)
+    dados['formEndereco'] = form_endereco
+
+    form = ImovelForm(instance=imovel)
+    dados['form'] = form
+
     dados['laudo_vistoria'] = LaudoVistoria.objects.filter(imovel=imovel)
     dados['imovel'] = imovel
     return render(request, template_detalhe, dados)
@@ -250,16 +279,21 @@ def contrato_gerar_receber(request, id):
 def gera_parcelas(
     num_parcelas, dataini, valor,
         conta_caixa, cliente, contrato, empresa, usuario):
-    venc = dataini
+
+    msg_confirmacao =\
+        'Parcela de locação de imóvel referente ao contrato:{n_cont}'
 
     for i in range(0, num_parcelas):
-        cont_parcelas = str(i+1) + '/' + str(num_parcelas)
-        titulo = Titulo(descricao='Parcela de locação de imóvel referente ao contrato:{n_cont}'.format(n_cont=contrato.id),
-                        conta_caixa=conta_caixa, empresa=empresa,tipo='R',
-                        vencimento=date(venc.year, venc.month+i,venc.day),
-                        data_cadastro=today, usuario_cadastrou=usuario, cliente=cliente,
-                        valor=valor,contrato_locacao=contrato, conta_parcelas=cont_parcelas)
+        cont_parcelas = str(i + 1) + '/' + str(num_parcelas)
+        titulo = Titulo(
+            descricao=msg_confirmacao.format(n_cont=contrato.id),
+            conta_caixa=conta_caixa, empresa=empresa, tipo='R',
+            vencimento=incrementa_mes(today, i),
+            data_cadastro=today, usuario_cadastrou=usuario, cliente=cliente,
+            valor=valor, contrato_locacao=contrato,
+            conta_parcelas=cont_parcelas)
         titulo.save()
+
 
 def adiciona_imovel_para_usuario(request, id_cliente):
     dados = {}
@@ -267,39 +301,49 @@ def adiciona_imovel_para_usuario(request, id_cliente):
     imovel = Imovel(proprietario=cliente)
     dados['form'] = ImovelForm(instance=imovel)
     dados['formEndereco'] = EnderecoForm()
-    return render(request,template_novo,dados)
+    return render(request, template_novo, dados)
+
 
 # Contratos administrativos
-
-def contrato_administrativo_list(request, template_name='contrato_administrativo/contrato_administrativo_list.html'):
+def contrato_administrativo_list(request,
+                                 template_name='contrato_administrativo/contrato_administrativo_list.html'):
     contratos = ContratoAdministrativo.objects.all()
     data = {}
     data['object_list'] = contratos
     return render(request, template_name, data)
 
-def contrato_administrativo_create(request, template_name='contrato_administrativo/contrato_administrativo_form.html'):
+
+def contrato_administrativo_create(request,
+                                   template_name=
+                                   'contrato_administrativo/contrato_administrativo_form.html'):
     form = ContratoAdministrativoForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect('app_imoveis_contrato_administrativo_home')
-    return render(request, template_name, {'form':form})
+    return render(request, template_name, {'form': form})
 
-def contrato_administrativo_update(request, pk, template_name='contrato_administrativo/contrato_administrativo_form_update.html'):
+
+def contrato_administrativo_update(
+    request, pk,
+    template_name='contrato_administrativo/contrato_administrativo_form_update.html'):
     contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
     form = ContratoAdministrativoForm(request.POST or None, instance=contrato)
     if form.is_valid():
         form.save()
         return redirect('app_imoveis_contrato_administrativo_home')
-    return render(request, template_name, {'form':form, 'object':contrato})
+    return render(request, template_name, {'form': form, 'object': contrato})
 
-def contrato_administrativo_delete(request, pk, template_name='contrato_administrativo/contrato_administrativo_confirm_delete.html'):
-    contrato = get_object_or_404(ContratoAdministrativo, pk=pk)    
-    if request.method=='POST':
+
+def contrato_administrativo_delete(request,
+    pk, template_name='contrato_administrativo/contrato_administrativo_confirm_delete.html'):
+    contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
+    if request.method == 'POST':
         contrato.delete()
         return redirect('app_imoveis_contrato_administrativo_home')
-    return render(request, template_name, {'object':contrato})    
+    return render(request, template_name, {'object': contrato})
 
-def contrato_administrativo_gerar(request,pk):
+
+def contrato_administrativo_gerar(request, pk):
     dados = {}
     contrato = get_object_or_404(ContratoAdministrativo, pk=pk)
     dados['contrato'] = contrato
@@ -314,9 +358,10 @@ def laudo_vistoria_list(request, template_name='laudo_vistoria/laudo_vistoria_li
     dados['object_list'] = laudos
     return render(request, template_name, dados)
 
+
 def laudo_vistoria_create(request, template_name='laudo_vistoria/laudo_vistoria_form.html', pk=None):
     if pk:
-        imovel = get_object_or_404(Imovel,pk=pk)
+        imovel = get_object_or_404(Imovel, pk=pk)
         if imovel:
             laudo = LaudoVistoria(imovel=imovel, data_vistoria=today)
         else:
@@ -332,7 +377,8 @@ def laudo_vistoria_create(request, template_name='laudo_vistoria/laudo_vistoria_
         imovel.save()
         laudo_vistoria.save()
         return redirect('app_imoveis_laudo_vistoria_home')
-    return render(request, template_name, {'form':form})
+    return render(request, template_name, {'form': form})
+
 
 def laudo_vistoria_update(request, pk, template_name='laudo_vistoria/laudo_vistoria_form_update.html'):
     laudo = get_object_or_404(LaudoVistoria, pk=pk)
@@ -340,22 +386,25 @@ def laudo_vistoria_update(request, pk, template_name='laudo_vistoria/laudo_visto
     if form.is_valid():
         form.save()
         return redirect('app_imoveis_laudo_vistoria_home')
-    return render(request, template_name, {'form':form, 'object':laudo})    
+    return render(request, template_name, {'form': form, 'object': laudo})
+
 
 def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_vistoria_confirm_delete.html'):
-    laudo = get_object_or_404(LaudoVistoria, pk=pk)    
-    if request.method=='POST':
+    laudo = get_object_or_404(LaudoVistoria, pk=pk)
+    if request.method == 'POST':
         laudo.delete()
         return redirect('app_imoveis_laudo_vistoria_home')
-    return render(request, template_name, {'object':laudo})    
+    return render(request, template_name, {'object': laudo})
 
-def laudo_vistoria_delete(request,pk,template_name='laudo_vistoria/laudo_vistoria_imprimir.html'):    
+
+def laudo_vistoria_delete(request, pk, template_name='laudo_vistoria/laudo_vistoria_imprimir.html'):
     dados = {}
-    busca_configuracoes(request,dados)
-    
-    laudo = get_object_or_404(LaudoVistoria,pk=pk)
-    
+    busca_configuracoes(request, dados)
+
+    laudo = get_object_or_404(LaudoVistoria, pk=pk)
+
     dados['laudo'] = laudo
-    dados['contrato_locacao'] = ContratoLocacao.objects.filter(imovel = laudo.imovel)
+    dados['contrato_locacao'] = ContratoLocacao.objects.filter(
+        imovel=laudo.imovel)
     dados['data'] = today
-    return render(request,template_name,dados)
+    return render(request, template_name, dados)

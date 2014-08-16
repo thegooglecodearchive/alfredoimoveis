@@ -209,10 +209,13 @@ class Titulo(models.Model):
         self.taxa_multa = parametros.multa
         self.save()
 
+#Concertar
+#Concertar
+#Concertar
     @property
     def periodo(self):
         return date(
-            self.vencimento.year, self.vencimento.month - 1,
+            self.vencimento.year, self.vencimento.month,
             self.vencimento.day)
 
     @property

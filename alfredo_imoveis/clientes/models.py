@@ -24,7 +24,8 @@ ESTATO_CIVIL = (
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=150, null=False, blank=False)
-    cnpj_cpf = models.CharField(max_length = 20,  null = False,  blank = False, verbose_name=u'CNPJ/CPF')
+    cnpj_cpf = models.CharField(
+        max_length = 20,  null = False,  blank = False, verbose_name=u'CNPJ/CPF')
     rg = models.CharField(max_length = 11,  null = False,  blank = False, verbose_name=u'RG')
     orgao_expeditor = models.CharField(max_length = 15,  null = False,  blank = False, verbose_name=u'Órgão expeditor')
     nome_pai = models.CharField(max_length = 100,  null = False,  blank = False, verbose_name=u'Nome do pai' )
@@ -70,3 +71,7 @@ class Cliente(models.Model):
 
     class Meta:
         ordering = ['nome']
+
+    @property
+    def get_tipo_pessoa(self):
+        return u'Física' if self.tipo_pessoa == 'F' else 'Jurídica'

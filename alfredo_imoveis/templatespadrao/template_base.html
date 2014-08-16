@@ -15,12 +15,15 @@
     <script src="{{STATIC_URL}}bootstrap/js/jquery-1.10.2.js"></script>
     <script src="{{STATIC_URL}}bootstrap/js/sb-admin.js"></script>
     <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/mascaras.js"></script>
 
     <!--Data table CSS-->
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/datatable/jquery.dataTables.css">
     <!--<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">-->
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/datatable/font-awesome-local.css">
     
+    <link type="text/javascript" language="javascript" href="//cdn.datatables.net/plug-ins/725b2a2115b/sorting/date-dd-MMM-yyyy.js">
+
     <!--Data table CSS-->
     <script type="text/javascript" language="javascript" src="{{STATIC_URL}}bootstrap/datatable/jquery.js"></script>
     <script type="text/javascript" language="javascript" src="{{STATIC_URL}}bootstrap/datatable/jquery.dataTables.js"></script>
@@ -31,6 +34,15 @@
 
     {% block css %}{% endblock %}
     {% block scripts %}{% endblock %}
+
+    <script type="text/javascript">
+        window.onkeydown = keydown;
+        function keydown(event) {
+            keynum = event.which;
+            {% block shortcuts %}
+            {% endblock %}
+        }
+    </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,8 +51,11 @@
     <![endif]-->
   </head>
   <body>
-    {% include 'menu_superior.html' %}
     <div class="container theme-showcase" role="main">
+        {% include 'menu_superior.html' %}
+        <br>
+        <br>
+        <br>
         {% block conteudo%}{% endblock %}
     </div>
     
@@ -52,12 +67,6 @@
                 }
             } );
         } );
-    </script>
-
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').dataTable();
-    });
     </script>
 
   </body>
@@ -77,8 +86,10 @@
                $("#id_celular_2").mask("(99)9999-9999");
                $("#id_telefone_fixo").mask("(99)9999-9999");
                $("#id_telefone_comercial").mask("(99)9999-9999");
+               $("#id_telefone").mask("(99)9999-9999");
                $("#id_cnpj_cpf").mask("999.999.999-99");
                $("#id_cpf").mask("999.999.999-99");
+               $("#id_vencimento_iptu").mask("99/99/9999");
         });
 </script>
 

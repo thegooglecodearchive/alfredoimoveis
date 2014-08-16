@@ -16,6 +16,7 @@ template_home = 'clientes/home.html'
 template_novo = 'clientes/novo.html'
 template_detalhe = 'clientes/detalhe.html'
 template_relatorio = 'clientes/relatorio.html'
+template_visualizar = 'clientes/visualizar.html'
 
 
 def home(request):
@@ -62,10 +63,35 @@ def salvar(request, id=None):
 def detalhe(request, id, mensagem=None):
     dados = {}
     dados['mensagem'] = mensagem
+
+    cliente = get_object_or_404(Cliente, id=id)
+    form = ClienteForm(instance=cliente)
+    for field in form.fields.values():
+        field.widget.attrs['disabled'] = True
+    dados['form'] = form
+
+    form_endereco = EnderecoForm(instance=cliente.endereco)
+    for field in form_endereco.fields.values():
+        field.widget.attrs['disabled'] = True
+    dados['formEndereco'] = form_endereco
+
+    dados['cliente'] = cliente
+    dados['imoveis'] = Imovel.objects.filter(proprietario=cliente)
+    return render(request, template_detalhe, dados)
+
+
+def editar(request, id, mensagem=None):
+    dados = {}
+    dados['mensagem'] = mensagem
+    dados['modo'] = 'EDICAO'
+
     cliente = get_object_or_404(Cliente, id=id)
     form = ClienteForm(instance=cliente)
     dados['form'] = form
-    dados['formEndereco'] = EnderecoForm(instance=cliente.endereco)
+
+    form_endereco = EnderecoForm(instance=cliente.endereco)
+    dados['formEndereco'] = form_endereco
+
     dados['cliente'] = cliente
     dados['imoveis'] = Imovel.objects.filter(proprietario=cliente)
     return render(request, template_detalhe, dados)

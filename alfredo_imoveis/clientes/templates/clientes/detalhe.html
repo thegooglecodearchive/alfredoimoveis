@@ -21,29 +21,24 @@
     </div>
     {% endif%}
 
-    
+
     <form method="POST" action="{% url 'app_clientes_salvar' cliente.id %}">
         {% csrf_token %}
         {% include 'clientes/form_cliente.html' %}
         <br/>
-        <button type="submit" class="btn btn-info">Salvar</button>
+
+        {% if modo == 'EDICAO' %}
+            <button type="submit" class="btn btn-info">Salvar</button>
+        {% else %}
+            <a href="{% url 'app_clientes_editar' cliente.id %}" class="btn btn-info">Editar</a>
+        {% endif %}
+
         {% include 'clientes/modalExcluiCliente.html' %}
-        Data do cadastro: {{cliente.data_cadastro}}
     </form>
 
-    <hr>
-    <h3>Imprimir carta de aniverário</h3>
-    <form method="POST" action="{% url 'app_clientes_cartas_aniversario_individual' cliente.id %}">
-        {% csrf_token %}
-        <label>Modelo da carta</label> 
-        <select class="form-control" name="modelo">
-              <option value="texto1">Texto I</option>
-              <option value="texto2">Texto II</option>
-              <option value="texto3">Texto III</option>
-        </select>
-        <br>
-        <button type="submit" class="btn btn-info">Imprimir carta</button>
-    </form>
+    Data do cadastro: {{cliente.data_cadastro}}
+
+    <br>
     <br>
 
    <div class="row">

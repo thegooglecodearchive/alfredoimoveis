@@ -4,6 +4,19 @@
    Alfredo imóveis - Clientes
 {% endblock %}
 
+{% block shortcuts %}
+    switch(keynum) {
+        case 113:
+            document.getElementById('editar').click();  
+            break;
+        case 115:
+            document.getElementById('salvar').click();  
+            break;
+        default:      
+    }
+{% endblock %}
+
+
 {% block conteudo %}
     <h1>Edição de imóvel</h1>
     <h4>Código deste imóvel: {{imovel.id}}</h4>
@@ -25,7 +38,15 @@
         {% csrf_token %}
         {% include 'imoveis/form_imovel.html' %}
         <br/>
-        <button type="submit" class="btn btn-info">Salvar</button>
+        
+        {% if modo == 'EDICAO' %}
+            <button type="submit" class="btn btn-info" id="salvar">Salvar</button>
+        {% else %}
+            <a href="{% url 'app_imoveis_editar' imovel.id %}" class="btn btn-info" id='editar'>Editar</a>
+        {% endif %}
+
+
+
         {% include 'imoveis/modalExcluiImovel.html' %}
         <a href="{% url 'app_imoveis_ficha' imovel.id %}" type="button" class="btn btn-success">Imprimir ficha do imóvel</a>
         <a href="{% url 'app_imoveis_laudo_vistoria_add_imovel' imovel.id %}" type="submit" class="btn btn-info">Laudo de vistoria</a>

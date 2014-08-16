@@ -29,14 +29,9 @@
             <br>
              <h4>Alfredo Imóveis.</h4>
                     
-             <h4>Montes Claros {{cliente.data_nascimento|date:'d - M -'}}
-
+             <h4>Montes Claros {{cliente.data_nascimento|date:'d'}} de {{cliente.data_nascimento|date:'F'}} de 
              {{data.year}}</h4>
-             <br>
-             <br>
-             <br>
-             <br>
-        
+             
 
         {% endfor%}
 {% endblock %}        

@@ -99,9 +99,9 @@ def adicionar(request):
 
 def recibo(request, id):
     dados = {}
-    titulo = get_object_or_404(Titulo, pk=id)
     recibo = Recibo(
-        titulo=titulo, data_cadastro=today, usuario=request.user, descricao='')
+        titulo=Titulo.objects.get(id=id),
+        data_cadastro=today, usuario=request.user, descricao='')
     dados['empresa'] = Funcionario.objects.get(usuario=request.user).empresa
     dados['data'] = today
     recibo.save()
