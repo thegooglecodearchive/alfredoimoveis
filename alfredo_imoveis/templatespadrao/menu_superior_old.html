@@ -14,16 +14,6 @@
           {% if user.is_authenticated %}
             <ul class="nav navbar-nav">
             
-              <li class="dropdown">
-              <a href="{% url 'app_financeiro_home' %}" class="dropdown-toggle" data-toggle="dropdown">
-                  Consultas <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                    <li><a href="#">Documentos por locador</a></li>
-              </ul>
-            </li>
-            
-
             <li class="dropdown">
               <a href="{% url 'app_financeiro_home' %}" class="dropdown-toggle" data-toggle="dropdown">
                   Cadastros <b class="caret"></b>
@@ -32,13 +22,10 @@
                     <li><a href="{% url 'app_enderecos_bairro_home' %}">Bairros</a></li>
                     <li><a href="{% url 'app_clientes_home' %}">Clientes</a></li>
                     <li><a href="{% url 'app_enderecos_cidade_home' %}">Cidade</a></li>
-                    <li><a href="{% url 'app_clientes_novo_fiador' %}">Fiador</a></li>
+                    <li><a href="{% url 'app_funcionarios_home' %}">Funcionários</a></li>
                     <li><a href="{% url 'app_imoveis_home' %}">Imóveis</a></li>
                     <li><a href="{% url 'app_imoveis_laudo_vistoria_home' %}">Laudos de vistoria</a></li>
-                    <li><a href="{% url 'app_clientes_novo_locador' %}">Locador</a></li>
-                    <li><a href="{% url 'app_clientes_novo_locatario' %}">Locatário</a></li>
                     <li><a href="{% url 'app_parametros_home' %}">Parâmetros</a></li>
-                    <li><a href="{% url 'app_funcionarios_home' %}">Usuários</a></li>
               </ul>
             </li>
 
@@ -47,8 +34,31 @@
                   Financeiro <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                   <li><a href="{% url 'app_financeiro_conta_caixa_home' %}">Contas caixa</a></li>
+                <li><a href="{% url 'app_financeiro_home' %}">Visão geral</a></li>
+                <li><a href="{% url 'app_financeiro_conta_caixa_home' %}">Contas caixa</a></li>
+                <li><a href="{% url 'app_financeiro_titulo_home' %}">Títulos</a></li>
               </ul>
+            </li>
+
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Contratos <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'app_imoveis_contrato_home' %}">Contratos de locação</a></li>
+                <li><a href="{% url 'app_imoveis_contrato_administrativo_home' %}">Contratos  administrativos</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Cartas <b class="caret"></b>
+             </a>
+             <ul class="dropdown-menu">
+                <li><a href="{% url 'app_financeiro_titulo_cartas_cobranca_automatizada' %}">Cartas de cobrança</a></li>
+                <li><a href="{% url 'app_clientes_cartas_aniversario_home' %}">Cartas de aniversário</a></li>
+             </ul>
             </li>
 
             <li class="dropdown">
@@ -56,32 +66,8 @@
                   Relatórios <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                  <li><a href="#">Término de contrato por período</a></li>
-                      <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="cartas">
-                              Emissão de cartas <b class="caret"></b>
-                          </a>
-                          <ul class="cartas">
-                             <li><a href="{% url 'app_financeiro_titulo_cartas_cobranca_automatizada' %}">Cartas de cobrança</a></li>
-                             <li><a href="{% url 'app_clientes_cartas_aniversario_home' %}">Cartas de aniversário</a></li>
-                          </ul>
-                    </li>
-                  <li><a href="{% url 'app_financeiro_titulo_home' %}">Impressão de recibos</a></li>
-                  <li><a href="#">Contas a receber</a></li>
-                  <li><a href="#">Contas a pagar</a></li>
               </ul>
             </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Movimentos <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                   <li><a href="{% url 'app_imoveis_contrato_home' %}">Contratos de aluguel</a></li>
-                <li><a href="{% url 'app_imoveis_contrato_administrativo_home' %}">Contratos  de administração</a></li>
-              </ul>
-            </li>
-
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bem vindo {{user.username}} <b class="caret"></b></a>

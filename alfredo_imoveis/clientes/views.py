@@ -32,6 +32,30 @@ def novo(request):
     return render(request, template_novo, dados)
 
 
+def novo_locador(request):
+    dados = {}
+    dados['form'] = ClienteForm()
+    dados['formEndereco'] = EnderecoForm()
+    dados['entidade'] = 'Locador'
+    return render(request, template_novo, dados)
+
+
+def novo_locatario(request):
+    dados = {}
+    dados['form'] = ClienteForm()
+    dados['formEndereco'] = EnderecoForm()
+    dados['entidade'] = 'Locatário'
+    return render(request, template_novo, dados)
+
+
+def novo_fiador(request):
+    dados = {}
+    dados['form'] = ClienteForm()
+    dados['formEndereco'] = EnderecoForm()
+    dados['entidade'] = 'Fiador'
+    return render(request, template_novo, dados)
+
+
 def salvar(request, id=None):
     dados = {}
 

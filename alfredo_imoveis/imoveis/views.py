@@ -150,7 +150,7 @@ def filtrar(request):
 
 def ficha(request, id):
     dados = {}
-    parametros = get_object_or_404(ParametrosGerais, id=1)
+    parametros = ParametrosGerais.objects.all()[0]
     dados['imovel'] = Imovel.objects.get(id=id)
     dados['data'] = today
     dados['logo'] = parametros.url_logo

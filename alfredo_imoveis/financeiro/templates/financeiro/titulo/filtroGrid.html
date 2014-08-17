@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Consultar títulos</h3>
+        <h3 class="panel-title">Consulta de recibos</h3>
     </div>
     <div class="panel-body">
         <form method="POST" action="{% url 'app_financeiro_titulo_filtrar' %}">
@@ -25,9 +25,9 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <label>Informe a descrição do título</label>
+                    <label>Informe a descrição do recibo</label>
                     <input class="form-control" type="text" name="descricao" placeholder="Descrição">
-                    <label>Escolha o tipo do título</label>
+                    <label>Escolha o tipo do recibo</label>
                     <select class="form-control" name="tipo">
                         <option class="form-control"></option>
                         <option class="form-control" value="D" name="despesa">Despesa</option>
@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <div class="col-sm-3">
-                    <label>Informe o valor do título procurado</label>
+                    <label>Informe o valor do recibo procurado</label>
                     <input class="form-control" type="number" name="valor_titulo" placeholder="Valor do título">
                     <br>
                     <label> Doc. deletados</label>

@@ -2,7 +2,7 @@
 {% load bootstrap %}
 
 {% block titulo %}
-   Alfredo imóveis - Títulos
+   Alfredo imóveis - Recibos
 {% endblock %}
 
 {% block conteudo %}
@@ -22,7 +22,7 @@
     {% endif%}
 
 <div class="col-sm-12">
-    <h1>Edição de título</h1>
+    <h1>Edição de recibo</h1>
         <form method="POST" action="{% url 'app_financeiro_titulo_salvar' titulo.id %}">
             {% csrf_token %}
             {% include 'financeiro/titulo/form_titulo.html' %}
@@ -40,10 +40,10 @@
             <div class="col-sm-8">
                 <div class="well">
                     {% if titulo.liquidado %}
-                        <b>Este título foi liquidado em:  {{titulo.data_quitacao}}</b><br>
-                        <b>Este título foi pago com {{titulo.dias_atraso}} dias de atraso</b><br>
+                        <b>Este documento foi liquidado em:  {{titulo.data_quitacao}}</b><br>
+                        <b>Este documento foi pago com {{titulo.dias_atraso}} dias de atraso</b><br>
                     {% else %}
-                        <b>Este título não esta quitado; dias de atraso deste título: {{titulo.dias_atraso}} dias</b><br>
+                        <b>Este documento não esta quitado; dias de atraso deste documento: {{titulo.dias_atraso}} dias</b><br>
                     {% endif %}
                     <b>COPASA: </b>{{titulo.valor_copasa|floatformat:2}}<br>
                     <b>CEMIG: </b>{{titulo.valor_cemig|floatformat:2}}<br>

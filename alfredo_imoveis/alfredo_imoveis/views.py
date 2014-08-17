@@ -3,11 +3,11 @@ __author__ = 'gpzim98'
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from funcionarios.models import Funcionario
-from empresas.models import Empresa
 from parametros.models import ParametrosGerais
 
 template_home = 'index.html'
 template_dashboard = 'dashboard.html'
+
 
 def home(request):
     if request.user.is_authenticated():
@@ -15,6 +15,7 @@ def home(request):
         return dashboard(request)
     else:
         return redirect('url_login')
+
 
 @login_required
 def dashboard(request):
@@ -28,14 +29,17 @@ def dashboard(request):
     busca_configuracoes(request,dados)
     return render(request, template_dashboard, dados)
 
+
 def home_barra(request):
     return redirect('/')
 
+
 def busca_configuracoes(request,dados = {}):
-    parametros = ParametrosGerais.objects.filter(id=1)
+    parametros = ParametrosGerais.objects.all()[0]
     dados['parametros'] = parametros
     dados['nome_empresa'] = request.session['nome_empresa']
     return dados
+
 
 def configura_sessao(request):
     if request.user.is_authenticated():

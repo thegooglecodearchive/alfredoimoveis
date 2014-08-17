@@ -12,7 +12,7 @@ template_parametros = 'parametros/home.html'
 def home2(request):
     dados = {}
     if request.method == 'GET':
-        param = ParametrosGerais.objects.filter(id=1)
+        param = ParametrosGerais.objects.all()[0]
         if param.count() > 0:
             p = param[0]
             form = FormParametrosGerais(instance=p)

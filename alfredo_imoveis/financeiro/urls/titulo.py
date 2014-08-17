@@ -18,7 +18,6 @@ urlpatterns = patterns(
     url(r'^filtrar/$', 'filtrar', name='app_financeiro_titulo_filtrar'),
     url(r'^abater_titulo/(?P<id>\d+)/$', 'abater_titulo',
         name='app_financeiro_titulo_abater'),
-
     url(r'^cartas_cobranca_automatizada/$', 'cartas_cobranca_automatizada',
         name='app_financeiro_titulo_cartas_cobranca_automatizada'),
     url(r'^cartas_cobranca_automatizada_filtrar/$',

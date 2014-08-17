@@ -104,10 +104,9 @@ class Titulo(models.Model):
     def valor_restante(self):
         return self.total - self.pagamento_parcial
 
-
     @property
     def juros(self):
-        parametros = get_object_or_404(ParametrosGerais, pk=1)
+        parametros = ParametrosGerais.objects.all()[0]
 
         if self.liquidado:
             if self.dias_atraso > 0:
@@ -124,14 +123,15 @@ class Titulo(models.Model):
                 qtd_mes_atraso = calcula_meses_atraso(self.vencimento, today)
                 juros = (
                     self.valor * pow((1 +
-                        (parametros.taxa_juros / 100)), qtd_mes_atraso)) - self.valor
+                        (parametros.taxa_juros / 100)), qtd_mes_atraso)) -\
+                    self.valor
                 return juros
             else:
                 return 0
 
     @property
     def multa(self):
-        parametros = get_object_or_404(ParametrosGerais, pk=1)
+        parametros = ParametrosGerais.objects.all()[0]
 
         if self.liquidado:
             if self.dias_atraso > 0:
@@ -184,7 +184,7 @@ class Titulo(models.Model):
                 self.valor) + ' ' + self.tipo
 
     def abater_valor(self, valor, IPTU_quitado=False, condominio_quitado=False):
-        parametros = get_object_or_404(ParametrosGerais, pk=1)
+        parametros = ParametrosGerais.objects.all()[0]
 
         self.data_quitacao = today
         if condominio_quitado:
@@ -209,9 +209,6 @@ class Titulo(models.Model):
         self.taxa_multa = parametros.multa
         self.save()
 
-#Concertar
-#Concertar
-#Concertar
     @property
     def periodo(self):
         return date(

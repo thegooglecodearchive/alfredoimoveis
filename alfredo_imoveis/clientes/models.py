@@ -4,8 +4,10 @@ from enderecos.models import Endereco, Cidade
 from empresas.models import Empresa
 
 TIPO_CLIENTES = (
-    ('C', 'CLIENTE'),
+    ('L', 'LOCADOR'),
+    ('T', 'LOCATARIO'),
     ('F', 'FIADOR'),
+    ('C', 'CONJUGE'),
 )
 
 TIPO_PESSOA = (
