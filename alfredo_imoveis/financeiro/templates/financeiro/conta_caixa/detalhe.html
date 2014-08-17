@@ -28,7 +28,13 @@
                 {{form|bootstrap}}
                 <br/>
                 <br/>
-                <button type="submit" class="btn btn-info">Salvar</button>
+                
+                {% if modo == 'EDICAO' %}
+                    <button type="submit" class="btn btn-info">Salvar</button>
+                {% else %}
+                    <a href="{% url 'app_financeiro_conta_caixa_editar' conta_caixa.id %}" class="btn btn-info">Editar</a>
+                {% endif %}               
+
                 {% include 'financeiro/conta_caixa/modalExcluiContaCaixa.html' %}
             </form>
         </div>

@@ -348,7 +348,7 @@ def contrato_administrativo_update(
     if form.is_valid():
         form.save()
         return redirect('app_imoveis_contrato_administrativo_home')
-    return render(request, template_name, {'form': form, 'object': contrato})
+    return render(request, template_name, {'form': form, 'object': contrato, 'modo': 'EDICAO'})
 
 
 def contrato_administrativo_detalhe(
