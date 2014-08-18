@@ -23,7 +23,7 @@ class Imovel(models.Model):
     valor_aluguel = models.DecimalField('Valor do Aluguel',max_digits=6, decimal_places=2)
     valor_condominio = models.DecimalField('Valor do condomínio',max_digits=6, decimal_places=2, default=0)
     ultima_vistoria = models.DateField(u'Data da última vistoria', null=True, blank=True)
-    vencimento_iptu = models.DateField()
+    vencimento_iptu = models.DateField(verbose_name=u'Vencimento do IPTU')
     data_cadastro = models.DateField(auto_now_add=True)
     data_last_pag_iptu = models.DateField(null=True,blank=True, verbose_name=u'Data do último pagamento de IPTU')
     proprietario = models.ForeignKey(Cliente,verbose_name='Proprietário')
@@ -42,7 +42,7 @@ class Imovel(models.Model):
     @property
     def disponivel(self):
         pass
-    
+
     @property
     def iptu_vencido(self):
         """Se o IPTU estiver vencido retorna verdadeiro"""

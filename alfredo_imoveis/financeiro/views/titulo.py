@@ -159,7 +159,7 @@ def abater_titulo(request, id):
 
     titulo.abater_valor(
         request.POST.get('valor', 0),
-        considera_IPTU_quitado, considera_condominio_quitado)
+        False, True)
 
     url = reverse('app_financeiro_titulo_detalhe', kwargs={'id': id})
     return redirect(url)

@@ -301,7 +301,7 @@ def gera_parcelas(
         titulo = Titulo(
             descricao=msg_confirmacao.format(n_cont=contrato.id),
             conta_caixa=conta_caixa, empresa=empresa, tipo='R',
-            vencimento=incrementa_mes(today, i),
+            vencimento=incrementa_mes(dataini, i),
             data_cadastro=today, usuario_cadastrou=usuario, cliente=cliente,
             valor=valor, contrato_locacao=contrato,
             conta_parcelas=cont_parcelas)

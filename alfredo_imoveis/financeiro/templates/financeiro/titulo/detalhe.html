@@ -31,7 +31,9 @@
             {% if modo == 'EDICAO' %}
                 <p align="left"><button type="submit" class="btn btn-info">Salvar</button></p>
             {% else %}
-                <a href="{% url 'app_financeiro_titulo_editar' titulo.id %}" class="btn btn-info">Editar</a>
+                {% if titulo.liquidado != True %}
+                    <a href="{% url 'app_financeiro_titulo_editar' titulo.id %}" class="btn btn-info">Editar</a>
+                {% endif %}
             {% endif %}
         </form>
             <br>
@@ -56,22 +58,24 @@
                         <b>Condomínio: </b>{{titulo.contrato_locacao.imovel.valor_condominio|floatformat:2}}<br>
                     {% endif %}
                     
-                    {% if titulo.contrato_locacao.imovel.iptu_vencido %}
+                   <!-- {% if titulo.contrato_locacao.imovel.iptu_vencido %}
                             <b>IPTU pendente: </b>{{titulo.contrato_locacao.imovel.valor_iptu}}<br>
                     {% endif %}
 
                     {% if titulo.valor_iptu_pago > 0 %}
                             <b>IPTU pago: </b>{{titulo.valor_iptu_pago}}<br>
-                    {% endif %}
+                    {% endif %} -->
 
                     <b>Valor restante a pagar: </b>{{titulo.valor_restante|floatformat:2}}<br>
                     <b>TOTAL: </b>{{titulo.total|floatformat:2}}<br>
                 </div>
             </div>
             <div class="col-sm-12">
-                <a href="{% url 'app_financeiro_titulo_recibo' titulo.id %}" type="submit" class="btn btn-success">        Recibo
+                <a href="{% url 'app_financeiro_titulo_recibo' titulo.id %}" type="submit" class="btn btn-success">        Recibo locador
                 </a>
-
+                <a href="{% url 'app_financeiro_titulo_recibo' titulo.id %}" type="submit" class="btn btn-info">        Recibo locatário
+                </a>
+                {% if titulo.liquidado != True %}
                 <div class="btn-group">
                       <button type="button" class="btn btn-danger">Cartas de cobrança</button>
                       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
@@ -89,7 +93,7 @@
 
                 {% include 'financeiro/titulo/form_abater_titulo.html' %}
                 {% include 'financeiro/titulo/modalExcluiTitulo.html' %}
-            
+            {% endif %}
             <br>
             <br>
             <br>

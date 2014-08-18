@@ -12,7 +12,7 @@ def month_between(d1, d2):
     d2 = datetime.strptime(d2.__str__(), "%Y-%m-%d")
 
     if d2.year > d1.year:
-        dif = 12
+        dif = (d2.year - d1.year) * 12
 
     dif += abs((d2.month - d1.month))
     return dif

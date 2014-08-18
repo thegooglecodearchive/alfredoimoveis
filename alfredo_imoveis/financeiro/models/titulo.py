@@ -79,8 +79,8 @@ class Titulo(models.Model):
             if self.contrato_locacao:
                 total += self.contrato_locacao.imovel.valor_condominio
 
-                if self.contrato_locacao.imovel.iptu_vencido:
-                    total += self.contrato_locacao.imovel.valor_iptu
+           #     if self.contrato_locacao.imovel.iptu_vencido:
+           #        total += self.contrato_locacao.imovel.valor_iptu
 
             if self.liquidado:
                 total += self.valor_iptu_pago
@@ -92,8 +92,8 @@ class Titulo(models.Model):
             if self.contrato_locacao:
                 total += self.contrato_locacao.imovel.valor_condominio
 
-                if self.contrato_locacao.imovel.iptu_vencido:
-                    total += self.contrato_locacao.imovel.valor_iptu
+            #    if self.contrato_locacao.imovel.iptu_vencido:
+             #       total += self.contrato_locacao.imovel.valor_iptu
 
             if self.liquidado:
                 total += self.valor_iptu_pago

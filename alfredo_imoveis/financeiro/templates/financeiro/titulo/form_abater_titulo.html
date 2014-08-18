@@ -11,15 +11,15 @@
         <h4 class="modal-title">Liquidação de título</h4>
       </div>
       <div class="modal-body">
-            <p>Valor originao do título:{{titulo.valor}}</p>
-            <p>Valor pago até agora:{{titulo.pagamento_parcial}}</p>
+            <p>Valor original do título:{{titulo.valor}}</p>
+            <!--<p>Valor pago até agora:{{titulo.pagamento_parcial}}</p> -->
 
             <form role="form" action="{% url 'app_financeiro_titulo_abater' titulo.id %}" method="POST">
                   {% csrf_token %}
                    
                    <div class="form-group">
                      
-                     <label>Considerar condomínio como liquidado?</label>
+               <!--      <label>Considerar condomínio como liquidado?</label>
                      {% if titulo.valor_condominio_pago %}
                           <input type="checkbox" name="liquida_condominio" checked="true"></input><br>
                       {% else %}
@@ -31,7 +31,7 @@
                           <input type="checkbox" name="liquida_iptu" checked="true"></input><br>
                       {% else %}
                           <input type="checkbox" name="liquida_iptu"></input><br>
-                     {% endif %}
+                     {% endif %} -->
                     
                       <label for="exampleInputEmail1">Valor</label>
                       <input type="number" class="form-control" step="any" name="valor" placeholder="Valor a abater na base to título" required>
