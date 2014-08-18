@@ -39,9 +39,18 @@
         window.onkeydown = keydown;
         function keydown(event) {
             keynum = event.which;
+            switch(keynum) {
+            case 113:
+                window.open("{% url 'app_clientes_novo'%}","_self")
+                break;
+            case 118:
+                window.open("{% url 'app_clientes_home'%}","_self")
+                break;
             {% block shortcuts %}
-            {% endblock %}
-        }
+            {% endblock %}   
+            default:              
+           }
+      }
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
