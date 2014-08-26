@@ -125,6 +125,16 @@ def recibo(request, id):
     return render(request, template_recibo, dados)
 
 
+def recupera_recibo(request, id):
+    dados = {}
+    recibo = get_object_or_404(Recibo, id=id)
+    dados['empresa'] = Funcionario.objects.get(usuario=request.user).empresa
+    dados['data'] = today
+    recibo.save()
+    dados['recibo'] = recibo
+    return render(request, template_recibo, dados)
+
+
 def carta_cobranca_modelo_1(request, id):
     dados = {}
     dados['data'] = today

@@ -17,7 +17,7 @@ class ROFormMixin(forms.BaseForm):
         if hasattr(self, "read_only"):
             if self.instance and self.instance.pk:
                 for field in self.read_only:
-                    self.fields[field].widget.attrs['readonly'] = "readonly"
+                    self.fields[field].widget.attrs['disabled'] = True
                     setattr(self, "clean_" + field, _get_cleaner(self, field))
 
 
@@ -26,7 +26,8 @@ class TituloForm(forms.ModelForm, ROFormMixin):
     #Fica habilitado apenas na primeira edição
     read_only = (
         'valor', 'descricao', 'pagamento_parcial',
-        'conta_parcelas', 'cliente', 'tipo', 'vencimento', 'contrato_locacao')
+        'conta_parcelas', 'cliente', 'tipo', 'vencimento',
+        'contrato_locacao', 'conta_caixa', 'empresa')
 
     class Meta:
         model = Titulo

@@ -97,10 +97,10 @@
             <br>
             <br>
             <br>
-            {% if recibos %}
+            {% if recibos %} 
                 <br><b>Recibos emitidos:</b>
                 {% for recibo in recibos %}
-                    <a href="{% url 'app_financeiro_titulo_recibo' recibo.id %}">
+                    <a href="{% url 'app_financeiro_titulo_recupera_recibo' recibo.id %}">
                         <br>{{recibo.titulo.descricao|slice:":20"}}...  Emitido por: {{recibo.usuario.username}} Dia: {{recibo.data_cadastro}}
                     </a>
                 {% endfor %}

@@ -59,7 +59,8 @@ class Imovel(models.Model):
 
     class Meta:
         ordering = ['descricao']
-       
+
+
 class ContratoLocacao(models.Model):
     imovel = models.OneToOneField(Imovel)
     inicio_contrato = models.DateField(u'Data do início do contrato')

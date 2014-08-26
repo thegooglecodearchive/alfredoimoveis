@@ -27,13 +27,17 @@ template_contrato_novo = 'contrato_locacao/novo.html'
 template_contrato_imprimir = 'contrato_locacao/imprimir.html'
 
 
-def home(request):
+def dados_base_home(request):
     dados = {}
-    #import pdb;pdb.set_trace()
-    funcionario = Funcionario.objects.filter(usuario=request.user)
+
+    funcionario = Funcionario.objects.get(usuario=request.user)
     dados['imoveis'] = Imovel.objects.filter(
-        empresa=funcionario[0].empresa, ativo=True) if funcionario else ""
-    return render(request, template_home, dados)
+        empresa=funcionario.empresa, ativo=True) if funcionario else ""
+    return dados
+
+
+def home(request):
+    return render(request, template_home, dados_base_home(request))
 
 
 def detalhe(request, id, mensagem=''):
@@ -169,6 +173,53 @@ def contrato_detalhe(request, id, mensagem=None):
     return render(request, template_contrato_detalhe, dados)
 
 
+def dados_base_contrato_home(request):
+    dados = {}
+    funcionario = Funcionario.objects.get(usuario=request.user)
+    dados['clientes'] = Cliente.objects.filter(
+        empresa=funcionario.empresa, ativo=True)
+    dados['imoveis'] = Imovel.objects.filter(
+        empresa=funcionario.empresa, ativo=True) if funcionario else ""
+    dados['contratos'] = ContratoLocacao.objects.filter(
+        empresa=funcionario.empresa) if funcionario else ""
+    return dados
+
+
+def contrato_filtrar(request):
+    dados = {}
+
+    contratos_locacao = ContratoLocacao.objects.all()
+
+    if request.POST.get('data_ini') and request.POST.get('data_fim'):
+        dataini = datetime.strptime(request.POST['data_ini'], '%Y-%m-%d')
+        datafim = datetime.strptime(request.POST['data_fim'], '%Y-%m-%d')
+    else:
+        dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
+        datafim = datetime.strptime('2500-12-31', '%Y-%m-%d')
+
+    mes_considerar = request.POST.get('mes', 'nenhum')
+
+    if mes_considerar != 'nenhum':
+        if mes_considerar == 'cadastro':
+            contratos_locacao = contratos_locacao.filter(
+                inicio_contrato__range=[dataini, datafim])
+        else:
+            contratos_locacao = contratos_locacao.filter(
+                termino_contrato__range=[dataini, datafim])
+
+    if request.POST.get('cliente') != '0':
+        contratos_locacao = contratos_locacao.filter(
+            locatario__id=request.POST.get('cliente'))
+
+    if request.POST.get('imovel') != '0':
+        contratos_locacao = contratos_locacao.filter(
+            imovel__id=request.POST.get('imovel'))
+
+    dados = dados_base_contrato_home(request)
+    dados['contratos'] = contratos_locacao
+    return render(request, template_contrato_home, dados)
+
+
 def contrato_editar(request, id, mensagem=None):
     dados = {}
     dados['mensagem'] = mensagem
@@ -180,12 +231,8 @@ def contrato_editar(request, id, mensagem=None):
 
 
 def contrato_home(request):
-    dados = {}
-    funcionario = Funcionario.objects.filter(usuario=request.user)
-    dados['contratos'] = ContratoLocacao.objects.filter(
-        empresa=funcionario[0].empresa) if funcionario else ""
     return render(
-        request, template_contrato_home, dados)
+        request, template_contrato_home, dados_base_contrato_home(request))
 
 
 def contrato_salvar(request, id):
@@ -297,7 +344,7 @@ def gera_parcelas(
         'Parcela de locação de imóvel referente ao contrato:{n_cont}'
 
     for i in range(0, num_parcelas):
-        cont_parcelas = str(i + 1) + '/' + str(num_parcelas)
+        cont_parcelas = str(i + 1) + '-' + str(num_parcelas)
         titulo = Titulo(
             descricao=msg_confirmacao.format(n_cont=contrato.id),
             conta_caixa=conta_caixa, empresa=empresa, tipo='R',
@@ -348,7 +395,9 @@ def contrato_administrativo_update(
     if form.is_valid():
         form.save()
         return redirect('app_imoveis_contrato_administrativo_home')
-    return render(request, template_name, {'form': form, 'object': contrato, 'modo': 'EDICAO'})
+    return render(
+        request,
+        template_name, {'form': form, 'object': contrato, 'modo': 'EDICAO'})
 
 
 def contrato_administrativo_detalhe(

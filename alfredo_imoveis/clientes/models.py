@@ -57,11 +57,6 @@ class Cliente(models.Model):
     profissao = models.CharField(max_length = 50,  null = False,  blank = False, verbose_name=u'Profissão' )
     empresa_trabalha = models.CharField(max_length = 50,  null = True,  blank = True, verbose_name=u'Empresa onde trabalha' )
     renda = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=u'Renda mensal', default=0)
-    socio_empresa = models.BooleanField(default=False, verbose_name=u'É sócio em alguma empresa')
-    empresa_socio = models.CharField(max_length = 50,  null = True,  blank = True, verbose_name=u'Empresa na qual é sócio' ,
-        help_text=u'Nome da empresa em que é sócio')
-    end_empresa_socio = models.CharField(max_length = 50,  null = True,  blank = True, verbose_name=u'Endereço da empresa onde é sócio' ,
-        help_text='Endereço da empresa em que é sócio')
     conjuge = models.ForeignKey('self', verbose_name=u'Cônjuge', null=True,blank=True)
     referencias_bancarias = models.TextField(null=True, blank=True, verbose_name=u'Referências bancárias')
     referencias_comerciais = models.TextField(null=True, blank=True, verbose_name=u'Referências comerciais')

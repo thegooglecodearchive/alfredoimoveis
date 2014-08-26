@@ -25,6 +25,8 @@ urlpatterns = patterns(
         name='app_imoveis_contrato_salvar'),
     url(r'^contrato_imprimir/(?P<id>\d+)/$', 'contrato_imprimir',
         name='app_imoveis_contrato_imprimir'),
+    url(r'^contrato_filtrar/$', 'contrato_filtrar',
+        name='app_imoveis_contrato_filtrar'),
     url(r'^contrato_gerar_receber/(?P<id>\d+)/$', 'contrato_gerar_receber',
         name='app_imoveis_contrato_gerar_receber'),
     url(r'^contrato_administrativo_home/$', 'contrato_administrativo_list',

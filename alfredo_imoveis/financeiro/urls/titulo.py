@@ -15,6 +15,8 @@ urlpatterns = patterns(
         name='app_financeiro_titulo_salvar'),
     url(r'^recibo/(?P<id>\d+)/$', 'recibo',
         name='app_financeiro_titulo_recibo'),
+    url(r'^recupera_recibo/(?P<id>\d+)/$', 'recupera_recibo',
+        name='app_financeiro_titulo_recupera_recibo'),
     url(r'^filtrar/$', 'filtrar', name='app_financeiro_titulo_filtrar'),
     url(r'^abater_titulo/(?P<id>\d+)/$', 'abater_titulo',
         name='app_financeiro_titulo_abater'),

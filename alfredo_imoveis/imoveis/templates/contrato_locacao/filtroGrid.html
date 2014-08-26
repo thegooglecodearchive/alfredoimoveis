@@ -3,37 +3,36 @@
         <h3 class="panel-title">Consultar contratos de locação</h3>
     </div>
     <div class="panel-body">
-        <form method="POST" action="{% url 'app_imoveis_filtrar' %}">
+        <form method="POST" action="{% url 'app_imoveis_contrato_filtrar' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm-3">
-                    <label>Descrição</label>
-                    <input class="form-control" type="text" name="descricao" placeholder="Descrição">
-                    <label>Proprietário</label>
-                    <input class="form-control" type="text" name="proprietario" placeholder="Nome do proprietário">
-                    <br/>
+                    <label>Selecione um imóvel</label>
+                    <select class="form-control" name="imovel">
+                        <option class="form-control" value="0" selected="selected">Selecione um imóvel</option>
+                        {% for imovel in imoveis%}
+                            <option class="form-control" value="{{imovel.id}}">{{imovel.descricao}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="col-sm-3">
-                    <label>Rua</label>
-                    <input class="form-control" type="text" name="rua" placeholder="Rua">
-                    <label>Bairro</label>
-                    <input class="form-control" type="text" name="bairro" placeholder="Bairro">
+                    <label>Selecione um locatário</label>
+                    <select class="form-control" name="cliente">
+                        <option class="form-control" value="0" selected="selected">Selecione um locatário</option>
+                        {% for cliente in clientes%}
+                            <option class="form-control" value="{{cliente.id}}">{{cliente.nome}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="col-sm-3">
-                    <label>Cidade</label>
-                    <input class="form-control" type="text" name="cidade" placeholder="Cidade">
-                    <br>
-                    <label> Inativos </label>
-                    <input type="checkbox" name="ativo">
-                </div>
-
-                <div class="col-sm-3">
-                    <label> Mês do cadastro </label><br>
                     De: <input class="form-control" id="data_ini">
-                    
+                    <label> Início do contrato</label><input type="radio" name="mes" value="cadastro">
+                </div>
+                <div class="col-sm-3">
                     Até:<input class="form-control" id="data_fim">
+                    <label> Término do contrato</label><input type="radio" name="mes" value="termino">
                 </div>
             </div>
 
