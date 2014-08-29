@@ -233,10 +233,10 @@ class LaudoVistoria(models.Model):
         max_length=100, verbose_name=u'Armários', null=True, blank=True)
     guarda_roupas = models.CharField(
         max_length=100, verbose_name=u'Guarda-roupas', null=True, blank=True)
-    cerca_eletrica = models.CharField(
-        max_length=100, verbose_name=u'Cerca elétrica', null=True, blank=True)
     chaves = models.CharField(
         max_length=100, verbose_name=u'Chaves', null=True, blank=True)
+    cerca_eletrica = models.CharField(
+        max_length=100, verbose_name=u'Cerca elétrica', null=True, blank=True)    
     observacao = models.TextField(
         verbose_name='Observações sobre a vistoria', null=True, blank=True)
 
