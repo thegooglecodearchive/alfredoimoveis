@@ -76,7 +76,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'alfredo_imoveis2',
+            'NAME': 'alfredo_imoveis',
             'USER': 'postgres',
             'PASSWORD': 'senha',
             'HOST': '127.0.0.1',
