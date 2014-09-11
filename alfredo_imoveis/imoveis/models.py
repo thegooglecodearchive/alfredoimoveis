@@ -202,3 +202,9 @@ class LaudoVistoria(models.Model):
         return reverse('app_imoveis_laudo_vistoria_home', kwargs={'pk': self.pk})
 
 
+class RescisaoContrato(models.Model):
+    contrato = models.OneToOneField(ContratoLocacao)
+    motivo = models.TextField(
+        null=False, blank=False, verbose_name=u'Motivo da rescisão')
+    data = models.DateField()
+    usuario = models.ForeignKey(User)
