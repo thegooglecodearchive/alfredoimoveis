@@ -19,6 +19,11 @@
             }
         }
     }
+    function confirmaRescisaoContrato(cod_contrato) {
+        if (confirm("Você esta certo de que gostaria de rescindir este contrato? ")){
+            document.getElementById("rescindir_contrato").click();
+        }
+    }
 </script>
 
     {% if mensagem %}
@@ -65,10 +70,17 @@
                 </a>
             </form>
             <br>
-                <button type="button" class="btn btn-danger"
-                        onclick="confirmaReceber('{{contrato.gerou_receber}}');">Gerar títulos a receber</button>
 
                 <a href="{% url 'app_imoveis_contrato_gerar_receber' contrato.id %}" id="gera_receber_contrato"></a>
+                <a href="{% url 'app_imoveis_rescindir_contrato' contrato.id %}" id="rescindir_contrato"></a>
+                {% if not contrato.rescisao %}
+                    {% include 'contrato_locacao/modalRescisaoContrato.html' %}
+                    <button type="button" class="btn btn-danger"
+                            onclick="confirmaReceber('{{contrato.gerou_receber}}');">Gerar títulos a receber</button>
+                {% else %}
+                    <h4>Contrato rescindido no dia: {{contrato.rescisao.data}}, pelo motivo: {{contrato.rescisao.motivo}}<br>
+                    pelo usuário: {{contrato.rescisao.usuario.username}}</h4>
+                {% endif %}
                 Data do cadastro: {{contrato.data_emissao_contrato}}
 
         </div>

@@ -60,4 +60,6 @@ urlpatterns = patterns(
         name='app_imoveis_laudo_vistoria_delete'),
     url(r'^laudo_vistoria_imprimir/(?P<pk>\d+)$', 'laudo_vistoria_imprimir',
         name='app_imoveis_laudo_vistoria_imprimir'),
+    url(r'^rescisao_contrato/(?P<id>\d+)$', 'rescindir_contrato',
+        name='app_imoveis_rescindir_contrato'),
 )

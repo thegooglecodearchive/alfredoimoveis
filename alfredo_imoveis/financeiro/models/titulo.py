@@ -142,6 +142,7 @@ class Titulo(models.Model):
             else:
                 return 0
 
+
     @property
     def dias_atraso(self):
         data_carencia = date(
@@ -243,3 +244,9 @@ class Recibo(models.Model):
         app_label = 'financeiro'
         verbose_name = 'Recibo'
         verbose_name_plural = 'Recibos'
+
+
+def exclui_parcelas_aberto_contrato_locacao(id_contrato):
+    titulos = Titulo.objects.filter(
+        contrato_locacao_id=id_contrato, pagamento_parcial=0)
+    titulos.delete()

@@ -1,6 +1,6 @@
 # encoding: utf-8
 from django.shortcuts import render, get_object_or_404, redirect
-from imoveis.models import Imovel
+from imoveis.models import Imovel, RescisaoContrato
 from enderecos.forms import EnderecoForm
 from forms import ImovelForm, ContratoLocacaoForm,\
     ContratoAdministrativoForm, LaudoVistoriaForm
@@ -8,7 +8,7 @@ from funcionarios.models import Funcionario
 from datetime import datetime, date
 from imoveis.models import ContratoLocacao,\
     ContratoAdministrativo, LaudoVistoria
-from financeiro.models.titulo import Titulo
+from financeiro.models.titulo import Titulo, exclui_parcelas_aberto_contrato_locacao
 from parametros.models import ParametrosGerais
 from clientes.models import Cliente
 from alfredo_imoveis.views import busca_configuracoes
@@ -190,15 +190,14 @@ def contrato_filtrar(request):
 
     contratos_locacao = ContratoLocacao.objects.all()
 
-    if request.POST.get('data_ini') and request.POST.get('data_fim'):
-        dataini = datetime.strptime(request.POST['data_ini'], '%Y-%m-%d')
-        datafim = datetime.strptime(request.POST['data_fim'], '%Y-%m-%d')
+    if request.POST.get('dataini') and request.POST.get('datafim'):
+        dataini = datetime.strptime(request.POST['dataini'], '%d/%m/%Y')
+        datafim = datetime.strptime(request.POST['datafim'], '%d/%m/%Y')
     else:
         dataini = datetime.strptime('1900-01-01', '%Y-%m-%d')
         datafim = datetime.strptime('2500-12-31', '%Y-%m-%d')
 
     mes_considerar = request.POST.get('mes', 'nenhum')
-
     if mes_considerar != 'nenhum':
         if mes_considerar == 'cadastro':
             contratos_locacao = contratos_locacao.filter(
@@ -309,8 +308,7 @@ def contrato_gerar_receber(request, id):
     funcionario = Funcionario.objects.filter(usuario=request.user)
 
     if contrato.gerou_receber:
-        titulos = Titulo.objects.filter(contrato_locacao=contrato)
-        titulos.delete()
+        exclui_parcelas_aberto_contrato_locacao(contrato.id)
 
     gera_parcelas(
         num_parcelas, contrato.inicio_contrato,
@@ -512,3 +510,15 @@ def laudo_vistoria_imprimir(
         imovel=laudo.imovel)
     dados['data'] = today
     return render(request, template_name, dados)
+
+
+def rescindir_contrato(request, id):
+    dados = {}
+    contrato = get_object_or_404(ContratoLocacao, id=id)
+    motivo = request.POST.get('rescisao')
+    rescisao = RescisaoContrato(
+        contrato=contrato, data=today, usuario=request.user, motivo=motivo)
+    rescisao.save()
+    exclui_parcelas_aberto_contrato_locacao(contrato.id)
+    dados['mensagem'] = 'Contrato rescindido com sucesso!'
+    return contrato_detalhe(request, id, dados['mensagem'])

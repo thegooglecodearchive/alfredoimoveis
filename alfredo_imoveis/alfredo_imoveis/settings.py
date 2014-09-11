@@ -14,6 +14,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -75,7 +76,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'alfredo_imoveis',
+            'NAME': 'alfredo_imoveis2',
             'USER': 'postgres',
             'PASSWORD': 'senha',
             'HOST': '127.0.0.1',

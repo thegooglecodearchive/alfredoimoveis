@@ -1,1 +1,2 @@
-__author__ = 'gpzim98'
+from alfredo_imoveis.enderecos import tests
+__all__ = ['tests']

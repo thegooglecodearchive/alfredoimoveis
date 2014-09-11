@@ -1,0 +1,29 @@
+<!-- Small modal -->
+<button class="btn btn-danger" data-toggle="modal" data-target=".rescisao"
+        type="button">
+    Rescindir contrato
+</button>
+
+<div class="modal fade rescisao" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Rescisão do contrato: {{contrato}}?</h5>
+        
+        <form action="{% url 'app_imoveis_rescindir_contrato' contrato.id %}" method="POST">
+                {% csrf_token %}
+                <label>Informe aqui o motivo do cancelamento</label>
+                    <textarea class=" form-control" cols="40" id="id_rescisao" name="rescisao" rows="10"></textarea>
+                </div>
+                <input type="submit" class="btn btn-danger" value="Confirmar rescisão">
+        </form>
+     
+        
+        <div class="modal-body">
+            <a href="{% url 'app_imoveis_contrato_detalhe' contrato.id%}">
+                <button type="button" class="btn btn-info">Cancelar</button>
+            </a>
+        </div>
+    </div>
+  </div>
+</div>

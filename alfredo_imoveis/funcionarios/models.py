@@ -24,5 +24,4 @@ class Funcionario(models.Model):
         return self.nome
 
 def retorna_empresa_funcionario(funcionario):
-    import pdb;pdb.set_trace()
     return Empresa.objects.filter(id=Funcionario.objects.get(id=funcionario.id).empresa.id)
