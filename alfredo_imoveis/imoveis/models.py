@@ -68,7 +68,8 @@ class Imovel(models.Model):
     @property
     def iptu_vencido(self):
         """Se o IPTU estiver vencido retorna verdadeiro"""
-        return (self.vencimento_iptu.year <= today.year) and (self.vencimento_iptu.month <= today.month)
+        return (self.vencimento_iptu.year <= today.year) and\
+            (self.vencimento_iptu.month <= today.month)
 
     def retorna_tipo_imovel(self):
         """Retorna o tipo do imóvel, caso seja R retorna Residencial,
@@ -150,56 +151,102 @@ class LaudoVistoria(models.Model):
     ferragens = models.CharField(
         max_length=100, verbose_name=u'Ferragens', null=True, blank=True)
     cores = models.CharField(
-        max_length=100, verbose_name=u'Cores',null=True, blank=True)
-    tipo_tinta = models.CharField(max_length=100, verbose_name=u'Tipos de tintas',null=True, blank=True)
-    lampadas_comuns = models.CharField(max_length=100, verbose_name=u'Lâmpadas comuns',null=True, blank=True)
-    lustres = models.CharField(max_length=100, verbose_name=u'Lustres',null=True, blank=True)
-    globos = models.CharField(max_length=100, verbose_name=u'Globos',null=True, blank=True)
-    lampadas_fluorecentes = models.CharField(max_length=100, verbose_name=u'Lâmpadas fluorecentes',null=True, blank=True)
-    interruptores = models.CharField(max_length=100, verbose_name=u'Interruptores',null=True, blank=True)
-    luminarias = models.CharField(max_length=100, verbose_name=u'Lumínárias',null=True, blank=True)
-    espelho_banheiro = models.CharField(max_length=100, verbose_name=u'Espelhos dos banheiros',null=True, blank=True)
-    campainha = models.CharField(max_length=100, verbose_name=u'Campainha',null=True, blank=True)
-    ar_condicionado = models.CharField(max_length=100, verbose_name=u'Ar condicionado',null=True, blank=True)
-    instalacao = models.CharField(max_length=100, verbose_name=u'Instalação',null=True, blank=True)
-    portao_eletronico = models.CharField(max_length=100, verbose_name=u'Portão eletrônico',null=True, blank=True)
-    torneiras = models.CharField(max_length=100, verbose_name=u'Torneiras',null=True, blank=True)
-    chuveiro = models.CharField(max_length=100, verbose_name=u'Chuveiro',null=True, blank=True)
-    vaso = models.CharField(max_length=100, verbose_name=u'Vaso',null=True, blank=True)
-    lavatorio = models.CharField(max_length=100, verbose_name=u'Lavatório',null=True, blank=True)
-    tanque = models.CharField(max_length=100, verbose_name=u'Tanque',null=True, blank=True)
-    bide = models.CharField(max_length=100, verbose_name=u'Bidê',null=True, blank=True)
-    descarga = models.CharField(max_length=100, verbose_name=u'Descarga',null=True, blank=True)
-    box = models.CharField(max_length=100, verbose_name=u'Box',null=True, blank=True)
-    rede_esgoto = models.CharField(max_length=100, verbose_name=u'Rede de esgoto',null=True, blank=True)
-    tacos = models.CharField(max_length=100, verbose_name=u'Tacos',null=True, blank=True)
-    pisos = models.CharField(max_length=100, verbose_name=u'Pisos',null=True, blank=True)
-    ceramico = models.CharField(max_length=100, verbose_name=u'Cerâmica',null=True, blank=True)
-    paredes = models.CharField(max_length=100, verbose_name=u'Paredes',null=True, blank=True)
-    azulejos = models.CharField(max_length=100, verbose_name=u'Azulejos',null=True, blank=True)
-    vidros = models.CharField(max_length=100, verbose_name=u'Vidros',null=True, blank=True)
-    portas = models.CharField(max_length=100, verbose_name=u'Portas',null=True, blank=True)
-    fechaduras = models.CharField(max_length=100, verbose_name=u'Fechaduras',null=True, blank=True)
-    trincos = models.CharField(max_length=100, verbose_name=u'Trincos',null=True, blank=True)
-    janelas = models.CharField(max_length=100, verbose_name=u'Janelas',null=True, blank=True)
-    muros = models.CharField(max_length=100, verbose_name=u'Muros',null=True, blank=True)
-    grades = models.CharField(max_length=100, verbose_name=u'Grades',null=True, blank=True)
-    telhado = models.CharField(max_length=100, verbose_name=u'Telhado',null=True, blank=True)
-    forro = models.CharField(max_length=100, verbose_name=u'Forro',null=True, blank=True)
-    laje = models.CharField(max_length=100, verbose_name=u'Laje',null=True, blank=True)
-    portao = models.CharField(max_length=100, verbose_name=u'Portão',null=True, blank=True)
-    armarios = models.CharField(max_length=100, verbose_name=u'Armários',null=True, blank=True)
-    guarda_roupas = models.CharField(max_length=100, verbose_name=u'Guarda-roupas',null=True, blank=True)
-    rede_protecao = models.CharField(max_length=100, verbose_name=u'Rede de protecao',null=True, blank=True)
-    chaves = models.CharField(max_length=100, verbose_name=u'Chaves',null=True, blank=True)
-    observacao = models.TextField(verbose_name='Observações sobre a vistoria', null=True, blank=True)
-
+        max_length=100, verbose_name=u'Cores', null=True, blank=True)
+    tipo_tinta = models.CharField(
+        max_length=100, verbose_name=u'Tipos de tintas', null=True, blank=True)
+    lampadas_comuns = models.CharField(
+        max_length=100, verbose_name=u'Lâmpadas comuns', null=True, blank=True)
+    lustres = models.CharField(
+        max_length=100, verbose_name=u'Lustres', null=True, blank=True)
+    globos = models.CharField(
+        max_length=100, verbose_name=u'Globos', null=True, blank=True)
+    lampadas_fluorecentes = models.CharField(
+        max_length=100, verbose_name=u'Lâmpadas fluorecentes',
+        null=True, blank=True)
+    interruptores = models.CharField(
+        max_length=100, verbose_name=u'Interruptores', null=True, blank=True)
+    luminarias = models.CharField(
+        max_length=100, verbose_name=u'Lumínárias', null=True, blank=True)
+    espelho_banheiro = models.CharField(
+        max_length=100, verbose_name=u'Espelhos dos banheiros',
+        null=True, blank=True)
+    campainha = models.CharField(
+        max_length=100, verbose_name=u'Campainha', null=True, blank=True)
+    ar_condicionado = models.CharField(
+        max_length=100, verbose_name=u'Ar condicionado', null=True, blank=True)
+    instalacao = models.CharField(
+        max_length=100, verbose_name=u'Instalação', null=True, blank=True)
+    portao_eletronico = models.CharField(
+        max_length=100, verbose_name=u'Portão eletrônico',
+        null=True, blank=True)
+    torneiras = models.CharField(
+        max_length=100, verbose_name=u'Torneiras', null=True, blank=True)
+    chuveiro = models.CharField(
+        max_length=100, verbose_name=u'Chuveiro', null=True, blank=True)
+    vaso = models.CharField(
+        max_length=100, verbose_name=u'Vaso', null=True, blank=True)
+    lavatorio = models.CharField(
+        max_length=100, verbose_name=u'Lavatório', null=True, blank=True)
+    tanque = models.CharField(
+        max_length=100, verbose_name=u'Tanque', null=True, blank=True)
+    bide = models.CharField(
+        max_length=100, verbose_name=u'Bidê', null=True, blank=True)
+    descarga = models.CharField(
+        max_length=100, verbose_name=u'Descarga', null=True, blank=True)
+    box = models.CharField(
+        max_length=100, verbose_name=u'Box', null=True, blank=True)
+    rede_esgoto = models.CharField(
+        max_length=100, verbose_name=u'Rede de esgoto', null=True, blank=True)
+    tacos = models.CharField(
+        max_length=100, verbose_name=u'Tacos', null=True, blank=True)
+    pisos = models.CharField(
+        max_length=100, verbose_name=u'Pisos', null=True, blank=True)
+    ceramico = models.CharField(
+        max_length=100, verbose_name=u'Cerâmica', null=True, blank=True)
+    paredes = models.CharField(
+        max_length=100, verbose_name=u'Paredes', null=True, blank=True)
+    azulejos = models.CharField(
+        max_length=100, verbose_name=u'Azulejos', null=True, blank=True)
+    vidros = models.CharField(
+        max_length=100, verbose_name=u'Vidros', null=True, blank=True)
+    portas = models.CharField(
+        max_length=100, verbose_name=u'Portas', null=True, blank=True)
+    fechaduras = models.CharField(
+        max_length=100, verbose_name=u'Fechaduras', null=True, blank=True)
+    trincos = models.CharField(
+        max_length=100, verbose_name=u'Trincos', null=True, blank=True)
+    janelas = models.CharField(
+        max_length=100, verbose_name=u'Janelas', null=True, blank=True)
+    muros = models.CharField(
+        max_length=100, verbose_name=u'Muros', null=True, blank=True)
+    grades = models.CharField(
+        max_length=100, verbose_name=u'Grades', null=True, blank=True)
+    telhado = models.CharField(
+        max_length=100, verbose_name=u'Telhado', null=True, blank=True)
+    forro = models.CharField(
+        max_length=100, verbose_name=u'Forro', null=True, blank=True)
+    laje = models.CharField(
+        max_length=100, verbose_name=u'Laje', null=True, blank=True)
+    portao = models.CharField(
+        max_length=100, verbose_name=u'Portão', null=True, blank=True)
+    armarios = models.CharField(
+        max_length=100, verbose_name=u'Armários', null=True, blank=True)
+    guarda_roupas = models.CharField(
+        max_length=100, verbose_name=u'Guarda-roupas', null=True, blank=True)
+    cerca_eletrica = models.CharField(
+        max_length=100, verbose_name=u'Cerca elétrica', null=True, blank=True)
+    chaves = models.CharField(
+        max_length=100, verbose_name=u'Chaves', null=True, blank=True)
+    observacao = models.TextField(
+        verbose_name='Observações sobre a vistoria', null=True, blank=True)
 
     def __unicode__(self):
-        return u'' + self.imovel.descricao  + u' Data vistoria: ' + unicode(self.data_vistoria.strftime('%d-%m-%Y'))
+        return u'' + self.imovel.descricao + u' Data vistoria: ' +\
+            unicode(self.data_vistoria.strftime('%d-%m-%Y'))
 
     def get_absolute_url(self):
-        return reverse('app_imoveis_laudo_vistoria_home', kwargs={'pk': self.pk})
+        return reverse(
+            'app_imoveis_laudo_vistoria_home',kwargs={'pk': self.pk})
 
 
 class RescisaoContrato(models.Model):

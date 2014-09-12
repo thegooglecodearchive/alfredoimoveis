@@ -2,7 +2,6 @@
 __author__ = 'gpzim98'
 
 from django.db import models
-from django.shortcuts import get_object_or_404
 from parametros.models import ParametrosGerais
 from empresas.models import Empresa
 from financeiro.models.conta_caixa import ContaCaixa
@@ -184,7 +183,7 @@ class Titulo(models.Model):
         parametros = ParametrosGerais.objects.all()[0]
 
         self.data_quitacao = today
-        if condominio_quitado:
+        if condominio_quitado and self.contrato_locacao:
             self.valor_condominio_pago =\
                 self.contrato_locacao.imovel.valor_condominio
         else:
@@ -197,9 +196,10 @@ class Titulo(models.Model):
                 today.year + 1, today.month, today.day)
             self.contrato_locacao.imovel.save()
         else:
-            self.contrato_locacao.imovel.data_last_pag_iptu = None
+            if self.contrato_locacao:
+                self.contrato_locacao.imovel.data_last_pag_iptu = None
+                self.contrato_locacao.imovel.save()
             self.valor_iptu_pago = 0
-            self.contrato_locacao.imovel.save()
 
         self.pagamento_parcial = valor
         self.perc_juros = parametros.taxa_juros
